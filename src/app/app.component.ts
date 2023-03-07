@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { GoogleSigninService } from './google-signin.service';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,11 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'TicketRaising';
+
+  constructor(private  googleApi: GoogleSigninService){}
+
+
+  isLoggedIn(): boolean {
+    return this.googleApi.isLoggedIn();
+  }
 }

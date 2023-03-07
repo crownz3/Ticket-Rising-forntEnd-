@@ -1,0 +1,58 @@
+<div class="master-parent" >
+  <div class="parent" [formGroup]="theForm">
+    <div class="title feild">
+      <div class="text-header">Ticket Title</div>
+      <div class="text-content ">
+
+        <mat-form-field class="example-full-width" [style.width.%]="100">
+          <input matInput  formControlName="title">
+        </mat-form-field>
+        <!-- <input type="text" matInput placeholder="{{ data[0].title }}"> -->
+      </div>
+    </div>
+    <div class="desc feild">
+      <div class="text-header">Ticket Description</div>
+      <div class="text-content">
+       
+        <mat-form-field class="example-full-width" [style.width.%]="100">
+          <input matInput formControlName="desc">
+        </mat-form-field>
+
+      </div>
+    </div>
+    <div class="attachement feild">
+      <div class="d-flex justify-content-between col-12 align-items-center">
+        <div class="text-header">Add Attachements</div>
+        <div>
+          <input type="file" id="upload" hidden multiple (change)="onFileChange($event)" />
+          <label for="upload" style="color:var(--secondnary-color)"><mat-icon>attach_file</mat-icon></label>
+        </div>
+      </div>
+
+      <div class="filesDiv" *ngIf="files">
+          <div *ngFor="let fileName of files;let i = index" class="files">
+              <div class="left">
+                  {{fileName['name']}}
+
+              </div>
+              <div class="right">
+                  <button class="delBtn" (click)="removeFile(i)"><mat-icon>delete</mat-icon></button>
+              </div>
+
+          </div>
+         
+      </div>
+
+      
+      <!-- <input style="width:240%" type="file" id="file" multiple
+      (change)="getFile($event)" > -->
+      
+      <!-- <ul>
+        <li *ngFor="let fileName of files">{{fileName.name}} </li>
+      </ul> -->
+    </div>
+    <div class="buttonDiv feild">
+      <button class="btn" (click)="onUpload()" [disabled]="!theForm.valid">Submit</button>
+    </div>
+  </div>
+</div>

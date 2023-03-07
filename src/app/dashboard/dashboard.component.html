@@ -1,0 +1,57 @@
+<div class="Parent">
+  <div class="inner-parent">
+    <header class="header">
+      <div class="logo">
+        <img src="../../assets/logo.png" alt="" class="image" />
+      </div>
+      <div class="name">TICKET RAISING</div>
+      <div class="logoutBtn">
+        <button class="smBtn" (click)="logOut()">
+          <div>
+            <mat-icon class="logoutIcon">logout</mat-icon>
+          </div>
+        </button>
+      </div>
+    </header>
+    <section class="section">
+      <div class="topSection">
+        <div class="total sectionCard">
+          <div class="front">
+            <img src="../../assets/total.jpg" alt="" />
+          </div>
+          <div class="back">
+            <div class="left">TOTAL</div>
+            <div class="right">44</div>
+          </div>
+        </div>
+        <div class="process sectionCard">
+          <div class="front">
+            <img src="../../assets/process.jpg" alt="" />
+          </div>
+          <div class="back">
+            <div class="left">PROCESS</div>
+            <div class="right">14</div>
+          </div>
+        </div>
+        <div class="pending sectionCard">
+          <div class="front">
+            <img src="../../assets/pending.jpg" alt="" />
+          </div>
+          <div class="back">
+            <div class="left">PENDING</div>
+            <div class="right">24</div>
+          </div>
+        </div>
+      </div>
+      <div class="botttomSection">
+        <button class="Btn" *ngIf="screenSize" (click)="enterToModule()" routerLink="user">
+          <mat-icon>login</mat-icon>
+        </button>
+        <button class="Btn" *ngIf="!screenSize" (click)="enterToModule()" routerLink="user">Enter</button>
+      </div>
+    </section>
+    <footer class="footer">
+      <div class="footerName">© 2023 DSRT, Inc.</div>
+    </footer>
+  </div>
+</div>

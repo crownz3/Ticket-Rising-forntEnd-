@@ -1,0 +1,74 @@
+
+<div class="master-parent">
+  <div class="table">
+    <section class="table-view">
+      <div *ngIf="dataSource.data.length; else noData" style="width:100%" >
+        <table mat-table [dataSource]="dataSource" >
+          <ng-container matColumnDef="Sno">
+            <th mat-header-cell *matHeaderCellDef>SNo</th>
+            <td mat-cell *matCellDef="let element" >
+              {{ dataSource.data.indexOf(element) + 1 }}
+            </td>
+          </ng-container>
+  
+          <ng-container matColumnDef="TicketNo">
+            <th mat-header-cell *matHeaderCellDef>Ticket No</th>
+            <td mat-cell *matCellDef="let element">{{ element.TicketNo }}</td>
+          </ng-container>
+  
+          <ng-container matColumnDef="Raiser">
+            <th mat-header-cell *matHeaderCellDef>Raiser</th>
+            <td mat-cell *matCellDef="let element">{{ element.Raiser }}</td>
+          </ng-container>
+  
+          <ng-container matColumnDef="TicketTitle">
+            <th mat-header-cell *matHeaderCellDef>Ticket Title</th>
+            <td mat-cell *matCellDef="let element">{{ element.TicketTitle }}</td>
+          </ng-container>
+  
+          <ng-container matColumnDef="TicketStatus">
+            <th mat-header-cell *matHeaderCellDef>Ticket Status</th>
+            <td mat-cell *matCellDef="let element">{{ element.TicketStatus }}</td>
+          </ng-container>
+  
+          <ng-container matColumnDef="RaisedDate">
+            <th mat-header-cell *matHeaderCellDef>Raised Data</th>
+            <td mat-cell *matCellDef="let element">{{ element.RaisedDate }}</td>
+          </ng-container>
+  
+          <ng-container matColumnDef="Operations">
+            <th mat-header-cell *matHeaderCellDef>Chat Screen</th>
+            <td mat-cell *matCellDef="let element"><button class="smBtn" (click)="openChat()">View</button></td>
+          </ng-container>
+  
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+        <mat-paginator
+          [pageSizeOptions]="[5, 10]"
+          showFirstLastButtons
+        >
+        <button>sdasa</button>
+        </mat-paginator>
+     
+      </div>
+      <div class="chatboxDiv">
+          <div class="btnDiv">
+            <button class="Btn" (click)="logOut()"><mat-icon>logout</mat-icon></button>
+          </div>
+          <div class="ticket">Ticket Rising</div>
+      </div>
+    </section>
+  
+    <ng-template #noData>
+      <div class="ndf col-12">
+        <div class="ndf-icon"><i class="material-icons">&#xe252;</i></div>
+        <div class="ndf-inside" style="text-align: center">
+          <div>&#5176;No Data Found&#5171;</div>
+          <div><p>Pleace Add Location to Complaint</p></div>
+        </div>
+      </div>
+    </ng-template>
+  </div>
+
+</div>

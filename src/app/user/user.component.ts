@@ -1,0 +1,77 @@
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatBottomSheet } from '@angular/material/bottom-sheet';
+import { MatDialog } from '@angular/material/dialog';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
+import { AddTicketDialogComponent } from '../add-ticket-dialog/add-ticket-dialog.component';
+import { ChatBoxComponent } from '../chat-box/chat-box.component';
+import { GoogleSigninService } from '../google-signin.service';
+
+const data: any[] | undefined = [
+  {TicketNo:121012,TicketTitle:'Error',TicketStatus:'Pending',SolvedDate:'21-01-2023'},
+  {TicketNo:121013,TicketTitle:'HomePage',TicketStatus:'Completed',SolvedDate:'20-01-2023'},
+  {TicketNo:121014,TicketTitle:'AboutPage',TicketStatus:'Completed',SolvedDate:'10-01-2023'},
+  {TicketNo:121015,TicketTitle:'All',TicketStatus:'Completed',SolvedDate:'01-01-2023'},
+  {TicketNo:121016,TicketTitle:'Error',TicketStatus:'Process',SolvedDate:'11-01-2023'},
+  {TicketNo:121017,TicketTitle:'Nothing',TicketStatus:'Pending',SolvedDate:'31-01-2023'},
+]
+
+
+@Component({
+  selector: 'app-user',
+  templateUrl: './user.component.html',
+  styleUrls: ['./user.component.css']
+})
+export class UserComponent implements OnInit {
+  displayedColumns: any[] = ["Sno", "TicketNo",  "TicketTitle","TicketStatus","SolvedDate","Operations"];
+   screenSize :boolean | undefined
+
+  dataSource = new MatTableDataSource(data);
+
+  @ViewChild(MatPaginator) paginator: any;
+
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
+  }
+
+  constructor(public dialog: MatDialog,public bottomsheet : MatBottomSheet,private googleApi:GoogleSigninService) {
+    window.addEventListener('resize',()=>{
+    let screen = window.matchMedia('(max-width:600px)');
+    this.screenSize = screen.matches;
+    console.log(this.screenSize)
+   })
+   }
+
+  ngOnInit(): void {
+    window.addEventListener('resize',()=>{
+      let screen = window.matchMedia('(max-width:600px)');
+      this.screenSize = screen.matches;
+      console.log(this.screenSize)
+     })
+  }
+
+  addTicket(){
+    const dialogRef = this.dialog.open(AddTicketDialogComponent, {
+    });
+
+    dialogRef.afterOpened().subscribe(res => {
+      console.log('The EditForm is opened');
+    })
+
+    dialogRef.afterClosed().subscribe(res => {
+      let title = res.value.title
+      data?.push( {TicketNo:211212,TicketTitle:title,TicketStatus:'Pending',SolvedDate:'13-01-2023',Operations:''})
+      this.dataSource = new MatTableDataSource(data)
+      this.dataSource.paginator = this.paginator;
+    })
+  }
+
+  openChat(){
+    const MatBottomSheetRef = this.bottomsheet.open(ChatBoxComponent)
+  }
+
+  logOut() {
+    this.googleApi.signOut();
+    
+  }
+}

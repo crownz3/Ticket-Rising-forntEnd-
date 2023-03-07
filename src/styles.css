@@ -1,1 +1,86 @@
 /* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    
+}
+
+*{
+    font-family: "Poppins";
+}
+
+:root {
+    --body-color:#ffffff;
+    --sidebar-color:#fff;
+    --primary-color:#333ba5;
+    --primary-color-light:#515dff;
+    --toggle-color:#ddd;
+    --text-color:#707070;
+    --secondnary-color:rgb(228, 230, 255);
+    --secondnary-text:#303030;;
+    --hov:rgb(210, 252, 255);
+    --btn-shadow:rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    --no-shadow:2px 2px 2px #b1b1b1,
+    -2px -2px 4px  #ffffff;
+    --scroll:rgb(168, 168, 168);
+    /* Transition */
+    --trans-01:all 0.1s ease;
+    --trans-02:all 0.2s ease;
+    --trans-03:all 0.3s ease;
+    --trans-04:all 0.4s ease;
+    --trans-05:all 0.5s ease;
+
+
+    --padding:12px;
+    --radius:16px;
+    --curve-radius:0px 24px;
+
+      
+  
+    --bg-color: rgb(20, 20, 20);
+    --card-color: rgb(23, 23, 23);
+}
+
+::-webkit-scrollbar {
+    width: 4px;
+}
+
+::-webkit-scrollbar:hover{
+    cursor: pointer;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--text-color); 
+    border-radius: var(--radius);
+
+}
+   
+::-webkit-scrollbar-thumb {
+    background:var(--scroll); 
+    border-radius:var(--radius);
+    
+}
+
+::-webkit-scrollbar:horizontal{
+    height: 4px ;
+}
+
+::-webkit-scrollbar-track:horizontal {
+    background:var(--scroll); 
+    border-radius:var(--radius);
+    
+}
+
+::-webkit-scrollbar-thumb:horizontal{
+    background: var(--text-color); 
+
+    border-radius: var(--radius);
+
+}
