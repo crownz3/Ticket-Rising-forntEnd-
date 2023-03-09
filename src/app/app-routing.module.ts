@@ -6,9 +6,12 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { UserComponent } from './user/user.component';
 
 const routes: Routes = [
-  {path:'',component:DashboardComponent},
   {path:'admin', component:AdminComponent ,loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule) },
-  {path:'user', component:UserComponent ,loadChildren: () => import('./user/user.module').then(m => m.UserModule) }
+  {path:'user', component:UserComponent ,loadChildren: () => import('./user/user.module').then(m => m.UserModule) },
+  {path:'',component:DashboardComponent, pathMatch: 'full'},
+  {path:'**',component:DashboardComponent},
+
+
 ];
 
 @NgModule({

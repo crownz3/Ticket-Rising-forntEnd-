@@ -15,13 +15,17 @@ import { HttpClientModule } from '@angular/common/http';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AddTicketDialogComponent } from './add-ticket-dialog/add-ticket-dialog.component';
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
+import { ChatBoxComponent } from './chat-box/chat-box.component';
+import { UserService } from './services/user.service';
+import { SocketIoModule } from 'ngx-socket-io';
 @NgModule({
   declarations: [
     AppComponent,
     AdminComponent,
     UserComponent,
     DashboardComponent,
-    AddTicketDialogComponent
+    AddTicketDialogComponent,
+    ChatBoxComponent
   ],
   imports: [
     OAuthModule.forRoot(),
@@ -34,9 +38,11 @@ import { FormsModule,ReactiveFormsModule } from '@angular/forms';
     MaterialModule,
     CommonModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    SocketIoModule,
+    
   ],
-  providers: [GoogleSigninService,OAuthService,UrlHelperService],
+  providers: [GoogleSigninService,OAuthService,UrlHelperService,UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -44,10 +44,10 @@
         </div>
       </div>
       <div class="botttomSection">
-        <button class="Btn" *ngIf="screenSize" (click)="enterToModule()" routerLink="user">
+        <button class="Btn" *ngIf="screenSize" (click)="enterToModule()" >
           <mat-icon>login</mat-icon>
         </button>
-        <button class="Btn" *ngIf="!screenSize" (click)="enterToModule()" routerLink="user">Enter</button>
+        <button class="Btn" *ngIf="!screenSize" (click)="enterToModule()" >Enter</button>
       </div>
     </section>
     <footer class="footer">

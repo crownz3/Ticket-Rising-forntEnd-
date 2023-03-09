@@ -1,4 +1,5 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
@@ -6,6 +7,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { AddTicketDialogComponent } from '../add-ticket-dialog/add-ticket-dialog.component';
 import { ChatBoxComponent } from '../chat-box/chat-box.component';
 import { GoogleSigninService } from '../google-signin.service';
+import { UserService } from '../services/user.service';
 
 const data: any[] | undefined = [
   {TicketNo:121012,TicketTitle:'Error',TicketStatus:'Pending',SolvedDate:'21-01-2023'},
@@ -24,21 +26,22 @@ const data: any[] | undefined = [
 })
 export class UserComponent implements OnInit {
   displayedColumns: any[] = ["Sno", "TicketNo",  "TicketTitle","TicketStatus","SolvedDate","Operations"];
-   screenSize :boolean | undefined
-
+  screenSize :boolean | undefined
+  result:any
+  userName :string | undefined
   dataSource = new MatTableDataSource(data);
 
   @ViewChild(MatPaginator) paginator: any;
+  // @ViewChild('fileInput',{static:false}) fileInput :ElementRef | undefined
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
   }
 
-  constructor(public dialog: MatDialog,public bottomsheet : MatBottomSheet,private googleApi:GoogleSigninService) {
+  constructor(public service:UserService,public dialog: MatDialog,public bottomsheet : MatBottomSheet,private googleApi:GoogleSigninService,private http :HttpClient) {
     window.addEventListener('resize',()=>{
     let screen = window.matchMedia('(max-width:600px)');
     this.screenSize = screen.matches;
-    console.log(this.screenSize)
    })
    }
 
@@ -46,13 +49,15 @@ export class UserComponent implements OnInit {
     window.addEventListener('resize',()=>{
       let screen = window.matchMedia('(max-width:600px)');
       this.screenSize = screen.matches;
-      console.log(this.screenSize)
      })
+
+    this.userName = this.service.getData('name')
   }
 
+
+
   addTicket(){
-    const dialogRef = this.dialog.open(AddTicketDialogComponent, {
-    });
+    const dialogRef = this.dialog.open(AddTicketDialogComponent, {});
 
     dialogRef.afterOpened().subscribe(res => {
       console.log('The EditForm is opened');
@@ -68,10 +73,25 @@ export class UserComponent implements OnInit {
 
   openChat(){
     const MatBottomSheetRef = this.bottomsheet.open(ChatBoxComponent)
+    console.log("Chat Open")
+
   }
 
   logOut() {
     this.googleApi.signOut();
     
   }
+
+
+  // onFileUpload(){
+  //   const imageBlob = this.fileInput?.nativeElement.files[0]
+  //   const file = new FormData()
+
+  //   file.set('file',imageBlob)
+
+  //   this.http.post('http://localhost:3000/',file).subscribe((response)=>{
+  //     console.log(response)
+  //   })
+  // }
+
 }

@@ -46,6 +46,13 @@ body {
   
     --bg-color: rgb(20, 20, 20);
     --card-color: rgb(23, 23, 23);
+
+
+    --chat-body:#f8f0ff;
+    --chat-radius:24px;
+    --chat-primary:#d8b6ff;
+    --chat-secondary:#f7d7ff;
+    --chat-text:#423146;
 }
 
 ::-webkit-scrollbar {
@@ -79,8 +86,30 @@ body {
 }
 
 ::-webkit-scrollbar-thumb:horizontal{
-    background: var(--text-color); 
+    /* background: var(--text-color);  */
+    background:transparent;
 
     border-radius: var(--radius);
 
+}
+
+.innerSection::-webkit-scrollbar {
+    width: 2px;
+}
+
+.innerSection::-webkit-scrollbar:hover{
+    cursor: pointer;
+}
+
+.innerSection::-webkit-scrollbar-track {
+    /* background: var(--text-color);  */
+    background:transparent;
+    border-radius: var(--radius);
+
+}
+   
+.innerSection::-webkit-scrollbar-thumb {
+    background:var(--scroll); 
+    border-radius:var(--radius);
+    
 }

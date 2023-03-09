@@ -1,5 +1,5 @@
 <div class="master-parent" >
-  <div class="parent" [formGroup]="theForm">
+  <div class="parent" [formGroup]="theForm" >
     <div class="title feild">
       <div class="text-header">Ticket Title</div>
       <div class="text-content ">
@@ -24,8 +24,10 @@
       <div class="d-flex justify-content-between col-12 align-items-center">
         <div class="text-header">Add Attachements</div>
         <div>
-          <input type="file" id="upload" hidden multiple (change)="onFileChange($event)" />
+          <input type="file" id="upload" hidden multiple (change)="onFileChange($event)" #fileInput>
           <label for="upload" style="color:var(--secondnary-color)"><mat-icon>attach_file</mat-icon></label>
+          <!-- <input type="file" #fileInput> -->
+      <!-- <button (click)="onFileUpload()">upload</button>  -->
         </div>
       </div>
 
@@ -52,7 +54,7 @@
       </ul> -->
     </div>
     <div class="buttonDiv feild">
-      <button class="btn" (click)="onUpload()" [disabled]="!theForm.valid">Submit</button>
+      <button class="btn" (click)="onFileUpload()" [disabled]="!theForm.valid">Submit</button>
     </div>
   </div>
 </div>

@@ -1,1 +1,70 @@
-<p>chat-box works!</p>
+<div class="master-parent">
+  <header>
+    <div class="headerLeft">
+      <div class="profileImg">
+        <img src="../../assets/logo.png" alt="image" class="image" />
+      </div>
+    </div>
+    <div class="headerRight">
+      <div class="receiverName">Ibrahim</div>
+      <button class="searchBtn" mat-icon-button>
+        <mat-icon>search</mat-icon>
+      </button>
+    </div>
+  </header>
+  <section>
+    <div class="innerSection">
+      <div *ngFor="let msg of messages">
+        <div  [ngClass]="{'right':msg.senderType === 'user','left':msg.senderType === 'admin'}">
+          <div class="senderMsg" [ngClass]="{'senderMsg':msg.senderType ==='user','receiverMsg':msg.senderType === 'admin'}">
+            <div class="message">
+              {{ msg.message }}
+            </div>
+            <div class="info">
+              <div class="sendermsgInfo" [ngClass]="{'sendermsgInfo':msg.senderType ==='user','receivermsgInfo':msg.senderType === 'admin'}">
+                <div>{{msg.time | date:'hh:mm:ss'}}</div>
+                <div class="dot" *ngIf="msg.senderType==='user'"></div>
+                <div *ngIf="msg.status === 'seen'" class="statusIcon">
+                  <mat-icon>done_all</mat-icon>
+                </div>
+                <div *ngIf="msg.status === 'unseen'" class="statusIcon">
+                  <mat-icon>done</mat-icon>
+              </div>
+              </div>
+            </div>
+          </div>
+        </div>
+  
+      <!-- <div class="left" >
+        <div class="receiverMsg msg">
+          <div class="message"></div>
+          <div class="info">
+            <div class="msgInfo">
+              <div>14:00</div>
+              <div class="dot"></div>
+              <div>Unseen</div>
+            </div>
+          </div>
+        </div>
+      </div> -->
+    </div>
+
+    </div>
+  </section>
+  <footer>
+    <div class="inputFeild">
+      <input
+        type="text"
+        class="input"
+        id="inputValue"
+        placeholder="send message..."
+        [(ngModel)]="inputText"
+      />
+    </div>
+    <div class="sendBtnFeild">
+      <button class="sendBtn" [disabled]="inputText === ''" (click)="sendMsg()" mat-icon-button>
+        <mat-icon>send</mat-icon>
+      </button>
+    </div>
+  </footer>
+</div>

@@ -23,6 +23,24 @@ background-size: cover;
     opacity: 0.9;
 }
 
+.userName{
+    background-color: #7c85ff;
+    padding: 12px;
+    border-radius: var(--radius);
+    width: 20%;
+    color: var(--body-color);
+    transition: 0.3s;
+    text-align: center;
+
+}
+
+.userName:hover{
+    width: 100%;
+    letter-spacing: 2px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+
 .table-view{
     display: flex;
     justify-content: center;
@@ -243,4 +261,15 @@ td.mat-cell:last-of-type{
     td.mat-cell:last-of-type{
         padding: 4px;
     }
+
+    .userName{
+        padding: 2px;
+        border-radius: var(--radius);
+        width: 100%;
+        color: var(--body-color);
+        transition: 0.3s;
+        text-align: center;
+    
+    }
+    
 }
