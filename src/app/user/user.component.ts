@@ -32,7 +32,8 @@ export class UserComponent implements OnInit {
   dataSource = new MatTableDataSource(data);
 
   @ViewChild(MatPaginator) paginator: any;
-  // @ViewChild('fileInput',{static:false}) fileInput :ElementRef | undefined
+
+  files: FileList |any
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
@@ -53,8 +54,6 @@ export class UserComponent implements OnInit {
 
     this.userName = this.service.getData('name')
   }
-
-
 
   addTicket(){
     const dialogRef = this.dialog.open(AddTicketDialogComponent, {});
@@ -81,17 +80,5 @@ export class UserComponent implements OnInit {
     this.googleApi.signOut();
     
   }
-
-
-  // onFileUpload(){
-  //   const imageBlob = this.fileInput?.nativeElement.files[0]
-  //   const file = new FormData()
-
-  //   file.set('file',imageBlob)
-
-  //   this.http.post('http://localhost:3000/',file).subscribe((response)=>{
-  //     console.log(response)
-  //   })
-  // }
 
 }

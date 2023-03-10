@@ -4,11 +4,7 @@
       <div class="userName">
         {{ userName }}
       </div>
-      <div class="container">
-        <input type="file" #fileInput />
-        <button mat-raised-button >Upload</button>
-      </div>
-      
+
       <section class="table-view">
         <div *ngIf="dataSource.data.length; else noData" style="width: 100%">
           <table mat-table [dataSource]="dataSource">

@@ -9,6 +9,7 @@ import {
 } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { fileUpload } from '../services/file-upload.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-add-ticket-dialog',
@@ -20,14 +21,15 @@ export class AddTicketDialogComponent implements OnInit {
   selectedFile: File | any;
   theForm: FormGroup | any;
   files: any;
-
+  details :any
+baseUrl = environment.serverBaseUrl ;
   formData = new FormData();
   @ViewChild('fileInput', { static: false }) fileInput: ElementRef | undefined;
 
   constructor(
     public dialogRef: MatDialogRef<AddTicketDialogComponent>,
     private fb: FormBuilder,
-    private fileUpload: fileUpload,
+    
     private http: HttpClient
   ) {}
 
@@ -57,10 +59,15 @@ export class AddTicketDialogComponent implements OnInit {
     let data = e.target.files;
     let arr = [...data];
     this.files = arr;
+
+    this.files = e.target.files;
+    
+
   }
 
   removeFile(i: number) {
-    this.files.splice(i, 1);
+    // this.files.splice(i, 1);
+    console.log(this.files,i)
   }
 
   onSubmit(event: Event) {
@@ -72,16 +79,51 @@ export class AddTicketDialogComponent implements OnInit {
     // })
   }
 
-  onFileUpload() {
-    const imageBlob = this.fileInput?.nativeElement.files[0];
-    const file = new FormData();
+  // onFileUpload() {
+    // const imageBlob = this.fileInput?.nativeElement.files[0];
+    // const file = new FormData();
 
-    file.set('file', imageBlob);
+    // file.set('files', imageBlob);
+    // console.log(file)
+    // this.http.post('/upload', file).subscribe((response) => {
+    //   console.log(response);
+    // });
 
-    this.http.post('http://localhost:3000/', file).subscribe((response) => {
+    // this.dialogRef.close(this.theForm);
+
+
+    // console.log(this.theForm)
+
+
+  // }
+
+  // selectFiles(event:any): void {
+  // }
+
+
+  onFileUpload(): void {
+
+    
+    let ticketTitle = this.theForm.value.title
+    let ticketDesc = this.theForm.value.desc
+   
+    this.details = {title:ticketTitle,description:ticketDesc}
+
+    const formData = new FormData();
+
+    for (let i = 0; i < this.files.length; i++) {
+      formData.append('files[]', this.files[i]);
+    }
+    formData.append('details',this.details)
+
+
+    this.http.post(this.baseUrl +'/upload', formData).subscribe(response => {
       console.log(response);
     });
 
     this.dialogRef.close(this.theForm);
+
   }
+
+
 }
