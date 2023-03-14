@@ -36,7 +36,6 @@ export class GoogleSigninService {
   ) {
     oAuthService.configure(oAuthConfig);
     oAuthService.logoutUrl = `https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=http://localhost:4200`;
-    // oAuthService.logoutUrl = `https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=https://qrcodev2.000webhostapp.com`;
     oAuthService.loadDiscoveryDocument().then(() => {
       oAuthService.tryLoginImplicitFlow().then(() => {
         if (!oAuthService.hasValidAccessToken()) {
@@ -48,6 +47,8 @@ export class GoogleSigninService {
         }
       });
     });
+
+    
   }
 
   isLoggedIn() {                 
@@ -58,9 +59,15 @@ export class GoogleSigninService {
     this.oAuthService.logOut();
   }       
 
-  private authHeader(): HttpHeaders {
-    return new HttpHeaders({
-      Authorization: `Bearer ${this.oAuthService.getAccessToken()}`,
-    });
-  }
+
+  // this.userProfileSubject.subscribe((info: any) => {
+  //   console.log(info)
+  //   this.userInfo = info;
+  //   this.path = this.env+'/saveLoginInfo'
+  //   this.http.post(this.path,info, {headers: {'content-type':'application/json'}}).subscribe((res:any)=>{
+  //     console.log(res)
+  //     this.loginUserName = res.userName
+  //     res.sucess ? alert("Succesfully") : alert('Nope')
+  //   })
+  // });
 }

@@ -3,18 +3,20 @@ import { Inject, Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 import { Subject } from "rxjs";
 import { environment } from "src/environments/environment";
+import { GoogleSigninService } from "../google-signin.service";
 
 @Injectable()
 export class UserService{
+    baseUrl = environment.serverBaseUrl
+    loginUserName = ''
     private data = new Subject<string>();
     arr:any = []
     http:any;
-    baseUrl=environment.serverBaseUrl;
     headers= new HttpHeaders().set('Content-Type' , 'application/json');
 
     
 
-    constructor(@Inject(HttpClient) http:any, public router: Router ) {
+    constructor(@Inject(HttpClient) http:any, public router: Router,private googleApi:GoogleSigninService ) {
         this.http=http;
     };
 

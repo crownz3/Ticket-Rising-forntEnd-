@@ -1,12 +1,12 @@
 <div class="master-parent">
   <div class="parent">
     <div class="table">
-      <div class="userName">
-        {{ userName }}
-      </div>
-
       <section class="table-view">
-        <div *ngIf="dataSource.data.length; else noData" style="width: 100%">
+        <div
+          *ngIf="dataSource.data.length; else noData"
+          class="tableDiv"
+          [@showTable]="shows"
+        >
           <table mat-table [dataSource]="dataSource">
             <ng-container matColumnDef="Sno">
               <th mat-header-cell *matHeaderCellDef>SNo</th>
@@ -51,11 +51,6 @@
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
           </table>
-          <!-- <mat-paginator
-                  [pageSizeOptions]="[5, 10]"
-                  showFirstLastButtons
-                >
-                </mat-paginator> -->
           <mat-toolbar>
             <button class="btn" *ngIf="!screenSize" (click)="addTicket()">
               Add Ticket
@@ -71,13 +66,58 @@
             ></mat-paginator>
           </mat-toolbar>
         </div>
-        <div class="chatboxDiv">
-          <div class="btnDiv">
-            <button class="Btn" titie="logout" (click)="logOut()">
-              <mat-icon>logout</mat-icon>
-            </button>
+        <div
+          class="chatboxDiv"
+          [ngClass]="{
+            chatboxDiv: !showUserProfile,
+            chatBoxDiv: showUserProfile
+          }"
+        >
+          <div class="profileDiv" [@showProf]="show">
+            <div class="headerDiv">
+              <h1>MY PROFILE</h1>
+            </div>
+            <div class="userImg">
+              <div>
+                <img src="{{ userDetails.image }}" class="image" alt="Image" />
+              </div>
+            </div>
+            <div class="userDetails">
+              <li>
+                Name: <span class="liStyle">{{ userDetails.name }}</span>
+              </li>
+              <li>
+                Email:<span class="liStyle">{{ userDetails.email }}</span>
+              </li>
+              <li>
+                Mobile: <span class="liStyle">{{ userDetails.mobile }}</span>
+              </li>
+              <li>
+                Department: <span class="liStyle">{{ userDetails.dept }}</span>
+              </li>
+              <li>
+                Designation: <span class="liStyle">{{ userDetails.desg }}</span>
+              </li>
+              <li>
+                Address: <span class="liStyle">{{ userDetails.address }}</span>
+              </li>
+            </div>
           </div>
-          <div class="ticket">Ticket Rising</div>
+          <div class="btnsDiv">
+            <div class="btnDiv">
+              <button class="Btn" titie="logout" (click)="logOut()">
+                <mat-icon>logout</mat-icon>
+              </button>
+            </div>
+            <div>
+              <button class="Btn" (click)="profile()" *ngIf="!showUserProfile">
+                <mat-icon>person</mat-icon>
+              </button>
+              <button class="Btn" (click)="profile()" *ngIf="showUserProfile">
+                <mat-icon>table_chart</mat-icon>
+              </button>
+            </div>
+          </div>
         </div>
       </section>
       <ng-template #noData>
@@ -92,4 +132,3 @@
     </div>
   </div>
 </div>
-

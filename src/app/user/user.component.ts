@@ -1,3 +1,4 @@
+import { trigger, state, style, transition, animate } from '@angular/animations';
 import { HttpClient } from '@angular/common/http';
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
@@ -7,6 +8,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { AddTicketDialogComponent } from '../add-ticket-dialog/add-ticket-dialog.component';
 import { ChatBoxComponent } from '../chat-box/chat-box.component';
 import { GoogleSigninService } from '../google-signin.service';
+import { localStorage } from '../services/localStorage.service';
 import { UserService } from '../services/user.service';
 
 const data: any[] | undefined = [
@@ -22,13 +24,50 @@ const data: any[] | undefined = [
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
-  styleUrls: ['./user.component.css']
+  styleUrls: ['./user.component.css'],
+  animations: [
+    trigger('showProf', [
+      state('hidden', style({
+        opacity: 0,
+        width:"0px",
+        transform: 'translateX(-500px)',
+        height:"0px",
+      })),
+      state('shown', style({
+        opacity: 1,
+        transform: 'translateX(0px)',
+      })),
+      transition('hidden => shown', animate('300ms ease-in-out')),
+      transition('shown => hidden', animate('300ms ease-in-out'))
+    ]),
+    trigger('showTable', [
+      state('hidden', style({
+        opacity: 0,
+        transform: 'translateY(-500px)',
+        width:"0px",
+        height:"5px",
+      })),
+      state('shown', style({
+        opacity: 1,
+        transform: 'translateY(0)',
+        width:'100%'
+
+      })),
+      transition('hidden => shown', animate('500ms ease-in-out')),
+      transition('shown => hidden', animate('500ms ease-in-out'))
+    ])
+  ]
 })
 export class UserComponent implements OnInit {
   displayedColumns: any[] = ["Sno", "TicketNo",  "TicketTitle","TicketStatus","SolvedDate","Operations"];
   screenSize :boolean | undefined
+  show = 'hidden'
+  shows = 'shown'
   result:any
+  showUserProfile = false
   userName :string | undefined
+  loginUserName= ''
+  userDetails ={name:"Ibrahim",mobile:8903424281,email:"crowwnzz3@gmail.com",dept:"ERP",desg:"Junior Software Developer",address:`117/siddiq nagar/melapalayam/tirunelveli`,image:`../../assets/logo.png`}
   dataSource = new MatTableDataSource(data);
 
   @ViewChild(MatPaginator) paginator: any;
@@ -39,7 +78,7 @@ export class UserComponent implements OnInit {
     this.dataSource.paginator = this.paginator;
   }
 
-  constructor(public service:UserService,public dialog: MatDialog,public bottomsheet : MatBottomSheet,private googleApi:GoogleSigninService,private http :HttpClient) {
+  constructor(public local:localStorage ,public service:UserService,public dialog: MatDialog,public bottomsheet : MatBottomSheet,private googleApi:GoogleSigninService,private http :HttpClient) {
     window.addEventListener('resize',()=>{
     let screen = window.matchMedia('(max-width:600px)');
     this.screenSize = screen.matches;
@@ -52,7 +91,24 @@ export class UserComponent implements OnInit {
       this.screenSize = screen.matches;
      })
 
-    this.userName = this.service.getData('name')
+     console.log(this.local.getLocal('userName'))
+   
+   console.log(this.userName)
+
+  }
+
+
+  profile(){
+    this.showUserProfile === false ? this.showUserProfile = true : this.showUserProfile = false
+    this.show === 'hidden'?this.show = "shown" : this.show = "hidden",
+    this.shows === 'shown'?this.shows = "hidden" :this.shows = "shown"
+  }
+
+  hideprofile(){
+    setTimeout(() => {
+    this.showUserProfile = false
+
+    }, 1000);
   }
 
   addTicket(){

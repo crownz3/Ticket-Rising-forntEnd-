@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  serverBaseUrl:'http://localhost:3000'
-  // serverBaseUrl:'http://192.168.1.136:3005/ticketRising'
+  // serverBaseUrl:'http://localhost:3000'
+  serverBaseUrl:'http://192.168.1.136:3005/ticketRising'
 };
 
 /*

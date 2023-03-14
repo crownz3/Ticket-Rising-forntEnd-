@@ -1,6 +1,28 @@
 .master-parent{
     height: 80%;
-    width: 600px;
+    width: 650px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.notification{
+    background-color: #7c85ff;
+    display: flex;
+    border-radius: var(--radius);
+    align-items: center;
+    justify-content: center;
+    font-variant: small-caps;
+    padding: 10px;
+    opacity: 1;
+}
+#delayed-display{
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+}
+.notificationText{
+    font-size: 15px;
+    color: var(--secondnary-color);
 }
 
 .parent{
@@ -20,12 +42,17 @@
 .text-header{
     font-weight: 600;
     font-size: larger;
+    
+}
+
+.uploadBtns{
+    display: flex;
+    gap: 8px;
 }
 
 .text-content{
     color:var(--text-color);
     font-weight: 600;
-
 }
 
 .attachement{
