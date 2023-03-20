@@ -8,9 +8,9 @@ import {
   Validators,
 } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
-import { fileUpload } from '../services/file-upload.service';
 import { environment } from 'src/environments/environment';
 import { trigger, state, style, transition, animate } from '@angular/animations';
+import { localStorage } from '../services/localStorage.service';
 
 @Component({
   selector: 'app-add-ticket-dialog',
@@ -35,21 +35,21 @@ export class AddTicketDialogComponent implements OnInit {
   files = [];
   fileLength: any;
   arrLength: any;
-  details: any;
   filelist: any = [];
   fileCount = ''
   baseUrl = environment.serverBaseUrl;
   formData = new FormData();
   temp:any =  []
   isVisible = false;
-
+  mailId :any
   @ViewChild('fileInput', { static: false }) fileInput: ElementRef | undefined;
 
 
   constructor(
     public dialogRef: MatDialogRef<AddTicketDialogComponent>,
     private fb: FormBuilder,
-    private http: HttpClient
+    private http: HttpClient,
+    private local :localStorage
   ) {}
 
   ngOnInit(): void {
@@ -58,7 +58,7 @@ export class AddTicketDialogComponent implements OnInit {
       desc: new FormControl('', Validators.required),
     });
 
-    
+    this.mailId = this.local.getLocal('mailId')
   }
 
   onUpload(e: any) {
@@ -105,12 +105,9 @@ export class AddTicketDialogComponent implements OnInit {
 
 
   removeFile(i: number, input: any): void {
-    // if (this.filelist.length === 1) {
-    //   this.arrLength = false;
-    //   input.value = '';
-    //   let lengthOfTheFile = this.filelist.length;
-    //   this.fileLength = ` (${lengthOfTheFile} Files)`;
-    // } else {
+    if (this.filelist.length === 1) {
+      this.fileCount = ''
+    } 
       this.filelist.splice(i, 1);
       this.temp.splice(i, 1);
       console.log(this.temp)
@@ -123,28 +120,32 @@ export class AddTicketDialogComponent implements OnInit {
       } else {
         let lengthOfTheFile = this.filelist.length;
         this.fileLength = ` (${lengthOfTheFile} Files)`;
-      }
+      
    
+      }
     
-    // }
   }
 
   onFileUpload(): void {
     let ticketTitle = this.theForm.value.title;
     let ticketDesc = this.theForm.value.desc;
-
-    this.details = { title: ticketTitle, description: ticketDesc };
+    let mailId = this.mailId
 
     const formData = new FormData();
 
     for (let i = 0; i < this.filelist.length; i++) {
       formData.append('files', this.filelist[i]);
     }
-    formData.append('title', ticketTitle);
-    formData.append('desc', ticketDesc);
+    formData.append('ticketTitle', ticketTitle);
+    formData.append('ticketDesc', ticketDesc);
+    formData.append('mailId',mailId)
 
-    this.http.post(this.baseUrl + '/upload', formData).subscribe((response) => {
-      console.log(response);
+    this.http.post(this.baseUrl + '/addTicket', formData).subscribe((res:any) => {
+      this.local.setLocal('ticketNo',res[0].ticketNo)
+      this.local.setLocal('ticketTitle',res[0].ticketTitle)
+      this.local.setLocal('ticketStatus',res[0].ticketStatus)
+      this.local.setLocal('ticketRaised',res[0].raisedDate)
+      this.local.setLocal('ticketSolved',res[0].solvedDate)
     });
 
     this.dialogRef.close(this.theForm);

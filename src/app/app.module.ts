@@ -13,11 +13,11 @@ import { MaterialModule } from './material.module';
 import { GoogleSigninService } from './google-signin.service';
 import { HttpClientModule } from '@angular/common/http';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { AddTicketDialogComponent } from './add-ticket-dialog/add-ticket-dialog.component';
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { ChatBoxComponent } from './chat-box/chat-box.component';
 import { UserService } from './services/user.service';
 import { SocketIoModule } from 'ngx-socket-io';
+import { TicketInfoDialogComponent } from './ticket-info-dialog/ticket-info-dialog.component';
 
 
 
@@ -28,8 +28,8 @@ import { SocketIoModule } from 'ngx-socket-io';
     AdminComponent,
     UserComponent,
     DashboardComponent,
-    AddTicketDialogComponent,
-    ChatBoxComponent
+    ChatBoxComponent,
+    TicketInfoDialogComponent
   ],
   imports: [
     OAuthModule.forRoot(),

@@ -15,47 +15,16 @@
     justify-content: center;
 }
 
-.table {
-    width: 100%;
-    height: 100%;
-    opacity: 0.9;
-}
 
-.table-view {
-    display: flex;
-    justify-content: center;
-    margin-top: 30px;
-    box-shadow: var(--btn-shadow);
-    overflow: auto;
-    border-top-left-radius: var(--radius);
-    border-top-right-radius: var(--radius);
-    overflow-y: hidden !important;
-    width: 100%;
-}
 
 .tableDiv {
     width: 100%;
 }
 
-.ndf {
-    color: var(--text-color);
-    display: center;
-    justify-content: center;
-    align-items: center;
-}
 
-.ndf-inside {
-    height: 249px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-}
 
-.ndf-icon {
-    position: absolute;
-    left: 90%;
-}
+
+
 
 
 .mat-table {
@@ -388,4 +357,68 @@ li {
 
 .liStyle {
     font-weight: 600;
+}
+
+.table {
+    width: 100%;
+    height: 100%;
+    opacity: 0.9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.table-view {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+    box-shadow: var(--btn-shadow);
+    overflow: auto;
+    border-top-left-radius: var(--radius);
+    border-top-right-radius: var(--radius);
+    overflow-y: hidden !important;
+    width: 100%;
+}
+
+.ndfMaster{
+    width: 500px;
+    height: 500px;
+    border-radius: 50%;
+    text-align: center;
+    background-color:var(--primary-color);
+    padding: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+}
+
+.ndfInsideParent{
+    background-color:var(--primary-color-light);
+    padding: 10%;
+    border-radius: 50%;
+    width: 250px;
+    height: 250px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
+}
+
+.Nbtn{
+    width: 25px;
+    height: 25px;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    border-radius: 50%;
+    background-color: var(--body-color);
+    color: var(--text-color);
+}
+
+.Nbtn:hover{
+    background-color: var(--primary-color);
+    color: var(--body-color);
 }

@@ -1,1 +1,42 @@
-<p>ticket-info-dialog works!</p>
+<div class="master-parent" id="main" #main>
+  <div *ngIf="!hideShow">
+    <div class="parent">
+      <header class="heading">MORE Information</header>
+      <div
+        *ngFor="let info of convertedDetail[0] | keyvalue; let i = index"
+        class="outerBox"
+      >
+        <div class="innerBox">
+          <div class="title">
+            {{ info.key }}
+          </div>
+          <div class="content" [ngClass]="{rejected:info.value ==='Rejected',pending:info.value === 'Pending',processing:info.value==='Process'}">
+            {{ info.value }}
+          </div>
+         
+        </div>
+      </div>
+      <button class="chats" (click)="OpenChats()">
+         Open chats
+      </button>
+    </div>
+    <div class="anotherParent">
+      <div class="attachment">
+        <header class="heading">Attachments</header>
+        <section class="imageParent">
+          <div class="imageDiv" id="centerImage">
+            <img class="attachmentImg" [src]="img" alt="image not found!!!" *ngFor="let img of imageUrl;let i = index" (click)="enlargeImage(i)" #myImage/>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="hideShow" class="chatDiv">
+      <section class="chatSection">
+        dlfsk
+      </section>
+      <footer class="chatFooter">
+        <button class="chats" (click)="OpenChats()"><mat-icon>keyboard_return</mat-icon></button>
+      </footer>
+  </div>
+</div>

@@ -56,6 +56,7 @@ h1,h2,h3,h4,h5,h6{
 
     --chat-body:#f8f0ff;
     --chat-radius:24px;
+    --chat-dark:#b370ff;
     --chat-primary:#d8b6ff;
     --chat-secondary:#f7d7ff;
     --chat-text:#423146;
@@ -82,19 +83,16 @@ h1,h2,h3,h4,h5,h6{
 }
 
 ::-webkit-scrollbar:horizontal{
-    height: 4px ;
+    height: 8px ;
 }
 
 ::-webkit-scrollbar-track:horizontal {
     background:var(--scroll); 
     border-radius:var(--radius);
-    
 }
 
 ::-webkit-scrollbar-thumb:horizontal{
-    /* background: var(--text-color);  */
     background:transparent;
-
     border-radius: var(--radius);
 
 }
@@ -115,6 +113,66 @@ h1,h2,h3,h4,h5,h6{
 }
    
 .innerSection::-webkit-scrollbar-thumb {
+    background:var(--scroll); 
+    border-radius:var(--radius);
+    
+}
+
+
+::-moz-scrollbar {
+    width: 4px;
+}
+
+::-moz-scrollbar:hover{
+    cursor: pointer;
+}
+
+::-moz-scrollbar-track {
+    background: var(--text-color); 
+    border-radius: var(--radius);
+
+}
+   
+::-moz-scrollbar-thumb {
+    background:var(--scroll); 
+    border-radius:var(--radius);
+    
+}
+
+::-moz-scrollbar:horizontal{
+    height: 4px ;
+}
+
+::-moz-scrollbar-track:horizontal {
+    background:var(--scroll); 
+    border-radius:var(--radius);
+    
+}
+
+::-moz-scrollbar-thumb:horizontal{
+    /* background: var(--text-color);  */
+    background:transparent;
+
+    border-radius: var(--radius);
+
+}
+
+.innerSection::-moz-scrollbar {
+    width: 2px;
+}
+
+.innerSection::-moz-scrollbar:hover{
+    cursor: pointer;
+}
+
+.innerSection::-moz-scrollbar-track {
+    /* background: var(--text-color);  */
+    background:transparent;
+    border-radius: var(--radius);
+
+}
+   
+.innerSection::-moz-scrollbar-thumb {
     background:var(--scroll); 
     border-radius:var(--radius);
     

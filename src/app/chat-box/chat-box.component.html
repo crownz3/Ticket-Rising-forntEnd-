@@ -14,38 +14,44 @@
   </header>
   <section>
     <div class="innerSection">
-      <div *ngFor="let msg of messages">
-        <div
-          [ngClass]="{
-            right: msg.senderType === 'user',
-            left: msg.senderType === 'admin'
-          }"
-        >
+      <div *ngIf="messages.length === 0" class="noMessage">
+        <div>Start new chart!!!</div>
+        <div>end-to-end-encryption<mat-icon>lock</mat-icon></div>
+      </div>
+
+      <div *ngIf="messages.length !== 0">
+        <div *ngFor="let msg of messages">
           <div
-            class="senderMsg"
             [ngClass]="{
-              senderMsg: msg.senderType === 'user',
-              receiverMsg: msg.senderType === 'admin'
+              right: msg.senderType === 'user',
+              left: msg.senderType === 'admin'
             }"
           >
-            <div class="message">
-              {{ msg.message }}
-            </div>
-            <div class="info">
-              <div
-                class="sendermsgInfo"
-                [ngClass]="{
-                  sendermsgInfo: msg.senderType === 'user',
-                  receivermsgInfo: msg.senderType === 'admin'
-                }"
-              >
-                <div>{{ msg.time | date : "hh:mm:ss" }}</div>
-                <div class="dot" *ngIf="msg.senderType === 'user'"></div>
-                <div *ngIf="msg.status === 'seen'" class="statusIcon">
-                  <mat-icon>done_all</mat-icon>
-                </div>
-                <div *ngIf="msg.status === 'unseen'" class="statusIcon">
-                  <mat-icon>done</mat-icon>
+            <div
+              [ngClass]="{
+                senderMsg: msg.senderType === 'user',
+                receiverMsg: msg.senderType === 'admin'
+              }"
+            >
+              <div class="message">
+                {{ msg.msg }}
+              </div>
+              <div class="info">
+                <div
+                  class="sendermsgInfo"
+                  [ngClass]="{
+                    sendermsgInfo: msg.senderType === 'user',
+                    receivermsgInfo: msg.senderType === 'admin'
+                  }"
+                >
+                  <div>{{ msg.time | date : "hh:mm:ss" }}</div>
+                  <div class="dot" *ngIf="msg.senderType === 'user'"></div>
+                  <div *ngIf="msg.status === 'seen'" class="statusIcon">
+                    <mat-icon>done_all</mat-icon>
+                  </div>
+                  <div *ngIf="msg.status === 'unseen'" class="statusIcon">
+                    <mat-icon>done</mat-icon>
+                  </div>
                 </div>
               </div>
             </div>
@@ -61,17 +67,20 @@
         class="input"
         id="inputValue"
         placeholder="send message..."
-        [(ngModel)]="inputText"
+        [(ngModel)]="message"
+        (keyup.enter)="sendMessage()"
       />
     </div>
     <div class="sendBtnFeild">
       <button
+        tabindex="1"
         class="sendBtn"
-        [disabled]="inputText === ''"
+        [disabled]="message === ''"
+        (click)="sendMessage()"
         (click)="sendMsg()"
         mat-icon-button
       >
-      <mat-icon>send</mat-icon>
+        <mat-icon>send</mat-icon>
       </button>
     </div>
   </footer>

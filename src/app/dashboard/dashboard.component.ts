@@ -16,9 +16,9 @@ export class DashboardComponent implements OnInit {
   path: any;
   showUserProfile = false
   env = environment.serverBaseUrl
-  loginUserName = '' 
-  userDetails ={name:"Ibrahim",mobile:8903424281,email:"crowwnzz3@gmail.com",dept:"ERP",desg:"Junior Software Developer",address:`117/siddiq nagar/melapalayam/tirunelveli`,image:`../../assets/logo.png`}
-
+  serInfo :any 
+  // userDetails ={name:"Ibrahim",mobile:8903424281,email:"crowwnzz3@gmail.com",dept:"ERP",desg:"Junior Software Developer",address:`117/siddiq nagar/melapalayam/tirunelveli`,image:`../../assets/logo.png`}
+  userDetails:any = {}
 
   constructor(private googleApi:GoogleSigninService,private http: HttpClient,private service :UserService,private router : Router,private local : localStorage) { 
 
@@ -26,7 +26,45 @@ export class DashboardComponent implements OnInit {
     let screen = window.matchMedia('(max-width:600px)');
     this.screenSize = screen.matches;
    })
-   
+
+  //  googleApi.userProfileSubject.subscribe((info: any) => {
+  //   console.log(info)
+  //   this.userInfo = info;
+  //   this.path = this.env+'/saveLoginInfo'
+  //   this.http.post(this.path,info, {headers: {'content-type':'application/json'}}).subscribe((res:any)=>{
+      
+  //     this.userInfo={"usercode":res.userCode,"username":res.userName,"email":res.mailId,"usertype":res.userType }
+  //     // this.userDetails={name:res.userName,mobile:res.mobile,email:res.mailId,dept:res.dept,desg:res.desg,address:res.address}
+  //   })
+  // });
+  this.userDetails = {name:this.local.getLocal('userName'),mobile:this.local.getLocal('mobile'),email:this.local.getLocal('mailId'),dept:this.local.getLocal('dept'),desg:this.local.getLocal('desg'),address:this.local.getLocal('address'),image:this.local.getLocal('picture'),}
+  console.log(this.userDetails)
+
+   for(let value in this.userDetails){
+    console.log(`${value}${"-"}${this.userDetails[value]}`)
+
+  // this.local.setLocal('userCode', res.userCode);
+  // this.local.setLocal('userName', res.userName);
+  // this.local.setLocal('mailId', res.mailId);
+  // this.local.setLocal('userType', res.userType);
+  // this.local.setLocal('address', res.address);
+  // this.local.setLocal('dept', res.dept);
+  // this.local.setLocal('desg', res.desg);
+  // this.local.setLocal('picture', res.picture);
+  // this.local.setLocal('userType', res.userType);
+  // this.local.setLocal('mobile', res.mobile);
+   }
+
+  // this.local.setLocal('userCode', res.userCode);
+  // this.local.setLocal('userName', res.userName);
+  // this.local.setLocal('mailId', res.mailId);
+  // this.local.setLocal('userType', res.userType);
+  // this.local.setLocal('address', res.address);
+  // this.local.setLocal('dept', res.dept);
+  // this.local.setLocal('desg', res.desg);
+  // this.local.setLocal('picture', res.picture);
+  // this.local.setLocal('userType', res.userType);
+  // this.local.setLocal('mobile', res.mobile);
   }
 
   ngOnInit(): void {
@@ -35,8 +73,8 @@ export class DashboardComponent implements OnInit {
       this.screenSize = screen.matches;
       console.log(this.screenSize)
      })
-     let name = this.local.getLocal('userName')
-   console.log(name)
+
+     
   }
 
 
@@ -51,10 +89,13 @@ export class DashboardComponent implements OnInit {
 
 
   enterToModule(){
+    if(this.local.getLocal('userType') === 'Admin'){
+      this.router.navigateByUrl('admin')
 
-    this.service.setData('name',this.loginUserName)
-    this.router.navigateByUrl('user')
-    console.log(this.loginUserName)
+    }else {
+      this.router.navigateByUrl('user')
+    }
+    
 
   }
 

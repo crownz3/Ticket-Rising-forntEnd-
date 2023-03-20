@@ -7,7 +7,7 @@ import { GoogleSigninService } from '../google-signin.service';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { MatDialog } from '@angular/material/dialog';
 import { TicketInfoDialogComponent } from '../ticket-info-dialog/ticket-info-dialog.component';
-
+import { localStorage } from '../services/localStorage.service';
 
 const data: any[] | undefined = [
   {TicketNo:121012,Raiser:'Ibrahim',TicketTitle:'Error',TicketStatus:'Pending',RaisedDate:'21-01-2023'},
@@ -60,17 +60,18 @@ const data: any[] | undefined = [
   ]
 })
 
-
 export class AdminComponent implements OnInit {
-  displayedColumns: any[] = ["Sno", "TicketNo", "Raiser", "TicketTitle","TicketStatus","RaisedDate","Operations"];
+  displayedColumns: any[] = ["Sno", "TicketNo", "Raiser", "TicketTitle","RaisedDate","TicketStatus","Operations"];
   screenSize :boolean | undefined
   show = 'hidden'
   shows = 'shown'
+  showTicketStatusBtn =false
+  ticketResponse = ""
   result:any
   showUserProfile = false
   userName :string | undefined
   loginUserName= ''
-  userDetails ={name:"Ibrahim",mobile:8903424281,email:"crowwnzz3@gmail.com",dept:"ERP",desg:"Junior Software Developer",address:`117/siddiq nagar/melapalayam/tirunelveli`,image:`../../assets/logo.png`}
+  userDetails :any ={}
   dataSource = new MatTableDataSource(data);
 
   @ViewChild(MatPaginator) paginator: any;
@@ -79,15 +80,27 @@ export class AdminComponent implements OnInit {
     this.dataSource.paginator = this.paginator;
   }
 
-  constructor(public bottomsheet : MatBottomSheet,private googleApi:GoogleSigninService,public dialog: MatDialog) { }
+  constructor(public bottomsheet : MatBottomSheet,private googleApi:GoogleSigninService,public dialog: MatDialog,public local :localStorage) { }
 
   ngOnInit(): void {
+    this.userDetails = {name:this.local.getLocal('userName'),mobile:this.local.getLocal('mobile'),email:this.local.getLocal('mailId'),dept:this.local.getLocal('dept'),desg:this.local.getLocal('desg'),address:this.local.getLocal('address'),image:this.local.getLocal('picture'),}
+
   }
 
   profile(){
     this.showUserProfile === false ? this.showUserProfile = true : this.showUserProfile = false
     this.show === 'hidden'?this.show = "shown" : this.show = "hidden",
     this.shows === 'shown'?this.shows = "hidden" :this.shows = "shown"
+  }
+
+  acceptTicket(){
+    this.showTicketStatusBtn === false ? this.showTicketStatusBtn =true:this.showTicketStatusBtn=false
+    this.ticketResponse = 'accept'
+  }
+
+  rejectTicket(){
+    this.showTicketStatusBtn === false ? this.showTicketStatusBtn =true:this.showTicketStatusBtn=false
+    this.ticketResponse = 'reject'
   }
 
   openChat(){
@@ -97,7 +110,6 @@ export class AdminComponent implements OnInit {
 
   openDialog(){
     const dialogRef = this.dialog.open(TicketInfoDialogComponent, {
-      width: '250px',
       data: { name: 'John Doe' }
     });
   

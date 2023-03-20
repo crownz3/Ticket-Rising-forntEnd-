@@ -111,10 +111,25 @@ section{
 .innerSection{
     max-height: 300px;
     overflow: auto;
-    padding-bottom: 12px;
+    padding-top:var(--padding);
+    padding-bottom:var(--padding);
     display: flex;
     flex-direction: column;
     gap: 12;
+    
+}
+
+.noMessage{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 48px;
+    flex-direction: column;
+    color: var(--chat-dark);
+}
+
+.noMessage .mat-icon{
+    transform: scale(0.8);
 }
 
 .left{

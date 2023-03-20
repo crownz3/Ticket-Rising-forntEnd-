@@ -27,7 +27,6 @@ export class localStorage{
                 data = row.value
             }
         });
-        console.log(data)
         return data
     }
 
