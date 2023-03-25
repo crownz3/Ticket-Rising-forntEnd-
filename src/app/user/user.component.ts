@@ -69,7 +69,6 @@ import { UserService } from '../services/user.service';
 })
 export class UserComponent implements OnInit {
   baseUrl = environment.serverBaseUrl;
-
   displayedColumns: any[] = [
     'Sno',
     'TicketNo',
@@ -83,13 +82,13 @@ export class UserComponent implements OnInit {
   show = 'hidden';
   shows = 'shown';
   result: any;
-  showUserProfile = false;
+  showUserProfile = true;
   userName: string | undefined;
   loginUserName = '';
   userDetails: any = {};
-data: any[] | undefined = [];
-
-  dataSource = new MatTableDataSource(this.data);
+  data: any[] = [];
+  showPaginator = true
+  dataSource = new MatTableDataSource();
 
   @ViewChild(MatPaginator) paginator: any;
 
@@ -111,6 +110,7 @@ data: any[] | undefined = [];
       let screen = window.matchMedia('(max-width:600px)');
       this.screenSize = screen.matches;
     });
+    
   }
 
   ngOnInit(): void {
@@ -130,26 +130,30 @@ data: any[] | undefined = [];
     };
 
     let mail = this.local.getLocal('mailId');
-    console.log(mail);
     this.http
       .get(this.baseUrl + '/getTicket?email=' + mail)
       .subscribe((res: any) => {
         console.log(res)
         for(let i = 0;i<res.length;i++){
-          this.data?.push(res[i])
-          console.log(this.data)
+          let tickets = res[i]
+          this.data.push(tickets)
         }
-      });
-      console.log(this.data)
-  }
+         this.dataSource = new MatTableDataSource(this.data);
+        this.showPaginator = false
 
+         this.dataSource.paginator = this.paginator;
+
+
+      });
+
+  }
 
   profile() {
     this.showUserProfile === false
       ? (this.showUserProfile = true)
       : (this.showUserProfile = false);
-    this.show === 'hidden' ? (this.show = 'shown') : (this.show = 'hidden'),
-      this.shows === 'shown' ? (this.shows = 'hidden') : (this.shows = 'shown');
+    this.show === 'hidden' ? (this.show = 'shown') : (this.show = 'hidden')
+    this.shows === 'shown' ? (this.shows = 'hidden') : (this.shows = 'shown');
   }
 
   addTicket() {
@@ -174,7 +178,8 @@ data: any[] | undefined = [];
           SolvedDate: solvedDate,
           Operations: '',
         });
-        this.dataSource = new MatTableDataSource(this.data);
+        this.dataSource = new MatTableDataSource(res);
+
         this.dataSource.paginator = this.paginator;
       }
     });

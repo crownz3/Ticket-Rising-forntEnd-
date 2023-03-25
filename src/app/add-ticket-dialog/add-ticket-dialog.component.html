@@ -13,40 +13,47 @@
       <div class="text-header">Ticket Description</div>
       <div class="text-content">
         <mat-form-field class="example-full-width" [style.width.%]="100">
-          <input matInput formControlName="desc" />
+          <textarea matInput formControlName="desc" class="textArea"></textarea>
         </mat-form-field>
       </div>
     </div>
     <div class="attachement feild">
       <div class="d-flex justify-content-between col-12 align-items-center">
-        <div class="text-header">Add Attachements <span *ngIf="fileLength !== 0">{{fileLength}}</span></div>
+        <div class="text-header">
+          Add Attachements
+          <span *ngIf="fileLength !== 0">{{ fileLength }}</span>
+        </div>
         <div class="uploadBtns">
           <input
             type="file"
             id="file"
             hidden
             multiple
-            (change)="onFileChange($event,fileInput)"
+            (change)="onFileChange($event, fileInput)"
             #fileInput
-            
           />
-          <!-- <input type="file" hidden #addfile (change)="onAddFile($event)" multiple id="addfile"> -->
-          <label for="file" style="color: var(--secondnary-color)" [hidden]="!arrLength"><mat-icon>add</mat-icon></label>
-          <!-- <input type="file" name="uploadFiles" required id="upload" multiple hidden (change)="onFileChange($event)"> -->
-          <label for="file" style="color: var(--secondnary-color)" [hidden]="arrLength" 
-            ><mat-icon>attach_file</mat-icon></label
+          <label
+            for="file"
+            style="color: var(--secondnary-color)"
+            [hidden]="!arrLength"
+            ><mat-icon class="fileIcon">add</mat-icon></label
           >
-     
+          <label
+            for="file"
+            style="color: var(--secondnary-color)"
+            [hidden]="arrLength"
+            ><mat-icon class="fileIcon">attach_file</mat-icon></label
+          >
         </div>
       </div>
-    
+
       <div class="filesDiv" *ngIf="arrLength">
-        <div *ngFor="let fileName of filelist; let i = index" class="files"> 
+        <div *ngFor="let fileName of filelist; let i = index" class="files">
           <div class="left">
             {{ fileName["name"] }}
           </div>
           <div class="right">
-            <button class="delBtn" (click)="removeFile(i,fileInput)">
+            <button class="delBtn" (click)="removeFile(i, fileInput)">
               <mat-icon>delete</mat-icon>
             </button>
           </div>
@@ -59,9 +66,9 @@
       </button>
     </div>
   </div>
-  <div class="notification" *ngIf="fileCount !==  ''" >
-      <div class="notificationText" >
-        {{fileCount}}
-      </div>
+  <div class="notification" *ngIf="fileCount !== ''">
+    <div class="notificationText">
+      {{ fileCount }}
+    </div>
   </div>
 </div>

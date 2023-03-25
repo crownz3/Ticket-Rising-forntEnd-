@@ -8,7 +8,7 @@ import { UserComponent } from './user/user.component';
 const routes: Routes = [
   {path:'admin', component:AdminComponent ,loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule) },
   {path:'user', component:UserComponent ,loadChildren: () => import('./user/user.module').then(m => m.UserModule) },
-  {path:'',component:AppComponent},
+  {path:'',component:DashboardComponent},
   {path:'dashboard',component:DashboardComponent},
 
   {path:'**',component:AppComponent},

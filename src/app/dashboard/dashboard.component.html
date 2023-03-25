@@ -3,8 +3,8 @@
     <header class="header">
       <div class="logo">
         <!-- <img src="../../assets/logo.png" alt="" class="image" /> -->
-        <button class="smBtn" (click)="profile()" *ngIf="!showUserProfile"><mat-icon>person</mat-icon></button>
-        <button class="smBtn" (click)="profile()" *ngIf="showUserProfile"><mat-icon>dashboard</mat-icon></button>
+        <button class="smBtn" (click)="profile()" *ngIf="!showUserProfile"><mat-icon class="headerIcon">person</mat-icon></button>
+        <button class="smBtn" (click)="profile()" *ngIf="showUserProfile"><mat-icon class="headerIcon">dashboard</mat-icon></button>
 
       </div>
       <div class="name">TICKET RAISING</div>
@@ -24,7 +24,7 @@
           </div>
           <div class="back">
             <div class="left">TOTAL</div>
-            <div class="right">44</div>
+            <div class="right">{{totalTickets}}</div>
           </div>
         </div>
         <div class="process sectionCard">
@@ -33,7 +33,7 @@
           </div>
           <div class="back">
             <div class="left">PROCESS</div>
-            <div class="right">14</div>
+            <div class="right">{{processTickets}}</div>
           </div>
         </div>
         <div class="pending sectionCard">
@@ -42,7 +42,7 @@
           </div>
           <div class="back">
             <div class="left">PENDING</div>
-            <div class="right">24</div>
+            <div class="right">{{pendingTickets}}</div>
           </div>
         </div>
       </div>
@@ -66,7 +66,7 @@
       </div>
       <div class="botttomSection">
         <button class="Btn" *ngIf="screenSize" (click)="enterToModule()" >
-          <mat-icon>login</mat-icon>
+          <mat-icon class="EnterIcon">login</mat-icon>
         </button>
         <button class="Btn" *ngIf="!screenSize" (click)="enterToModule()" >Enter</button>
       </div>

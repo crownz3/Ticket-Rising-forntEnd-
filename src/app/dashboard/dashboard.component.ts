@@ -17,6 +17,9 @@ export class DashboardComponent implements OnInit {
   showUserProfile = false
   env = environment.serverBaseUrl
   serInfo :any 
+  pendingTickets: any
+  processTickets: any
+  totalTickets: any
   // userDetails ={name:"Ibrahim",mobile:8903424281,email:"crowwnzz3@gmail.com",dept:"ERP",desg:"Junior Software Developer",address:`117/siddiq nagar/melapalayam/tirunelveli`,image:`../../assets/logo.png`}
   userDetails:any = {}
 
@@ -74,7 +77,11 @@ export class DashboardComponent implements OnInit {
       console.log(this.screenSize)
      })
 
-     
+    this.pendingTickets = this.local.getLocal('pending')
+    this.processTickets = this.local.getLocal('process')
+    let completedTickets = this.local.getLocal('complete')
+    this.totalTickets = completedTickets! + this.processTickets! + this.pendingTickets!
+    console.log( this.pendingTickets)
   }
 
 

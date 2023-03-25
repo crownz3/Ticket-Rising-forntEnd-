@@ -23,10 +23,10 @@
 
 }
 
-.header{
+.header {
     height: 10%;
     width: 100%;
-    background-color:var(--secondnary-color);
+    background-color: var(--secondnary-color);
     opacity: 0.7;
     box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;
     border-top-left-radius: var(--radius);
@@ -39,8 +39,8 @@
 }
 
 
-.logo{
-    width:10% ;
+.logo {
+    width: 10%;
     height: 100%;
     display: flex;
     justify-content: center;
@@ -49,13 +49,13 @@
 
 
 
-.image{
+.image {
     height: auto;
     width: auto;
 }
 
-.name{
-    width:60% ;
+.name {
+    width: 60%;
     height: 100%;
     display: flex;
     justify-content: center;
@@ -67,8 +67,8 @@
     color: var(--secondnary-text);
 }
 
-.logoutBtn{
-    width:10% ;
+.logoutBtn {
+    width: 10%;
     height: 100%;
     display: flex;
     justify-content: center;
@@ -77,7 +77,7 @@
 
 }
 
-.section{
+.section {
     height: 75%;
     width: 100%;
     box-shadow: rgba(0, 0, 0, 0.18) 0px 2px 4px;
@@ -89,7 +89,7 @@
 
 }
 
-.topSection{
+.topSection {
     width: 100%;
     display: flex;
     flex-wrap: wrap;
@@ -98,7 +98,7 @@
     perspective: 1000px;
 }
 
-.profileDiv{
+.profileDiv {
     background-color: #7c85ff;
     border-radius: var(--radius);
     box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
@@ -111,7 +111,7 @@
     opacity: 0.9;
 }
 
-.headerDiv{
+.headerDiv {
     background-color: var(--primary-color);
     width: 100%;
     border-radius: var(--radius);
@@ -119,7 +119,7 @@
     padding: 2px;
 }
 
-.userImg{
+.userImg {
     width: 50px;
     height: 50px;
     border-radius: 50%;
@@ -131,13 +131,13 @@
     border-bottom: 1px solid;
 }
 
-.image{
- height: 100%;
- width: 100%;
- border-radius: 50%;
+.image {
+    height: 100%;
+    width: 100%;
+    border-radius: 50%;
 }
 
-.userDetails{
+.userDetails {
     word-break: break-all;
     display: flex;
     flex-wrap: wrap;
@@ -149,7 +149,7 @@
 
 
 
-.bottomSection{
+.bottomSection {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -157,7 +157,7 @@
 
 
 
-.sectionCard{
+.sectionCard {
     background-color: var(--body-color);
     width: 250px;
     border-radius: var(--radius);
@@ -171,132 +171,60 @@
 
 .sectionCard:hover {
     transform: rotateY(180deg);
-  }
-  
-  .front,.back {
+}
+
+.front,
+.back {
     position: absolute;
     width: 100%;
     height: 100%;
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
-  }
+}
 
-  .back {
+.back {
     width: 100%;
     height: 100%;
     border-radius: var(--radius);
     background-color: #bbb;
     color: black;
     display: flex;
-  }
+}
 
-  .front > img{
+.front>img {
     background-size: contain;
     width: 100%;
     height: 100%;
     border-radius: var(--radius);
-  }
-  
-  .front {
+}
+
+.front {
     width: 100%;
     height: 100%;
     display: flex;
     border-radius: var(--radius);
     box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 8px;
     transform: rotateY(180deg);
-  }
+}
 
-/* .back{
-    width: 100%;
-    height: 100%;
+
+.back:hover {
+    box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;
+}
+
+.logoutIcon {
     display: flex;
-    border-radius: var(--radius);
-    box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 8px;
+    justify-content: center;
+    align-items: center;
 }
 
-.front{
-    width: 100%;
-    height: 100%;
-    border-radius: var(--radius);
-    position: absolute;
-} */
 
-.back:hover{
+
+.sectionCard:hover {
     box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;
 }
 
-@media screen and (max-width:600px){
-    .topSection{
-        gap: 20px;
-    }
-
-    .sectionCard{
-        width: 150px;
-        height: 150px;
-        flex-wrap: nowrap;
-    }
-
-    .sectionCard .left{
-        font-size: 9px !important;
-    }
-
-    .sectionCard .right{
-        font-size: 50px !important;
-    }
-
-    .name{
-        font-size: 20px !important;
-        letter-spacing: 2px;
-    }
-
-    .logo{
-        height: 20px !important;
-        width: auto !important;
-    }
-
-    .logoutIcon{
-        padding: 4px 7px !important;
-        transform: scale(0.7);
-    }
-
-    .smBtn{
-        background-color: #7c85ff !important;
-        width: 30px;
-        height: 30px;
-        display: flex;
-        justify-content: flex-end;
-        align-items: center;
-    }
-
-    .Parent{
-        background-size: contain !important;
-    }
-
-    .Btn{
-        height: 50px !important;
-        width: 50px !important;
-        border-radius: 50% !important;
-        padding: 0 !important;
-    }
-}
-
-@media screen and (max-width:350px){
-    .sectionCard{
-        width: 100px;
-        height: 100px;
-        flex-wrap: nowrap;
-    }
-    
-    .name{
-        font-size: 10px !important;
-    }
-}
-
-.sectionCard:hover{
-    box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;
-}
-
-.sectionCard .left{
+.sectionCard .left {
     width: 20%;
     height: 100%;
     background-color: #7c85ff;
@@ -316,11 +244,10 @@
 }
 
 
-
-.sectionCard .right{
+.sectionCard .right {
     width: 80%;
     height: 100%;
-    background-color:var(--body-color);
+    background-color: var(--body-color);
     padding: 5%;
     display: flex;
     justify-content: center;
@@ -334,39 +261,36 @@
     cursor: default;
 }
 
-.sectionCard .right:hover{
+.sectionCard .right:hover {
     color: var(--primary-color-light);
 }
 
-.footer{
+.footer {
     height: 10%;
     width: 100%;
-    background-color:var(--secondnary-color);
+    background-color: var(--secondnary-color);
     opacity: 0.7;
     box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;
     border-bottom-left-radius: var(--radius);
-    border-bottom-right-radius: var(--radius);;
+    border-bottom-right-radius: var(--radius);
+    ;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.footerName{
+.footerName {
     color: var(--secondnary-text);
     font-weight: 600;
     letter-spacing: 2px;
 }
 
-
-
-
-
-.smBtn{
+.smBtn {
     padding: 8px 14px;
     background-color: var(--primary-color);
     color: var(--secondnary-color);
     border: none;
-    border-radius:var(--radius);
+    border-radius: var(--radius);
     font-weight: 600;
     cursor: pointer;
     box-shadow: var(--btn-shadow);
@@ -377,15 +301,15 @@
     align-items: center;
 }
 
-.smBtn:hover{
-    background-color:var(--primary-color-light) ;
+.smBtn:hover {
+    background-color: var(--primary-color-light);
 }
 
-.smBtn:active{
-    background-color:#7c85ff ;
+.smBtn:active {
+    background-color: #7c85ff;
 }
 
-.Btn{
+.Btn {
     background-color: #7c85ff;
     color: var(--body-color);
     border: var(--body-color) solid 2px;
@@ -393,24 +317,29 @@
     border-radius: var(--radius);
 }
 
-.Btn:hover{
-    background-color:var(--primary-color-light) ;
+.Btn:hover {
+    background-color: var(--primary-color-light);
 
 }
 
-.Btn:active{
-    background-color:#7c85ff ;
+.Btn:active {
+    background-color: #7c85ff;
 }
 
 
-h1,h2,h3,h4,h5,h6{
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
     font-family: "Poppins";
     margin-bottom: 0;
     color: var(--secondnary-color);
 
 }
 
-li{
+li {
     list-style: none;
     display: flex;
     flex-wrap: wrap;
@@ -424,7 +353,107 @@ li{
     color: var(--secondnary-color);
 }
 
-.liStyle{
+.liStyle {
     font-weight: 600;
 
+}
+
+@media screen and (max-width:600px) {
+    .topSection {
+        gap: 20px;
+    }
+
+    .sectionCard {
+        width: 150px;
+        height: 150px;
+        flex-wrap: nowrap;
+    }
+
+    .sectionCard .left {
+        font-size: 9px !important;
+    }
+
+    .sectionCard .right {
+        font-size: 50px !important;
+    }
+
+    .name {
+        font-size: 20px !important;
+        letter-spacing: 2px;
+    }
+
+    .logo {
+        height: 20px !important;
+        width: auto !important;
+    }
+
+    .headerIcon {
+        transform: scale(0.5);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .logoutIcon {
+        padding: 4px 7px !important;
+        transform: scale(0.5);
+    }
+
+    .smBtn {
+        width: 30px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+
+    }
+
+    .Parent {
+        background-size: contain !important;
+    }
+
+    .Btn {
+        height: 50px !important;
+        width: 50px !important;
+        border-radius: 50% !important;
+        padding: 0 !important;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .EnterIcon {
+        transform: scale(0.8);
+    }
+
+    .header {
+        justify-content: space-around;
+    }
+
+    li{
+        font-size: 8px;
+    }
+}
+
+@media screen and (max-width:350px) {
+    .sectionCard {
+        width: 100px;
+        height: 100px;
+        flex-wrap: nowrap;
+    }
+
+    .name {
+        font-size: 10px !important;
+    }
+}
+
+@media screen and (max-width:950px) {
+    .name {
+        font-size: 18px !important;
+    }
+}
+
+@media screen and (max-width:320px) {
+    .name {
+        font-size: 10px !important;
+    }
 }

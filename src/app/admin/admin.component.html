@@ -1,59 +1,95 @@
+<!-- 
+-->
 <div class="master-parent">
   <div class="parent">
-    <div class="table">
-      <section class="table-view">
-        <div
-          *ngIf="dataSource.data.length; else noData"
-          style="width: 100%"
-          class="tableDiv"
-          [@showTable]="shows"
-        >
+    <div class="table" *ngIf="data">
+      <section class="table-view" *ngIf="dataSource.data.length">
+        <div class="tableDiv" [@showTable]="shows">
           <table mat-table [dataSource]="dataSource">
             <ng-container matColumnDef="Sno">
               <th mat-header-cell *matHeaderCellDef>SNo</th>
-              <td mat-cell *matCellDef="let element" (click)="openDialog()">
+              <td
+                mat-cell
+                *matCellDef="let element; let i = index"
+                (click)="openDialog(i)"
+              >
                 {{ dataSource.data.indexOf(element) + 1 }}
               </td>
             </ng-container>
 
             <ng-container matColumnDef="TicketNo">
               <th mat-header-cell *matHeaderCellDef>Ticket No</th>
-              <td mat-cell *matCellDef="let element" (click)="openDialog()">{{ element.TicketNo }}</td>
+              <td
+                mat-cell
+                *matCellDef="let element; let i = index"
+                (click)="openDialog(i)"
+              >
+                {{ element.ticketNo }}
+              </td>
             </ng-container>
 
             <ng-container matColumnDef="Raiser">
               <th mat-header-cell *matHeaderCellDef>Raiser</th>
-              <td mat-cell *matCellDef="let element" (click)="openDialog()">{{ element.Raiser }}</td>
+              <td
+                mat-cell
+                *matCellDef="let element; let i = index"
+                (click)="openDialog(i)"
+              >
+                {{ element.ticketRaiser }}
+              </td>
             </ng-container>
 
             <ng-container matColumnDef="TicketTitle">
               <th mat-header-cell *matHeaderCellDef>Ticket Title</th>
-              <td mat-cell *matCellDef="let element" (click)="openDialog()">
-                {{ element.TicketTitle }}
+              <td
+                mat-cell
+                *matCellDef="let element; let i = index"
+                (click)="openDialog(i)"
+              >
+                {{ element.ticketTitle }}
               </td>
             </ng-container>
 
             <ng-container matColumnDef="RaisedDate">
               <th mat-header-cell *matHeaderCellDef>Raised Date</th>
-              <td mat-cell *matCellDef="let element" (click)="openDialog()">
-                {{ element.RaisedDate }}
+              <td
+                mat-cell
+                *matCellDef="let element; let i = index"
+                (click)="openDialog(i)"
+              >
+                {{ element.raisedDate }}
               </td>
             </ng-container>
 
             <ng-container matColumnDef="TicketStatus">
               <th mat-header-cell *matHeaderCellDef>Ticket Status</th>
-              <td mat-cell *matCellDef="let element">
-                <div *ngIf="element.TicketStatus === 'Pending' && !showTicketStatusBtn" class="pending d-flex justify-content-center align-items-center">
-                  <button class="smBtn" matTooltip="Click to accept the ticket!!!" (click)="acceptTicket()">Accept</button>
-                  <button class="smBtn" matTooltip="Click to reject the ticket!!!" (click)="rejectTicket()">Reject</button>
+              <td mat-cell *matCellDef="let element; let i = index">
+                <div
+                  *ngIf="element.ticketStatus === '0' && !showTicketStatusBtn"
+                  class="pending d-flex justify-content-center align-items-center"
+                >
+                  <button class="smBtn" (click)="acceptTicket(i)">
+                    Accept
+                  </button>
+                  <button class="smBtn" (click)="rejectTicket(i)">
+                    Reject
+                  </button>
                 </div>
-                <div *ngIf="element.TicketStatus === 'Pending' && showTicketStatusBtn && ticketResponse === 'accept'" >
-                  {{"Process"}}
-                </div><div *ngIf="element.TicketStatus === 'Pending' && showTicketStatusBtn && ticketResponse === 'reject'" >
-                  {{"Rejected"}}
+                <div *ngIf="showTicketStatusBtn && ticketResponse === 'accept'">
+                  {{ ticketResponse }}
                 </div>
-                <div *ngIf="element.TicketStatus !== 'Pending'">
-                  {{ element.TicketStatus }}
+                <div *ngIf="showTicketStatusBtn && ticketResponse === 'reject'">
+                  {{ ticketResponse }}
+                </div>
+
+                <div *ngIf="element.ticketStatus === '1'">
+                  {{ "Process" }}
+                </div>
+                <div *ngIf="element.ticketStatus === '2'">
+                  {{ "Completed" }}
+                </div>
+                <div *ngIf="element.ticketStatus === '-1'">
+                  {{ "Rejected" }}
                 </div>
               </td>
             </ng-container>
@@ -69,58 +105,58 @@
             <tr
               mat-row
               *matRowDef="let row; columns: displayedColumns"
-              
-              matTooltip="More Information"
+              matTooltip="Click here to more information!!!"
             ></tr>
           </table>
-          <mat-paginator [pageSizeOptions]="[5, 10]" showFirstLastButtons>
-            <button>sdasa</button>
-          </mat-paginator>
+          <mat-toolbar class="master-toolbar">
+            <div class="anotherBtnsDiv">
+              <div class="btnDiv">
+                <button class="btn" title="logout" (click)="logOut()">
+                  <mat-icon class="headerIcon">logout</mat-icon>
+                </button>
+              </div>
+              <div>
+                <button
+                  class="btn"
+                  (click)="profile()"
+                  *ngIf="!showUserProfile"
+                >
+                  <mat-icon class="headerIcon">person</mat-icon>
+                </button>
+                <button class="btn" (click)="profile()" *ngIf="showUserProfile">
+                  <mat-icon class="headerIcon">table_chart</mat-icon>
+                </button>
+              </div>
+            </div>
+
+            <mat-paginator
+              class="paginator"
+              [pageSizeOptions]="[5, 10]"
+              showFirstLastButtons
+            ></mat-paginator>
+          </mat-toolbar>
         </div>
-        <div
+        <!-- <div
           class="chatboxDiv"
           [ngClass]="{
             chatboxDiv: !showUserProfile,
             chatBoxDiv: showUserProfile
           }"
-        >
-          <div class="profileDiv" [@showProf]="show">
-            <div class="headerDiv">
-              <h1>MY PROFILE</h1>
-            </div>
-            <div class="userImg">
-              <div>
-                <img src="{{ userDetails.image }}" class="image" alt="Image" />
-              </div>
-            </div>
-            <div class="userDetails">
-              <li>
-                Name: <span class="liStyle">{{ userDetails.name }}</span>
-              </li>
-              <li>
-                Email:<span class="liStyle">{{ userDetails.email }}</span>
-              </li>
-              <li>
-                Mobile: <span class="liStyle">{{ userDetails.mobile }}</span>
-              </li>
-              <li>
-                Department: <span class="liStyle">{{ userDetails.dept }}</span>
-              </li>
-              <li>
-                Designation: <span class="liStyle">{{ userDetails.desg }}</span>
-              </li>
-              <li>
-                Address: <span class="liStyle">{{ userDetails.address }}</span>
-              </li>
-            </div>
+        > -->
+        <div class="profileDiv" [@showProf]="show">
+          <div class="headerDiv">
+            <h1>MY PROFILE</h1>
           </div>
-          <div class="btnsDiv">
-            <div class="btnDiv">
-              <button class="Btn" (click)="logOut()">
+          <div class="subHeader">
+            <div class="btnDiv subHeaderBtn">
+              <button class="Btn" title="logout" (click)="logOut()">
                 <mat-icon>logout</mat-icon>
               </button>
             </div>
-            <div>
+            <div class="userImg">
+              <img src="{{ userDetails.image }}" class="image" alt="Image" />
+            </div>
+            <div class="subHeaderBtn">
               <button class="Btn" (click)="profile()" *ngIf="!showUserProfile">
                 <mat-icon>person</mat-icon>
               </button>
@@ -129,18 +165,118 @@
               </button>
             </div>
           </div>
-        </div>
-      </section>
-
-      <ng-template #noData>
-        <div class="ndf col-12">
-          <div class="ndf-icon"><i class="material-icons">&#xe252;</i></div>
-          <div class="ndf-inside" style="text-align: center">
-            <div>&#5176;No Data Found&#5171;</div>
-            <div><p>Pleace Add Location to Complaint</p></div>
+          <div class="userDetails">
+            <li>
+              Name:
+              <span class="liStyle">{{ userDetails.name }}</span>
+            </li>
+            <li>
+              Email:<span class="liStyle">{{ userDetails.email }}</span>
+            </li>
+            <li>
+              Mobile:
+              <span class="liStyle">{{ userDetails.mobile }}</span>
+            </li>
+            <li>
+              Department:
+              <span class="liStyle">{{ userDetails.dept }}</span>
+            </li>
+            <li>
+              Designation:
+              <span class="liStyle">{{ userDetails.desg }}</span>
+            </li>
+            <li>
+              Address:
+              <span class="liStyle">{{ userDetails.address }}</span>
+            </li>
           </div>
         </div>
-      </ng-template>
+        <div class="btnsDiv">
+          <div class="btnDiv">
+            <button class="Btn" (click)="logOut()">
+              <mat-icon>logout</mat-icon>
+            </button>
+          </div>
+          <div>
+            <button class="Btn" (click)="profile()" *ngIf="!showUserProfile">
+              <mat-icon>person</mat-icon>
+            </button>
+            <button class="Btn" (click)="profile()" *ngIf="showUserProfile">
+              <mat-icon>table_chart</mat-icon>
+            </button>
+          </div>
+        </div>
+        <!-- </div> -->
+      </section>
+
+      <section
+        *ngIf="!dataSource.data.length"
+        class="ndfMaster"
+        [ngClass]="{
+          ndfMaster: showUserProfile,
+          NoDatafound: !showUserProfile
+        }"
+      >
+        <div class="ndfParent">
+          <div class="ndfInsideParent" *ngIf="showUserProfile">
+            <button class="Btn" (click)="profile()" *ngIf="showUserProfile">
+              <mat-icon>person</mat-icon>
+            </button>
+            <button class="Btn" titie="logout" (click)="logOut()">
+              <mat-icon>logout</mat-icon>
+            </button>
+          </div>
+          <div class="noDataProfile" *ngIf="!showUserProfile">
+            <div class="noDataHeader">
+              <h1>MY PROFILE</h1>
+            </div>
+            <div class="noDataImg">
+              <div class="NoDataImgDiv">
+                <img src="{{ userDetails.image }}" class="image" alt="Image" />
+              </div>
+              <div>
+                <button
+                  class="NoBtn"
+                  (click)="profile()"
+                  *ngIf="!showUserProfile"
+                >
+                  <mat-icon>fiber_smart_record</mat-icon>
+                </button>
+              </div>
+            </div>
+            <div
+              class="noDataDetails"
+              *ngIf="
+                userDetails.name === '' &&
+                userDetails.email === '' &&
+                userDetails.mobile === '' &&
+                userDetails.dept === '' &&
+                userDetails.desg === '' &&
+                userDetails.address === ''
+              "
+            >
+              <li>
+                <span class="noDataLiStyle">{{ userDetails.name }}</span>
+              </li>
+              <li>
+                <span class="noDataLiStyle">{{ userDetails.email }}</span>
+              </li>
+              <li>
+                <span class="noDataLiStyle">{{ userDetails.mobile }}</span>
+              </li>
+              <li>
+                <span class="noDataLiStyle">{{ userDetails.dept }}</span>
+              </li>
+              <li>
+                <span class="noDataLiStyle">{{ userDetails.desg }}</span>
+              </li>
+              <li>
+                <span class="noDataLiStyle">{{ userDetails.address }}</span>
+              </li>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   </div>
 </div>

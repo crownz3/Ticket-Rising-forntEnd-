@@ -207,3 +207,8 @@ section{
     transform: scale(0.7);
 }
 
+@media screen and (max-width:350px) {
+    .Text{
+        font-size: 12px;
+    }
+}

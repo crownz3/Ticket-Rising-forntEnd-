@@ -146,8 +146,9 @@ export class AddTicketDialogComponent implements OnInit {
       this.local.setLocal('ticketStatus',res[0].ticketStatus)
       this.local.setLocal('ticketRaised',res[0].raisedDate)
       this.local.setLocal('ticketSolved',res[0].solvedDate)
+    this.dialogRef.close(res);
+
     });
 
-    this.dialogRef.close(this.theForm);
   }
 }

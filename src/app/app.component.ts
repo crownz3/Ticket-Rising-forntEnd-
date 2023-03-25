@@ -37,17 +37,20 @@ export class AppComponent implements OnInit {
         })
         .subscribe(
           (res: any) => {
-            console.log(res);
-            this.local.setLocal('userCode', res.userCode);
-            this.local.setLocal('userName', res.userName);
-            this.local.setLocal('mailId', res.mailId);
-            this.local.setLocal('userType', res.userType);
-            this.local.setLocal('address', res.address);
-            this.local.setLocal('dept', res.dept);
-            this.local.setLocal('desg', res.desg);
-            this.local.setLocal('picture', res.picture);
-            this.local.setLocal('userType', res.userType);
-            this.local.setLocal('mobile', res.mobile);
+            console.log(res[0]);
+            this.local.setLocal('userCode', res[0].userCode);
+            this.local.setLocal('userName', res[0].userName);
+            this.local.setLocal('mailId', res[0].mailId);
+            this.local.setLocal('userType', res[0].userType);
+            this.local.setLocal('address', res[0].address);
+            this.local.setLocal('dept', res[0].dept);
+            this.local.setLocal('desg', res[0].desg);
+            this.local.setLocal('picture', res[0].picture);
+            this.local.setLocal('userType', res[0].userType);
+            this.local.setLocal('mobile', res[0].mobile);
+            this.local.setLocal('pending',res[1].pending)
+            this.local.setLocal('complete',res[1].completed)
+            this.local.setLocal('process',res[1].processed)
             setTimeout(() => {
             this.routes.navigateByUrl('dashboard')
 
@@ -58,6 +61,7 @@ export class AppComponent implements OnInit {
           }
         );
     });
+
   }
 
   ngOnInit(): void {

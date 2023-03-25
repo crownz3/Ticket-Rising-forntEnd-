@@ -15,24 +15,25 @@
   justify-content: center;
 }
 
-
 .table {
   height: 100%;
   width: 100%;
   opacity: 0.9;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .table-view {
   display: flex;
   justify-content: center;
   margin-top: 30px;
-  width: 100%;
   box-shadow: var(--btn-shadow);
   overflow: auto;
   border-top-left-radius: var(--radius);
   border-top-right-radius: var(--radius);
   overflow-y: hidden !important;
-
+  width: 100%;
 }
 
 .tableDiv {
@@ -59,7 +60,6 @@
   left: 90%;
 }
 
-
 .mat-table {
   border-bottom: 1px solid var(--primary-color);
   width: 100%;
@@ -77,8 +77,6 @@ th.mat-header-cell {
   border-bottom: 1px solid var(--primary-color);
   cursor: default;
 }
-
-
 
 td.mat-cell {
   text-align: center !important;
@@ -103,10 +101,9 @@ td.mat-cell {
   color: var(--text-color);
   font-weight: 600;
   width: 140px;
-
 }
 
-.pending{
+.pending {
   gap: 5px;
 }
 
@@ -140,30 +137,76 @@ td.mat-cell {
 }
 
 .btnsDiv {
+  background-color: var(--primary-color);
   display: flex;
   flex-direction: column;
   gap: 30px;
 }
 
 
+.ndfMaster {
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  text-align: center;
+  padding: 100px;
+  background-color: var(--primary-color-light);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+}
+
+.ndfInsideParent {
+  background: linear-gradient(120deg, rgba(50, 50, 171, 1) 35%, rgb(76, 78, 233) 100%);
+  padding: 10%;
+  border-radius: 50%;
+  width: 250px;
+  height: 250px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
+}
+
+.btnsDiv {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  background-color: var(--primary-color);
+  justify-content: center;
+}
+
 .profileDiv {
-  background-color: #7c85ff;
-  border-radius: var(--radius);
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+  background-color: var(--primary-color-light);
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+    rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 25px;
   width: 100%;
-
 }
+
+
 
 .headerDiv {
   background-color: var(--primary-color);
   width: 100%;
-  border-radius: var(--radius);
   text-align: center;
-  padding: 2px;
+  padding: 12px;
+  color: var(--secondnary-color);
+}
+
+.subHeader {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.subHeaderBtn {
+  display: none;
 }
 
 .userImg {
@@ -175,13 +218,12 @@ td.mat-cell {
   justify-content: center;
   align-items: center;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-  border-bottom: 1px solid;
 }
 
 .image {
-width: 100%;
-height: 100%;
-border-radius: 50%;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
 }
 
 .userDetails {
@@ -193,9 +235,6 @@ border-radius: 50%;
   justify-content: center;
   align-items: center;
 }
-
-
-
 
 .chatBoxDiv:hover {
   background-color: var(--primary-color-light);
@@ -236,9 +275,11 @@ border-radius: 50%;
   color: var(--secondnary-color);
   transition: 0.3s;
   box-shadow: var(--btn-shadow);
-
 }
 
+.Btn:hover {
+  background-color: var(--primary-color);
+}
 
 .smBtn {
   padding: 8px 14px;
@@ -268,9 +309,83 @@ td.mat-cell:last-of-type {
   padding: 4px;
 }
 
-@media screen and (max-width:680px) {
+.master-toolbar {
+  display: flex;
+  justify-content: space-between;
+}
+
+.anotherBtnsDiv {
+  display: none;
+}
+
+.btn {
+  padding: 12px;
+  background-color: var(--primary-color);
+  color: var(--secondnary-color);
+  border: none;
+  border-radius: var(--radius);
+  font-weight: 600;
+  font-family: "Poppins";
+  cursor: pointer;
+  box-shadow: var(--btn-shadow);
+  transition: 0.3s;
+}
+
+.btn:hover {
+  background-color: var(--primary-color);
+}
+
+.btn:active {
+  background-color: #7c85ff;
+  color: var(--secondnary-color);
+}
+
+
+@media screen and (max-width: 680px) {
   .chatboxDiv {
     display: none;
+  }
+
+  .ndfMaster {
+    width: 250px;
+    height: 250px;
+  }
+
+  .master-toolbar {
+    display: flex;
+    gap: 12px;
+  }
+
+  .anotherBtnsDiv {
+    display: flex;
+    flex-direction: row-reverse;
+    gap: 10px;
+  }
+
+  .ndfInsideParent {
+    justify-content: space-evenly;
+    width: 125px;
+    height: 125px;
+  }
+
+  .profileDiv {
+    justify-content: space-between;
+  }
+
+  .btnsDiv {
+    display: none;
+  }
+
+  .btn {
+    padding: 6px;
+    font-size: 12px;
+  }
+
+  .headerIcon {
+    transform: scale(0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   th.mat-header-cell {
@@ -290,6 +405,10 @@ td.mat-cell:last-of-type {
     font-size: 8px;
   }
 
+  .Btn {
+    transform: scale(0.8);
+  }
+
   th.mat-header-cell:last-of-type {
     padding: 4px;
   }
@@ -297,9 +416,14 @@ td.mat-cell:last-of-type {
   td.mat-cell:last-of-type {
     padding: 4px;
   }
+
+  .ndfInsideParent {
+    width: 200px;
+    height: 200px;
+  }
 }
 
-@media screen and (max-width:600px) {
+@media screen and (max-width: 600px) {
   .master-parent {
     background-size: contain !important;
   }
@@ -307,8 +431,33 @@ td.mat-cell:last-of-type {
   .table {
     opacity: 1;
   }
-}
 
+  .mat-paginator {
+    transform: scale(0.4);
+  }
+
+  li{
+    font-size: 8px;
+  }
+
+  .noDataDetails li {
+    padding: -3px 6px !important;
+    background-color: var(--body-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--primary-color);
+  }
+  
+  .NoDatafound{
+    padding: 8px !important;
+  }
+
+  .noDataProfile{
+    padding: 12px !important;
+  }
+
+}
 
 h1,
 h2,
@@ -327,11 +476,133 @@ li {
   background-color: var(--primary-color-light);
   padding: 0.1% 2%;
   border-radius: var(--radius);
-  box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em, rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em, rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em,
+    rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em,
+    rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
   font-weight: 800;
   letter-spacing: 1px;
+  text-align: center;
 }
+
 
 .liStyle {
   font-weight: 600;
+}
+
+/* Nouser Data profile div */
+
+.NoDatafound {
+  background-color: var(--primary-color-light);
+  padding: 36px;
+  border-radius: var(--radius);
+  box-shadow: rgba(0, 0, 0, 0.40) 0px 5px 15px 0px;
+  background: linear-gradient(-24deg, rgba(50, 50, 171, 1) 15%, rgb(76, 78, 233) 40%);
+
+}
+
+.noDataProfile {
+  background: linear-gradient(120deg, rgba(50, 50, 171, 1) 15%, rgb(76, 78, 233) 40%);
+  padding: 10%;
+  gap: 18px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: column;
+  border-radius: var(--radius);
+  box-shadow: rgba(0, 0, 0, 0.40) 0px 5px 15px 0px;
+}
+
+.noDataHeader {
+  color: var(--secondnary-color);
+  background-color: var(--primary-color-light);
+  width: 100%;
+  text-align: center;
+  box-shadow: rgba(0, 0, 0, 0.20) 0px 5px 15px 0px;
+  border-radius: var(--radius);
+
+}
+
+.noDataImg {
+
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.NoDataImgDiv {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: aliceblue;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.noDataImage {
+  width: 90%;
+  height: 90%;
+}
+
+
+.NoBtn {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: var(--primary-color);
+  border: none;
+  color: var(--secondnary-color);
+  transition: 0.3s;
+  box-shadow: var(--btn-shadow);
+}
+
+.NoBtn:hover {
+  background-color: var(--primary-color-light);
+}
+
+
+
+
+.noDataDetails {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+
+.noDataLiStyle {
+  font-weight: 600;
+
+}
+
+.noDataDetails li {
+  padding: 3px 12px;
+  background-color: var(--body-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--primary-color);
+}
+
+
+
+.Nbtn {
+  width: 25px;
+  height: 25px;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  border-radius: 50%;
+  background-color: var(--primary-color-light);
+  box-shadow: var(--btn-shadow);
+  color: var(--secondnary-color);
+  transition: 0.5s;
+}
+
+.Nbtn:hover {
+  background-color: var(--primary-color);
 }

@@ -72,7 +72,7 @@ export class TicketInfoDialogComponent implements OnInit {
 
     document
       .getElementById('centerImage')
-      ?.setAttribute('style', 'align-items:center;height:520px');
+      ?.setAttribute('style', 'align-items:center;height:570px');
     this.currentIndex = i;
 
     if (prevImg === i) {

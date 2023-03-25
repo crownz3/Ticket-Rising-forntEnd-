@@ -6,7 +6,7 @@
       </div>
     </div>
     <div class="headerRight">
-      <div class="receiverName">Ibrahim</div>
+      <div class="receiverName Text">Ibrahim</div>
       <button class="searchBtn" mat-icon-button>
         <mat-icon>search</mat-icon>
       </button>
@@ -15,8 +15,8 @@
   <section>
     <div class="innerSection">
       <div *ngIf="messages.length === 0" class="noMessage">
-        <div>Start new chart!!!</div>
-        <div>end-to-end-encryption<mat-icon>lock</mat-icon></div>
+        <div class="Text">Start new chart!!!</div>
+        <div class="Text">end-to-end-encryption<mat-icon>lock</mat-icon></div>
       </div>
 
       <div *ngIf="messages.length !== 0">
@@ -64,7 +64,7 @@
     <div class="inputFeild">
       <input
         type="text"
-        class="input"
+        class="input Text"
         id="inputValue"
         placeholder="send message..."
         [(ngModel)]="message"

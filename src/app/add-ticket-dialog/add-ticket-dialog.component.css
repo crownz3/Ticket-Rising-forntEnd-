@@ -16,11 +16,13 @@
     padding: 10px;
     opacity: 1;
 }
+
 #delayed-display{
     opacity: 0;
     transition: opacity 1s ease-in-out;
 }
-.notificationText{
+
+.notificationText {
     font-size: 15px;
     color: var(--secondnary-color);
 }
@@ -42,7 +44,7 @@
 .text-header{
     font-weight: 600;
     font-size: larger;
-    
+    color: var(--primary-color);
 }
 
 .uploadBtns{
@@ -169,3 +171,69 @@ label:active{
     color: rgb(167, 167, 167);
 }
 
+.textArea{
+    height:80px ;
+}
+
+@media screen and (max-width:800px){
+    .master-parent{
+        width: 450px;
+    }
+}
+
+@media screen and (max-width:600px) {
+    .notificationText{
+        font-size: 6px !important;
+    }
+
+    .text-header{
+        font-size: 12px;
+    }
+
+    .master-parent{
+        height: 80%;
+        width: 650px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .textArea{
+        height:20px ;
+        font-size: 10px;
+    }
+
+    .feild{
+        padding: 6px;
+    }
+
+    .btn{
+        padding: 6px;
+        font-size: 12px;
+    }
+
+    .master-parent{
+        width: 300px;
+    }
+
+    .fileIcon{
+        transform: scale(0.8);
+    }
+
+    label{
+     padding: 4px 6px; 
+
+    }
+}
+
+@media screen and (max-width:400px){
+    .master-parent{
+        width: 250px;
+    }
+}
+
+@media screen and (max-width:330px){
+    .master-parent{
+        width: 200px;
+    }
+}
