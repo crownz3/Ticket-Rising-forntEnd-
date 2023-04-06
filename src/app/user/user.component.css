@@ -93,7 +93,9 @@ td.mat-cell {
   gap: 30px;
   background-color: var(--primary-color);
   justify-content: center;
-  box-shadow: rgba(240, 46, 170, 0.4) -5px 5px, rgba(240, 46, 170, 0.3) -10px 10px, rgba(240, 46, 170, 0.2) -15px 15px, rgba(240, 46, 170, 0.1) -20px 20px, rgba(240, 46, 170, 0.05) -25px 25px;
+  box-shadow: rgba(240, 46, 170, 0.4) -5px 5px,
+    rgba(240, 46, 170, 0.3) -10px 10px, rgba(240, 46, 170, 0.2) -15px 15px,
+    rgba(240, 46, 170, 0.1) -20px 20px, rgba(240, 46, 170, 0.05) -25px 25px;
 }
 
 .profileDiv {
@@ -153,142 +155,6 @@ td.mat-cell {
   align-items: center;
 }
 
-.ndfMaster {
-  width: 500px;
-  height: 500px;
-  border-radius: 50%;
-  text-align: center;
-  padding: 100px;
-  background-color: var(--primary-color-light);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
-}
-
-.ndfInsideParent {
-  background: linear-gradient(120deg, rgba(50, 50, 171, 1) 25%, rgb(76, 78, 233) 100%);
-  padding: 10%;
-  border-radius: 50%;
-  width: 250px;
-  height: 250px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
-}
-
-.Nbtn {
-  width: 25px;
-  height: 25px;
-  border: none;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 20px;
-  border-radius: 50%;
-  background-color: var(--primary-color-light);
-  box-shadow: var(--btn-shadow);
-  color: var(--secondnary-color);
-  transition: 0.5s;
-}
-
-.Nbtn:hover {
-  background-color: var(--primary-color);
-}
-
-.chatBoxDiv:hover {
-  background-color: var(--primary-color-light);
-  border-bottom: 1px solid var(--primary-color);
-}
-
-.chatboxDiv:hover {
-  background-color: var(--primary-color-light);
-
-}
-
-.chatboxDiv:active {
-  background-color: #7c85ff;
-}
-
-.chatBoxDiv:hover .Btn:hover {
-  background-color: #7c85ff;
-}
-
-.chatBoxDiv:hover .Btn {
-  background-color: var(--primary-color);
-  letter-spacing: 14px;
-}
-
-.chatboxDiv:hover .Btn:hover {
-  background-color: #7c85ff;
-}
-
-.chatboxDiv:hover .Btn {
-  background-color: var(--primary-color);
-  letter-spacing: 14px;
-}
-
-.btn {
-  padding: 12px;
-  background-color: var(--primary-color);
-  color: var(--secondnary-color);
-  border: none;
-  border-radius: var(--radius);
-  font-weight: 600;
-  font-family: "Poppins";
-  cursor: pointer;
-  box-shadow: var(--btn-shadow);
-  transition: 0.3s;
-}
-
-.btn:hover {
-  background-color: var(--primary-color);
-}
-
-.btn:active {
-  background-color: #7c85ff;
-  color: var(--secondnary-color);
-}
-
-.Btn {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background-color: var(--primary-color-light);
-  border: none;
-  color: var(--secondnary-color);
-  transition: 0.3s;
-  box-shadow: var(--btn-shadow);
-}
-
- .Btn:hover{
-  background-color:var(--primary-color)
- 
-  
-}
-
-
-.smBtn {
-  padding: 8px 14px;
-  background-color: var(--primary-color);
-  color: var(--secondnary-color);
-  border: none;
-  border-radius: var(--radius);
-  font-weight: 600;
-  cursor: pointer;
-  box-shadow: var(--btn-shadow);
-  transition: 0.3s;
-}
-
-.smBtn:hover {
-  background-color: var(--primary-color-light);
-}
-
-.smBtn:active {
-  background-color: #7c85ff;
-}
-
 th.mat-header-cell:last-of-type {
   padding: 4px;
 }
@@ -300,12 +166,6 @@ td.mat-cell:last-of-type {
 .anotherBtnsDiv {
   display: none;
 }
-
-.subHeaderBtn .Btn {
-  background-color: var(--primary-color);
-}
-
-
 
 h1,
 h2,
@@ -339,17 +199,72 @@ li {
 
 /* Nouser Data profile div */
 
+.ndfMaster {
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  text-align: center;
+  padding: 100px;
+  background-color: var(--primary-color-light);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+}
+
+.ndfInsideParent {
+  background: linear-gradient(
+    120deg,
+    rgba(50, 50, 171, 1) 25%,
+    rgb(76, 78, 233) 100%
+  );
+  padding: 10%;
+  border-radius: 50%;
+  width: 250px;
+  height: 250px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
+}
+
+.Nbtn {
+  width: 25px;
+  height: 25px;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  border-radius: 50%;
+  background-color: var(--primary-color-light);
+  box-shadow: var(--btn-shadow);
+  color: var(--secondnary-color);
+  transition: 0.5s;
+}
+
+.Nbtn:hover {
+  background-color: var(--primary-color);
+}
+
 .NoDatafound {
   background-color: var(--primary-color-light);
   padding: 36px;
   border-radius: var(--radius);
-  box-shadow: rgba(0, 0, 0, 0.40) 0px 5px 15px 0px;
-  background: linear-gradient(-24deg, rgba(50, 50, 171, 1) 15%, rgb(76, 78, 233) 40%);
-
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 5px 15px 0px;
+  background: linear-gradient(
+    -24deg,
+    rgba(50, 50, 171, 1) 15%,
+    rgb(76, 78, 233) 40%
+  );
 }
 
 .noDataProfile {
-  background: linear-gradient(120deg, rgba(50, 50, 171, 1) 15%, rgb(76, 78, 233) 40%);
+  background: linear-gradient(
+    120deg,
+    rgba(50, 50, 171, 1) 15%,
+    rgb(76, 78, 233) 40%
+  );
   padding: 10%;
   gap: 18px;
   display: flex;
@@ -357,7 +272,7 @@ li {
   align-items: center;
   flex-direction: column;
   border-radius: var(--radius);
-  box-shadow: rgba(0, 0, 0, 0.40) 0px 5px 15px 0px;
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 5px 15px 0px;
 }
 
 .noDataHeader {
@@ -365,9 +280,8 @@ li {
   background-color: var(--primary-color-light);
   width: 100%;
   text-align: center;
-  box-shadow: rgba(0, 0, 0, 0.20) 0px 5px 15px 0px;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 5px 15px 0px;
   border-radius: var(--radius);
-
 }
 
 .noDataImg {
@@ -407,7 +321,6 @@ li {
   background-color: var(--primary-color-light);
 }
 
-
 .noDataDetails {
   display: flex;
   flex-direction: column;
@@ -428,26 +341,70 @@ li {
   color: var(--primary-color);
 }
 
-.spinner{
-  width: 150px;
-  height: 150px;
+/* Buttons */
+
+.btn {
+  padding: 12px;
+  background-color: var(--primary-color);
+  color: var(--secondnary-color);
+  border: none;
+  border-radius: var(--radius);
+  font-weight: 600;
+  font-family: "Poppins";
+  cursor: pointer;
+  box-shadow: var(--btn-shadow);
+  transition: 0.3s;
+}
+
+.btn:hover {
+  background-color: var(--primary-color);
+}
+
+.btn:active {
+  background-color: #7c85ff;
+  color: var(--secondnary-color);
+}
+
+.Btn {
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
-  border: 6px solid var(--chat-primary);
-  border-top-color: rgba(136,39,131,1);
-  animation: spin 1s linear infinite;
-  box-shadow: rgb(250, 152, 245) 0px 5px 15px;
-  overflow:hidden ;
-  margin: 12px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  background-color: var(--primary-color-light);
+  border: none;
+  color: var(--secondnary-color);
+  transition: 0.3s;
+  box-shadow: var(--btn-shadow);
 }
 
-.loading{
-  position: absolute;
+.Btn:hover {
+  background-color: var(--primary-color);
 }
 
+.smBtn {
+  padding: 8px 14px;
+  background-color: var(--primary-color);
+  color: var(--secondnary-color);
+  border: none;
+  border-radius: var(--radius);
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: var(--btn-shadow);
+  transition: 0.3s;
+}
 
+.smBtn:hover {
+  background-color: var(--primary-color-light);
+}
+
+.smBtn:active {
+  background-color: #7c85ff;
+}
+
+.subHeaderBtn .Btn {
+  background-color: var(--primary-color);
+}
+
+/*   */
 
 @keyframes spin {
   to {
@@ -456,7 +413,6 @@ li {
 }
 
 @media screen and (max-width: 680px) {
-
   .headerIcon {
     transform: scale(0.7);
     display: flex;
@@ -511,7 +467,6 @@ li {
   th.mat-header-cell {
     font-size: 10px !important;
     padding: 4px;
-
   }
 
   .mat-cell {
@@ -603,4 +558,24 @@ li {
   .noDataProfile {
     padding: 12px !important;
   }
+}
+
+/* Spinner */
+.spinner {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  border: 6px solid var(--chat-primary);
+  border-top-color: rgba(136, 39, 131, 1);
+  animation: spin 1s linear infinite;
+  box-shadow: rgb(250, 152, 245) 0px 5px 15px;
+  overflow: hidden;
+  margin: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loading {
+  position: absolute;
 }

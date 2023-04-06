@@ -10,17 +10,16 @@ import { AdminModule } from './admin/admin.module';
 import { UserModule } from './user/user.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
-import { GoogleSigninService } from './google-signin.service';
+import { GoogleSigninService } from './services/google-signin.service';
 import { HttpClientModule } from '@angular/common/http';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
-import { ChatBoxComponent } from './chat-box/chat-box.component';
+import { ChatBoxComponent } from './Dialogs/chat-box/chat-box.component';
 import { UserService } from './services/user.service';
 import { SocketIoModule } from 'ngx-socket-io';
-import { TicketInfoDialogComponent } from './ticket-info-dialog/ticket-info-dialog.component';
-import { localStorage } from './services/localStorage.service';
-import { ConfirmationComponent } from './confirmation/confirmation.component';
-
+import { TicketInfoDialogComponent } from './Dialogs/ticket-info-dialog/ticket-info-dialog.component';
+import { ConfirmationComponent } from './Dialogs/confirmation/confirmation.component';
+import { AddTicketDialogComponent } from './Dialogs/add-ticket-dialog/add-ticket-dialog.component';
 
 
 
@@ -32,7 +31,8 @@ import { ConfirmationComponent } from './confirmation/confirmation.component';
     DashboardComponent,
     ChatBoxComponent,
     TicketInfoDialogComponent,
-    ConfirmationComponent
+    ConfirmationComponent,
+    AddTicketDialogComponent
   ],
   imports: [
     OAuthModule.forRoot(),

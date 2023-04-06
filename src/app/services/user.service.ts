@@ -3,7 +3,7 @@ import { Inject, Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 import { Subject } from "rxjs";
 import { environment } from "src/environments/environment";
-import { GoogleSigninService } from "../google-signin.service";
+import { GoogleSigninService } from "./google-signin.service";
 
 @Injectable()
 export class UserService{

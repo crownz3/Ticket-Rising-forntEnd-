@@ -3,7 +3,7 @@ import { OnInit } from '@angular/core';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
-import { GoogleSigninService } from './google-signin.service';
+import { GoogleSigninService } from './services/google-signin.service';
 import { localStorage } from './services/localStorage.service';
 import { UserService } from './services/user.service';
 

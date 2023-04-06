@@ -4,7 +4,7 @@ import {
   OnInit,
 } from '@angular/core';
 import { MAT_BOTTOM_SHEET_DATA } from '@angular/material/bottom-sheet';
-import { ChatService } from '../services/chat-service.service';
+import { ChatService } from 'src/app/services/chat-service.service';
 @Component({
   selector: 'app-chat-box',
   templateUrl: './chat-box.component.html',

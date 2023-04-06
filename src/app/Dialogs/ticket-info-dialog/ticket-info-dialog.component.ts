@@ -27,6 +27,7 @@ export class TicketInfoDialogComponent implements OnInit {
   baseUrl = environment.serverBaseUrl;
   showSpinner = true;
   URL = 'http://192.168.1.59:3000';
+  imageLength :any
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private http: HttpClient,
@@ -79,7 +80,6 @@ export class TicketInfoDialogComponent implements OnInit {
         let img = this.URL.concat(el);
         this.imageUrl.push(img);
       });
-
       this.showSpinner = false;
     }, 1000);
   }

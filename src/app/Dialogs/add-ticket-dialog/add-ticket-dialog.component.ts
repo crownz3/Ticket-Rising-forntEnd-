@@ -16,7 +16,7 @@ import {
   transition,
   animate,
 } from '@angular/animations';
-import { localStorage } from '../services/localStorage.service';
+import { localStorage } from 'src/app/services/localStorage.service';
 
 @Component({
   selector: 'app-add-ticket-dialog',

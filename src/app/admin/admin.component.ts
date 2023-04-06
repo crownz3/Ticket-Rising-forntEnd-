@@ -6,8 +6,8 @@ import {
   MatBottomSheet,
   MatBottomSheetRef,
 } from '@angular/material/bottom-sheet';
-import { ChatBoxComponent } from '../chat-box/chat-box.component';
-import { GoogleSigninService } from '../google-signin.service';
+import { ChatBoxComponent } from '../Dialogs/chat-box/chat-box.component';
+import { GoogleSigninService } from '../services/google-signin.service';
 import {
   trigger,
   state,
@@ -16,11 +16,11 @@ import {
   animate,
 } from '@angular/animations';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { TicketInfoDialogComponent } from '../ticket-info-dialog/ticket-info-dialog.component';
+import { TicketInfoDialogComponent } from '../Dialogs/ticket-info-dialog/ticket-info-dialog.component';
 import { localStorage } from '../services/localStorage.service';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
-import { ConfirmationComponent } from '../confirmation/confirmation.component';
+import { ConfirmationComponent } from '../Dialogs/confirmation/confirmation.component';
 
 @Component({
   selector: 'app-admin',

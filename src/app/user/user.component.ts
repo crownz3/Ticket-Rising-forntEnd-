@@ -12,9 +12,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { environment } from 'src/environments/environment';
-import { AddTicketDialogComponent } from '../add-ticket-dialog/add-ticket-dialog.component';
-import { ChatBoxComponent } from '../chat-box/chat-box.component';
-import { GoogleSigninService } from '../google-signin.service';
+import { AddTicketDialogComponent } from '../Dialogs/add-ticket-dialog/add-ticket-dialog.component';
+import { ChatBoxComponent } from '../Dialogs/chat-box/chat-box.component';
+import { GoogleSigninService } from '../services/google-signin.service';
 import { localStorage } from '../services/localStorage.service';
 import { UserService } from '../services/user.service';
 
