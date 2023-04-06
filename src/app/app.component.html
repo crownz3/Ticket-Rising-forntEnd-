@@ -1,1 +1,5 @@
-<router-outlet></router-outlet>
+<div class="masterParent"  *ngIf="showSpinner">
+    <div class="loading">Loading...</div>
+    <div class="spinner"></div>
+</div>
+<router-outlet *ngIf="!showSpinner"></router-outlet>

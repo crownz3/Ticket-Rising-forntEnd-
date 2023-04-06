@@ -19,6 +19,7 @@ import { UserService } from './services/user.service';
 import { SocketIoModule } from 'ngx-socket-io';
 import { TicketInfoDialogComponent } from './ticket-info-dialog/ticket-info-dialog.component';
 import { localStorage } from './services/localStorage.service';
+import { ConfirmationComponent } from './confirmation/confirmation.component';
 
 
 
@@ -30,7 +31,8 @@ import { localStorage } from './services/localStorage.service';
     UserComponent,
     DashboardComponent,
     ChatBoxComponent,
-    TicketInfoDialogComponent
+    TicketInfoDialogComponent,
+    ConfirmationComponent
   ],
   imports: [
     OAuthModule.forRoot(),

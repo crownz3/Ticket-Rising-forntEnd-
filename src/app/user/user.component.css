@@ -45,7 +45,7 @@
   width: 100%;
 }
 
-th.mat-header-cell {
+.mat-header-cell {
   padding: 10px;
   text-align: center !important;
   background: var(--primary-color-light);
@@ -84,36 +84,8 @@ td.mat-cell {
 .paginator {
   display: flex;
   justify-content: flex-end;
-  width: 100%;
+  width: 90%;
 }
-
-/* .chatboxDiv {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 14px;
-  font-weight: 600;
-  background-color: var(--primary-color);
-  color: var(--secondnary-color);
-  cursor: default;
-  box-shadow: var(--btn-shadow);
-  transition: 1s;
-  width: 100%;
-  border-radius: var(--radius);
-}
-
-.chatBoxDiv {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 14px;
-  font-weight: 600;
-  background-color: var(--primary-color);
-  color: var(--secondnary-color);
-  cursor: default;
-  box-shadow: var(--btn-shadow);
-  transition: 1s;
-} */
 
 .btnsDiv {
   display: flex;
@@ -121,6 +93,7 @@ td.mat-cell {
   gap: 30px;
   background-color: var(--primary-color);
   justify-content: center;
+  box-shadow: rgba(240, 46, 170, 0.4) -5px 5px, rgba(240, 46, 170, 0.3) -10px 10px, rgba(240, 46, 170, 0.2) -15px 15px, rgba(240, 46, 170, 0.1) -20px 20px, rgba(240, 46, 170, 0.05) -25px 25px;
 }
 
 .profileDiv {
@@ -149,7 +122,6 @@ td.mat-cell {
   align-items: center;
 }
 
-
 .subHeaderBtn {
   display: none;
 }
@@ -169,7 +141,6 @@ td.mat-cell {
   width: 100%;
   height: 100%;
   border-radius: 50%;
-  ;
 }
 
 .userDetails {
@@ -181,8 +152,6 @@ td.mat-cell {
   justify-content: center;
   align-items: center;
 }
-
-
 
 .ndfMaster {
   width: 500px;
@@ -293,9 +262,12 @@ td.mat-cell {
   box-shadow: var(--btn-shadow);
 }
 
-.Btn:hover {
-  background-color: var(--primary-color);
+ .Btn:hover{
+  background-color:var(--primary-color)
+ 
+  
 }
+
 
 .smBtn {
   padding: 8px 14px;
@@ -333,132 +305,7 @@ td.mat-cell:last-of-type {
   background-color: var(--primary-color);
 }
 
-@media screen and (max-width: 680px) {
 
-  .headerIcon {
-    transform: scale(0.7);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .chatboxDiv {
-    border-bottom-right-radius: 0px;
-    justify-content: space-between;
-    flex-direction: row-reverse;
-    padding: 2px;
-  }
-
-  .chatBoxDiv {
-    display: none;
-  }
-
-  .subHeader {
-    justify-content: space-around;
-    flex-direction: row-reverse;
-  }
-
-  .subHeaderBtn {
-    display: block;
-  }
-
-  .anotherBtnsDiv {
-    display: flex;
-    flex-direction: row-reverse;
-    gap: 10px;
-
-  }
-
-  .master-toolbar {
-    display: flex;
-    gap: 12px;
-  }
-
-  .ndfMaster {
-    width: 250px;
-    height: 250px;
-  }
-
-  .ndfInsideParent {
-    justify-content: space-evenly;
-    width: 125px;
-    height: 125px;
-  }
-
-  .profileDiv {
-    justify-content: space-between;
-  }
-
-  .btnsDiv {
-    display: none;
-  }
-
-  th.mat-header-cell {
-    font-size: 10px !important;
-  }
-
-  .mat-cell {
-    font-size: 10px !important;
-  }
-
-  .mat-paginator {
-    transform: scale(0.6);
-  }
-
-  .smBtn {
-    padding: 4px 17px;
-    font-size: 8px;
-  }
-
-  .btn {
-    padding: 6px;
-    font-size: 12px;
-  }
-
-  .Btn {
-    transform: scale(0.8);
-  }
-
-  th.mat-header-cell:last-of-type {
-    padding: 4px;
-  }
-
-  td.mat-cell:last-of-type {
-    padding: 4px;
-  }
-
-  .userName {
-    padding: 2px;
-    border-radius: var(--radius);
-    width: 100%;
-    color: var(--body-color);
-    transition: 0.3s;
-    text-align: center;
-  }
-
-
-
-  li {
-    font-size: 8px;
-  }
-
-  .noDataDetails li {
-    padding: -3px 6px !important;
-    background-color: var(--body-color);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: var(--primary-color);
-  }
-
-  .NoDatafound {
-    padding: 8px !important;
-  }
-
-  .noDataProfile {
-    padding: 12px !important;
-  }
-}
 
 h1,
 h2,
@@ -484,7 +331,6 @@ li {
   letter-spacing: 1px;
   color: var(--secondnary-color);
   text-align: center;
-
 }
 
 .liStyle {
@@ -546,7 +392,6 @@ li {
   height: 90%;
 }
 
-
 .NoBtn {
   width: 60px;
   height: 60px;
@@ -570,10 +415,8 @@ li {
   gap: 12px;
 }
 
-
 .noDataLiStyle {
   font-weight: 600;
-
 }
 
 .noDataDetails li {
@@ -583,4 +426,181 @@ li {
   justify-content: center;
   align-items: center;
   color: var(--primary-color);
+}
+
+.spinner{
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  border: 6px solid var(--chat-primary);
+  border-top-color: rgba(136,39,131,1);
+  animation: spin 1s linear infinite;
+  box-shadow: rgb(250, 152, 245) 0px 5px 15px;
+  overflow:hidden ;
+  margin: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loading{
+  position: absolute;
+}
+
+
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media screen and (max-width: 680px) {
+
+  .headerIcon {
+    transform: scale(0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .subHeader {
+    justify-content: space-around;
+    flex-direction: row-reverse;
+  }
+
+  .subHeaderBtn {
+    display: block;
+  }
+
+  .anotherBtnsDiv {
+    display: flex;
+    flex-direction: row-reverse;
+    gap: 10px;
+  }
+
+  .ndfMaster {
+    width: 250px;
+    height: 250px;
+  }
+
+  .master-toolbar {
+    display: flex;
+    gap: 12px;
+  }
+
+  .ndfInsideParent {
+    justify-content: space-evenly;
+    width: 125px;
+    height: 125px;
+  }
+
+  .profileDiv {
+    justify-content: space-between;
+  }
+
+  .btnsDiv {
+    display: none;
+  }
+
+  .btn {
+    padding: 6px;
+    font-size: 12px;
+  }
+
+  th.mat-header-cell {
+    font-size: 10px !important;
+    padding: 4px;
+
+  }
+
+  .mat-cell {
+    font-size: 10px !important;
+  }
+
+  .mat-paginator {
+    transform: scale(0.6);
+  }
+
+  .smBtn {
+    padding: 4px 17px;
+    font-size: 8px;
+  }
+
+  .Btn {
+    transform: scale(0.8);
+  }
+
+  th.mat-header-cell:last-of-type {
+    padding: 4px;
+  }
+
+  td.mat-cell:last-of-type {
+    padding: 4px;
+  }
+
+  .userName {
+    padding: 2px;
+    border-radius: var(--radius);
+    width: 100%;
+    color: var(--body-color);
+    transition: 0.3s;
+    text-align: center;
+  }
+
+  li {
+    font-size: 8px;
+  }
+
+  .noDataDetails li {
+    padding: -3px 6px !important;
+    background-color: var(--body-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--primary-color);
+  }
+
+  .NoDatafound {
+    padding: 8px !important;
+  }
+
+  .noDataProfile {
+    padding: 12px !important;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .master-parent {
+    background-size: contain !important;
+  }
+
+  .table {
+    opacity: 1;
+  }
+
+  .mat-paginator {
+    transform: scale(0.4);
+  }
+
+  li {
+    font-size: 8px;
+  }
+
+  .noDataDetails li {
+    padding: -3px 6px !important;
+    background-color: var(--body-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--primary-color);
+  }
+
+  .NoDatafound {
+    padding: 8px !important;
+  }
+
+  .noDataProfile {
+    padding: 12px !important;
+  }
 }

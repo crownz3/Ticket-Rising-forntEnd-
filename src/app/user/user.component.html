@@ -1,8 +1,11 @@
-<!-- 
- -->
 <div class="master-parent">
-  <div class="parent">
-    <div class="table" *ngIf="data">
+  <div *ngIf="showSpinner">
+    <div class="loading">Loading...</div>
+    <div class="spinner"></div>
+  </div>
+
+  <div class="parent" *ngIf="!showSpinner">
+    <div class="table">
       <section class="table-view" *ngIf="dataSource.data.length">
         <div class="tableDiv" [@showTable]="shows">
           <table mat-table [dataSource]="dataSource">
@@ -32,7 +35,7 @@
                   {{ "Pending" }}
                 </div>
                 <div *ngIf="element.ticketStatus === '1'">
-                  {{ "Process" }}
+                  {{ "In Progress" }}
                 </div>
                 <div *ngIf="element.ticketStatus === '2'">
                   {{ "Completed" }}
@@ -46,18 +49,24 @@
             <ng-container matColumnDef="RaisedDate">
               <th mat-header-cell *matHeaderCellDef>Raised Date</th>
               <td mat-cell *matCellDef="let element">
-                {{ element.raisedDate }}
+                {{ element.raisedDate | date : "dd-MM-yyyy" }}
               </td>
             </ng-container>
 
             <ng-container matColumnDef="SolvedDate">
               <th mat-header-cell *matHeaderCellDef>Solved Date</th>
               <td mat-cell *matCellDef="let element">
-                <div *ngIf="element.solvedDate !== 0">
+                <div
+                  *ngIf="
+                    element.solvedDate === null ||
+                    element.ticketStatus === '1' ||
+                    element.ticketStatus === '-1'
+                  "
+                >
                   {{ "-" }}
                 </div>
-                <div *ngIf="element.SolvedDate === 0">
-                  {{ element.SolvedDate }}
+                <div *ngIf="element.ticketStatus === '2'">
+                  {{ element.solvedDate | date : "dd-MM-yyyy" }}
                 </div>
               </td>
             </ng-container>
@@ -65,7 +74,7 @@
             <ng-container matColumnDef="Operations">
               <th mat-header-cell *matHeaderCellDef>Chat Screen</th>
               <td mat-cell *matCellDef="let element">
-                <button class="smBtn" (click)="openChat()">Chat</button>
+                <button class="smBtn" (click)="openChat(element.ticketNo)">Chat</button>
               </td>
             </ng-container>
 
@@ -108,13 +117,7 @@
             ></mat-paginator>
           </mat-toolbar>
         </div>
-        <!-- <div
-          class="chatboxDiv"
-          [ngClass]="{
-            chatboxDiv: !showUserProfile,
-            chatBoxDiv: showUserProfile
-          }"
-        > -->
+
         <div class="profileDiv" [@showProf]="show">
           <div class="headerDiv">
             <h1>MY PROFILE</h1>
@@ -158,22 +161,21 @@
             </li>
           </div>
         </div>
-        <div class="btnsDiv" *ngIf="dataSource.data.length">
+        <div class="btnsDiv" id="colorChange" *ngIf="dataSource.data.length">
           <div class="btnDiv">
-            <button class="Btn" title="logout" (click)="logOut()">
+            <button class="Btn" (mouseover)="hover()" (mouseleave)="leave()" title="logout" (click)="logOut()">
               <mat-icon>logout</mat-icon>
             </button>
           </div>
           <div>
-            <button class="Btn" (click)="profile()" *ngIf="!showUserProfile">
-              <mat-icon>person</mat-icon>
-            </button>
-            <button class="Btn" (click)="profile()" *ngIf="showUserProfile">
+            <button class="Btn" (mouseover)="hover()" (mouseleave)="leave()" (click)="profile()" *ngIf="!showUserProfile">
               <mat-icon>table_chart</mat-icon>
+            </button>
+            <button class="Btn" (mouseover)="hover()" (mouseleave)="leave()" (click)="profile()" *ngIf="showUserProfile">
+              <mat-icon>person</mat-icon>
             </button>
           </div>
         </div>
-        <!-- </div> -->
       </section>
       <section
         *ngIf="!dataSource.data.length"
@@ -216,12 +218,12 @@
             <div
               class="noDataDetails"
               *ngIf="
-                userDetails.name === '' &&
-                userDetails.email === '' &&
-                userDetails.mobile === '' &&
-                userDetails.dept === '' &&
-                userDetails.desg === '' &&
-                userDetails.address === ''
+                userDetails.name !== '' &&
+                userDetails.email !== '' &&
+                userDetails.mobile !== '' &&
+                userDetails.dept !== '' &&
+                userDetails.desg !== '' &&
+                userDetails.address !== ''
               "
             >
               <li>
@@ -245,15 +247,15 @@
             </div>
             <div
               *ngIf="
-                userDetails.name !== '' &&
-                userDetails.email !== '' &&
-                userDetails.mobile !== '' &&
-                userDetails.dept !== '' &&
-                userDetails.desg !== '' &&
-                userDetails.address !== ''
+                userDetails.name === '' &&
+                userDetails.email === '' &&
+                userDetails.mobile === '' &&
+                userDetails.dept === '' &&
+                userDetails.desg === '' &&
+                userDetails.address === ''
               "
             >
-              sdfsdfgdsgdsgsd
+              dasdsdas
             </div>
           </div>
         </div>

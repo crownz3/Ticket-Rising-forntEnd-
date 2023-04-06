@@ -23,8 +23,10 @@
             <img src="../../assets/total.jpg" alt="" />
           </div>
           <div class="back">
-            <div class="left">TOTAL</div>
-            <div class="right">{{totalTickets}}</div>
+            <div [ngClass]="{'Aleft' : userType === 'Admin','Uleft' : userType === 'User'}">TOTAL</div>
+            <div class="right" *ngIf="!totalTickets">0</div>
+
+            <div class="right" *ngIf="totalTickets">{{totalTickets}}</div>
           </div>
         </div>
         <div class="process sectionCard">
@@ -32,8 +34,9 @@
             <img src="../../assets/process.jpg" alt="" />
           </div>
           <div class="back">
-            <div class="left">PROCESS</div>
-            <div class="right">{{processTickets}}</div>
+            <div [ngClass]="{'Aleft' : userType === 'Admin','Uleft' : userType === 'User'}">PROCESS</div>
+            <div class="right" *ngIf="!processTickets">0</div>
+            <div class="right" *ngIf="processTickets">{{processTickets}}</div>
           </div>
         </div>
         <div class="pending sectionCard">
@@ -41,8 +44,9 @@
             <img src="../../assets/pending.jpg" alt="" />
           </div>
           <div class="back">
-            <div class="left">PENDING</div>
-            <div class="right">{{pendingTickets}}</div>
+            <div [ngClass]="{'Aleft' : userType === 'Admin','Uleft' : userType === 'User'}">PENDING</div>
+            <div class="right" *ngIf="!totalTickets">0</div>
+            <div class="right" *ngIf="totalTickets">{{pendingTickets}}</div>
           </div>
         </div>
       </div>

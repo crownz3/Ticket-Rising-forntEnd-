@@ -1,9 +1,15 @@
 <!-- 
 -->
+<!-- <mat-spinner *ngIf="showSpinner"></mat-spinner> -->
 <div class="master-parent">
-  <div class="parent">
-    <div class="table" *ngIf="data">
-      <section class="table-view" *ngIf="dataSource.data.length">
+  <div *ngIf="showSpinner">
+    <div class="loading">Loading...</div>
+    <div class="spinner"></div>
+  </div>
+
+  <div class="parent" *ngIf="!showSpinner && !err">
+    <div class="table">
+      <section class="table-view" *ngIf="dataSource.data.length !== 0">
         <div class="tableDiv" [@showTable]="shows">
           <table mat-table [dataSource]="dataSource">
             <ng-container matColumnDef="Sno">
@@ -35,7 +41,7 @@
                 *matCellDef="let element; let i = index"
                 (click)="openDialog(i)"
               >
-                {{ element.ticketRaiser }}
+                {{ element.raiserName }}
               </td>
             </ng-container>
 
@@ -65,25 +71,32 @@
               <th mat-header-cell *matHeaderCellDef>Ticket Status</th>
               <td mat-cell *matCellDef="let element; let i = index">
                 <div
-                  *ngIf="element.ticketStatus === '0' && !showTicketStatusBtn"
+                  *ngIf="element.ticketStatus === '0'"
                   class="pending d-flex justify-content-center align-items-center"
                 >
-                  <button class="smBtn" (click)="acceptTicket(i)">
+                  <button class="smBtn" (click)="acceptTicket(element)">
                     Accept
                   </button>
-                  <button class="smBtn" (click)="rejectTicket(i)">
+                  <button
+                    class="smBtn"
+                    [id]="element.ticketNo"
+                    (mouseenter)="onHoverRej(element)"
+                    (mouseleave)="onLeaveRej(element)"
+                    (click)="rejectTicket(element)"
+                  >
                     Reject
                   </button>
                 </div>
-                <div *ngIf="showTicketStatusBtn && ticketResponse === 'accept'">
-                  {{ ticketResponse }}
-                </div>
-                <div *ngIf="showTicketStatusBtn && ticketResponse === 'reject'">
-                  {{ ticketResponse }}
-                </div>
-
                 <div *ngIf="element.ticketStatus === '1'">
-                  {{ "Process" }}
+                  <label
+                    class="compLabel"
+                    [id]="element.ticketNo"
+                    (mouseenter)="onHoverComp(element)"
+                    (mouseleave)="onLeaveComp(element)"
+                    (click)="completedTicket(element)"
+                  >
+                    Processing
+                  </label>
                 </div>
                 <div *ngIf="element.ticketStatus === '2'">
                   {{ "Completed" }}
@@ -97,7 +110,9 @@
             <ng-container matColumnDef="Operations">
               <th mat-header-cell *matHeaderCellDef>Chat Screen</th>
               <td mat-cell *matCellDef="let element">
-                <button class="smBtn" (click)="openChat()">Chat</button>
+                <button class="smBtn" (click)="openChat(element.ticketNo)">
+                  Chat
+                </button>
               </td>
             </ng-container>
 
@@ -136,13 +151,6 @@
             ></mat-paginator>
           </mat-toolbar>
         </div>
-        <!-- <div
-          class="chatboxDiv"
-          [ngClass]="{
-            chatboxDiv: !showUserProfile,
-            chatBoxDiv: showUserProfile
-          }"
-        > -->
         <div class="profileDiv" [@showProf]="show">
           <div class="headerDiv">
             <h1>MY PROFILE</h1>
@@ -167,50 +175,61 @@
           </div>
           <div class="userDetails">
             <li>
-              Name:
-              <span class="liStyle">{{ userDetails.name }}</span>
+              Name: <span class="liStyle">{{ userDetails.name }}</span>
             </li>
             <li>
               Email:<span class="liStyle">{{ userDetails.email }}</span>
             </li>
             <li>
-              Mobile:
-              <span class="liStyle">{{ userDetails.mobile }}</span>
+              Mobile: <span class="liStyle">{{ userDetails.mobile }}</span>
             </li>
             <li>
-              Department:
-              <span class="liStyle">{{ userDetails.dept }}</span>
+              Department: <span class="liStyle">{{ userDetails.dept }}</span>
             </li>
             <li>
-              Designation:
-              <span class="liStyle">{{ userDetails.desg }}</span>
+              Designation: <span class="liStyle">{{ userDetails.desg }}</span>
             </li>
             <li>
-              Address:
-              <span class="liStyle">{{ userDetails.address }}</span>
+              Address: <span class="liStyle">{{ userDetails.address }}</span>
             </li>
           </div>
         </div>
-        <div class="btnsDiv">
+        <div class="btnsDiv" id="colorChange" *ngIf="dataSource.data.length">
           <div class="btnDiv">
-            <button class="Btn" (click)="logOut()">
+            <button
+              class="Btn"
+              (mouseover)="hover()"
+              (mouseleave)="leave()"
+              title="logout"
+              (click)="logOut()"
+            >
               <mat-icon>logout</mat-icon>
             </button>
           </div>
           <div>
-            <button class="Btn" (click)="profile()" *ngIf="!showUserProfile">
-              <mat-icon>person</mat-icon>
-            </button>
-            <button class="Btn" (click)="profile()" *ngIf="showUserProfile">
+            <button
+              class="Btn"
+              (mouseover)="hover()"
+              (mouseleave)="leave()"
+              (click)="profile()"
+              *ngIf="!showUserProfile"
+            >
               <mat-icon>table_chart</mat-icon>
+            </button>
+            <button
+              class="Btn"
+              (mouseover)="hover()"
+              (mouseleave)="leave()"
+              (click)="profile()"
+              *ngIf="showUserProfile"
+            >
+              <mat-icon>person</mat-icon>
             </button>
           </div>
         </div>
-        <!-- </div> -->
       </section>
-
       <section
-        *ngIf="!dataSource.data.length"
+        *ngIf="data.length === 0"
         class="ndfMaster"
         [ngClass]="{
           ndfMaster: showUserProfile,
@@ -247,12 +266,12 @@
             <div
               class="noDataDetails"
               *ngIf="
-                userDetails.name === '' &&
-                userDetails.email === '' &&
-                userDetails.mobile === '' &&
-                userDetails.dept === '' &&
-                userDetails.desg === '' &&
-                userDetails.address === ''
+                userDetails.name !== '' &&
+                userDetails.email !== '' &&
+                userDetails.mobile !== '' &&
+                userDetails.dept !== '' &&
+                userDetails.desg !== '' &&
+                userDetails.address !== ''
               "
             >
               <li>
@@ -274,9 +293,23 @@
                 <span class="noDataLiStyle">{{ userDetails.address }}</span>
               </li>
             </div>
+            <div
+              *ngIf="
+                userDetails.name === '' &&
+                userDetails.email === '' &&
+                userDetails.mobile === '' &&
+                userDetails.dept === '' &&
+                userDetails.desg === '' &&
+                userDetails.address === ''
+              "
+            >
+              dasdsdas
+            </div>
           </div>
         </div>
       </section>
     </div>
   </div>
+
+  <div class="err" *ngIf="err">sjkasjdk</div>
 </div>

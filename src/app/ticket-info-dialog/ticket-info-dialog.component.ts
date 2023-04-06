@@ -1,87 +1,106 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  ElementRef,
+  Inject,
+} from '@angular/core';
+
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-ticket-info-dialog',
   templateUrl: './ticket-info-dialog.component.html',
   styleUrls: ['./ticket-info-dialog.component.css'],
 })
 export class TicketInfoDialogComponent implements OnInit {
-  ticketDetails = [
-    {
-      ticketname: 'Something',
-      ticketNo: 'TKT00001',
-      tikcetDesc:
-        'Barring some unforeseen turn of events, a ticket to Class AAA Nashville will be coming at some point relatively soon for Perkins.',
-      createdOn: '14-03-2023',
-      ticketStatus: 'Pending',
-      riserName: 'Ibrahim',
-      riserDept: 'ERP',
-      riserDesg: 'Junior Software Developer',
-      attachments: [
-        '../../assets/pending.jpg',
-        '../../assets/total.jpg',
-        '../../assets/process.jpg',
-        '../../assets/process.jpg',
-        '../../assets/process.jpg',
-        '../../assets/process.jpg',
-        '../../assets/process.jpg',
-        '../../assets/process.jpg',
-      ],
-    },
-  ];
-  chats = [{me:"kjasdl"}]
+  ticketDetails: any;
+  ticketDet: any;
   convertedDetail: any;
-  imageUrl: any;
-  currentIndex = 1;
+  imageUrl: any = [];
   arr: any = [];
   hideShow = false;
-  constructor() {}
+  infoId: any;
+  ticketNo: any;
+  baseUrl = environment.serverBaseUrl;
+  showSpinner = true;
+  URL = 'http://192.168.1.59:3000';
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private http: HttpClient,
+    private sanitizer: DomSanitizer
+  ) {}
 
   @ViewChild('myImage') myImage: any;
   @ViewChild('main') myDiv: ElementRef | any;
   ngOnInit(): void {
-    this.convertedDetail = this.ticketDetails.map((el: any) => {
-      return {
-        'Ticket Name': el.ticketname,
-        'Ticket No': el.ticketNo,
-        'Ticket Description': el.tikcetDesc,
-        'Created On': el.createdOn,
-        'Ticket Status': el.ticketStatus,
-        'Raiser Name': el.riserName,
-        'Riser Department': el.riserDept,
-        'Riser Designation': el.riserDesg,
-      };
-    });
+    this.infoId = this.data.id;
+    this.ticketNo = this.data.tickets[this.infoId].ticketNo;
+    this.ticketDet = {
+      ticketId: this.ticketNo,
+    };
+    this.http
+      .post(this.baseUrl + '/getMoreInfo', this.ticketDet)
+      .subscribe((res: any) => {
+        let fileUrl = res[0].attachment;
+        this.ticketDetails = [
+          {
+            ticketname: res[0].ticketTitle,
+            ticketNo: res[0].ticketNo,
+            tikcetDesc: res[0].tikcetDesc,
+            createdOn: res[0].raisedOn,
+            ticketStatus: res[0].ticketStatus,
+            riserName: res[0].raiserName,
+            riserDept: res[0].raiserDept,
+            riserDesg: res[0].raiserDesg,
+            attachments: [],
+          },
+        ];
+        fileUrl.forEach((el: any) => {
+          this.ticketDetails[0].attachments.push(el.filePath);
+        });
+      });
 
-    this.ticketDetails.filter((el: any) => {
-      this.imageUrl = el.attachments;
-    });
-    console.log(this.imageUrl);
+    setTimeout(() => {
+      this.convertedDetail = {
+        'Ticket Name': this.ticketDetails[0].ticketname,
+        'Ticket No': this.ticketDetails[0].ticketNo,
+        'Ticket Description': this.ticketDetails[0].tikcetDesc,
+        'Created On': this.ticketDetails[0].createdOn,
+        'Ticket Status': this.ticketDetails[0].ticketStatus,
+        'Raiser Name': this.ticketDetails[0].riserName,
+        'Riser Department': this.ticketDetails[0].riserDept,
+        'Riser Designation': this.ticketDetails[0].riserDesg,
+      };
+
+      this.ticketDetails[0].attachments.filter((el: any) => {
+        let img = this.URL.concat(el);
+        this.imageUrl.push(img);
+      });
+
+      this.showSpinner = false;
+    }, 1000);
   }
 
   enlargeImage(i: any) {
     this.arr.push(i);
-    console.log(this.arr);
-    let prevImg = this.arr[this.arr.length - 2];
+    let arrLen = this.arr.length;
 
     document
       .getElementsByClassName('attachmentImg')
-      [i].setAttribute('style', 'width:500px;height:500px');
-    document
-      .getElementsByClassName('attachmentImg')
-      [this.currentIndex].setAttribute('style', 'width:150px;height:150px');
+      [this.arr[arrLen - 1]].setAttribute('style', 'width:500px;height:500px');
 
     document
       .getElementById('centerImage')
-      ?.setAttribute('style', 'align-items:center;height:570px');
-    this.currentIndex = i;
+      ?.setAttribute('style', 'align-items:center;height:100%');
 
-    if (prevImg === i) {
-      document
-        .getElementById('centerImage')
-        ?.setAttribute('style', 'align-items:center;height:100%');
-    }
+    document
+      .getElementsByClassName('attachmentImg')
+      [this.arr[arrLen - 2]].setAttribute('style', 'width:150px;height:150px');
 
-    if (this.currentIndex === prevImg) {
+    if (this.arr[arrLen - 1] === this.arr[arrLen - 2]) {
       this.arr = [];
     }
 
@@ -92,7 +111,7 @@ export class TicketInfoDialogComponent implements OnInit {
     });
   }
 
-  OpenChats(){
-    this.hideShow === false ? this.hideShow = true : this.hideShow = false
+  OpenChats() {
+    this.hideShow === false ? (this.hideShow = true) : (this.hideShow = false);
   }
 }

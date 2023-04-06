@@ -60,7 +60,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 2rem;
+    font-size: large;
     letter-spacing: 20px;
     font-variant: small-caps;
     font-weight: 600;
@@ -164,13 +164,14 @@
     height: 250px;
     box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 8px;
     position: relative;
-    transition: transform 0.6s;
+    transition: transform 0.3s;
     transform-style: preserve-3d;
     cursor: pointer;
 }
 
 .sectionCard:hover {
     transform: rotateY(180deg);
+    box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;
 }
 
 .front,
@@ -220,14 +221,29 @@
 
 
 
-.sectionCard:hover {
-    box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;
-}
-
-.sectionCard .left {
+.Uleft {
     width: 20%;
     height: 100%;
     background-color: #7c85ff;
+    border-top-left-radius: var(--radius);
+    border-bottom-left-radius: var(--radius);
+    box-shadow: rgba(0, 0, 0, 0.18) 0px 2px 4px;
+    color: var(--secondnary-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+    font-weight: 600;
+    font-size: 18px;
+    cursor: default;
+
+}
+
+.Aleft {
+    width: 20%;
+    height: 100%;
+    background-color: var(--primary-color);
     border-top-left-radius: var(--radius);
     border-bottom-left-radius: var(--radius);
     box-shadow: rgba(0, 0, 0, 0.18) 0px 2px 4px;
@@ -254,8 +270,6 @@
     align-items: center;
     font-size: 102px;
     color: var(--primary-color-light);
-
-    transition: 0.3s;
     border-top-right-radius: var(--radius);
     border-bottom-right-radius: var(--radius);
     cursor: default;
@@ -358,6 +372,13 @@ li {
 
 }
 
+@media screen and (max-width:800px) {
+    .sectionCard{
+        width: 200px;
+        height: 200px;
+    }
+}
+
 @media screen and (max-width:600px) {
     .topSection {
         gap: 20px;
@@ -369,7 +390,11 @@ li {
         flex-wrap: nowrap;
     }
 
-    .sectionCard .left {
+    .sectionCard .Aleft {
+        font-size: 9px !important;
+    }
+
+    .sectionCard .Uleft {
         font-size: 9px !important;
     }
 
@@ -457,3 +482,11 @@ li {
         font-size: 10px !important;
     }
 }
+
+@media screen and (max-width:560px){
+  
+    .smBtn {
+      padding: 4px 8px;
+      font-size: 8px;
+    }
+  }

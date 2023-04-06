@@ -107,42 +107,16 @@ td.mat-cell {
   gap: 5px;
 }
 
-.chatboxDiv {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 14px;
-  font-weight: 600;
-  background-color: var(--primary-color);
-  color: var(--secondnary-color);
-  cursor: default;
-  box-shadow: var(--btn-shadow);
-  transition: 1s;
-}
 
-.chatBoxDiv {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 14px;
-  font-weight: 600;
-  background-color: var(--primary-color);
-  color: var(--secondnary-color);
-  cursor: default;
-  box-shadow: var(--btn-shadow);
-  transition: 1s;
-  width: 100%;
-  padding: 10px;
-  border-radius: var(--radius);
-}
 
 .btnsDiv {
   background-color: var(--primary-color);
   display: flex;
   flex-direction: column;
   gap: 30px;
-}
+  box-shadow: rgba(240, 46, 170, 0.4) -5px 5px, rgba(240, 46, 170, 0.3) -10px 10px, rgba(240, 46, 170, 0.2) -15px 15px, rgba(240, 46, 170, 0.1) -20px 20px, rgba(240, 46, 170, 0.05) -25px 25px;
 
+}
 
 .ndfMaster {
   width: 500px;
@@ -158,7 +132,11 @@ td.mat-cell {
 }
 
 .ndfInsideParent {
-  background: linear-gradient(120deg, rgba(50, 50, 171, 1) 35%, rgb(76, 78, 233) 100%);
+  background: linear-gradient(
+    120deg,
+    rgba(50, 50, 171, 1) 35%,
+    rgb(76, 78, 233) 100%
+  );
   padding: 10%;
   border-radius: 50%;
   width: 250px;
@@ -187,8 +165,6 @@ td.mat-cell {
   gap: 25px;
   width: 100%;
 }
-
-
 
 .headerDiv {
   background-color: var(--primary-color);
@@ -301,6 +277,8 @@ td.mat-cell {
   background-color: #7c85ff;
 }
 
+
+
 th.mat-header-cell:last-of-type {
   padding: 4px;
 }
@@ -340,10 +318,33 @@ td.mat-cell:last-of-type {
   color: var(--secondnary-color);
 }
 
+.subHeaderBtn .Btn {
+  background-color: var(--primary-color);
+}
+
+
 
 @media screen and (max-width: 680px) {
-  .chatboxDiv {
-    display: none;
+  .headerIcon {
+    transform: scale(0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .subHeader {
+    justify-content: space-around;
+    flex-direction: row-reverse;
+  }
+
+  .subHeaderBtn {
+    display: block;
+  }
+
+  .anotherBtnsDiv {
+    display: flex;
+    flex-direction: row-reverse;
+    gap: 10px;
   }
 
   .ndfMaster {
@@ -354,12 +355,6 @@ td.mat-cell:last-of-type {
   .master-toolbar {
     display: flex;
     gap: 12px;
-  }
-
-  .anotherBtnsDiv {
-    display: flex;
-    flex-direction: row-reverse;
-    gap: 10px;
   }
 
   .ndfInsideParent {
@@ -379,13 +374,6 @@ td.mat-cell:last-of-type {
   .btn {
     padding: 6px;
     font-size: 12px;
-  }
-
-  .headerIcon {
-    transform: scale(0.7);
-    display: flex;
-    justify-content: center;
-    align-items: center;
   }
 
   th.mat-header-cell {
@@ -417,9 +405,34 @@ td.mat-cell:last-of-type {
     padding: 4px;
   }
 
-  .ndfInsideParent {
-    width: 200px;
-    height: 200px;
+  .userName {
+    padding: 2px;
+    border-radius: var(--radius);
+    width: 100%;
+    color: var(--body-color);
+    transition: 0.3s;
+    text-align: center;
+  }
+
+  li {
+    font-size: 8px;
+  }
+
+  .noDataDetails li {
+    padding: -3px 6px !important;
+    background-color: var(--body-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--primary-color);
+  }
+
+  .NoDatafound {
+    padding: 8px !important;
+  }
+
+  .noDataProfile {
+    padding: 12px !important;
   }
 }
 
@@ -436,7 +449,7 @@ td.mat-cell:last-of-type {
     transform: scale(0.4);
   }
 
-  li{
+  li {
     font-size: 8px;
   }
 
@@ -448,15 +461,22 @@ td.mat-cell:last-of-type {
     align-items: center;
     color: var(--primary-color);
   }
-  
-  .NoDatafound{
+
+  .NoDatafound {
     padding: 8px !important;
   }
 
-  .noDataProfile{
+  .noDataProfile {
     padding: 12px !important;
   }
+}
 
+@media screen and (max-width:560px){
+  
+  .smBtn {
+    padding: 4px 8px;
+    font-size: 8px;
+  }
 }
 
 h1,
@@ -482,8 +502,9 @@ li {
   font-weight: 800;
   letter-spacing: 1px;
   text-align: center;
-}
+  color: var(--secondnary-color);
 
+}
 
 .liStyle {
   font-weight: 600;
@@ -495,13 +516,20 @@ li {
   background-color: var(--primary-color-light);
   padding: 36px;
   border-radius: var(--radius);
-  box-shadow: rgba(0, 0, 0, 0.40) 0px 5px 15px 0px;
-  background: linear-gradient(-24deg, rgba(50, 50, 171, 1) 15%, rgb(76, 78, 233) 40%);
-
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 5px 15px 0px;
+  background: linear-gradient(
+    -24deg,
+    rgba(50, 50, 171, 1) 15%,
+    rgb(76, 78, 233) 40%
+  );
 }
 
 .noDataProfile {
-  background: linear-gradient(120deg, rgba(50, 50, 171, 1) 15%, rgb(76, 78, 233) 40%);
+  background: linear-gradient(
+    120deg,
+    rgba(50, 50, 171, 1) 15%,
+    rgb(76, 78, 233) 40%
+  );
   padding: 10%;
   gap: 18px;
   display: flex;
@@ -509,7 +537,7 @@ li {
   align-items: center;
   flex-direction: column;
   border-radius: var(--radius);
-  box-shadow: rgba(0, 0, 0, 0.40) 0px 5px 15px 0px;
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 5px 15px 0px;
 }
 
 .noDataHeader {
@@ -517,13 +545,11 @@ li {
   background-color: var(--primary-color-light);
   width: 100%;
   text-align: center;
-  box-shadow: rgba(0, 0, 0, 0.20) 0px 5px 15px 0px;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 5px 15px 0px;
   border-radius: var(--radius);
-
 }
 
 .noDataImg {
-
   display: flex;
   align-items: center;
   gap: 18px;
@@ -545,7 +571,6 @@ li {
   height: 90%;
 }
 
-
 .NoBtn {
   width: 60px;
   height: 60px;
@@ -561,9 +586,6 @@ li {
   background-color: var(--primary-color-light);
 }
 
-
-
-
 .noDataDetails {
   display: flex;
   flex-direction: column;
@@ -571,10 +593,8 @@ li {
   gap: 12px;
 }
 
-
 .noDataLiStyle {
   font-weight: 600;
-
 }
 
 .noDataDetails li {
@@ -585,8 +605,6 @@ li {
   align-items: center;
   color: var(--primary-color);
 }
-
-
 
 .Nbtn {
   width: 25px;
@@ -606,3 +624,42 @@ li {
 .Nbtn:hover {
   background-color: var(--primary-color);
 }
+
+.compLabel{
+  padding: 8px 14px;
+  border-radius: var(--radius);
+}
+
+.compLabel:hover{
+  cursor: pointer;
+  box-shadow: var(--btn-shadow);
+
+}
+
+.spinner{
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  border: 6px solid var(--chat-primary);
+  border-top-color: rgba(136,39,131,1);
+  animation: spin 1s linear infinite;
+  box-shadow: rgb(250, 152, 245) 0px 5px 15px;
+  overflow:hidden ;
+  margin: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loading{
+  position: absolute;
+}
+
+
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+

@@ -18,7 +18,6 @@ import { GoogleSigninService } from '../google-signin.service';
 import { localStorage } from '../services/localStorage.service';
 import { UserService } from '../services/user.service';
 
-
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
@@ -81,13 +80,12 @@ export class UserComponent implements OnInit {
   screenSize: boolean | undefined;
   show = 'hidden';
   shows = 'shown';
-  result: any;
   showUserProfile = true;
-  userName: string | undefined;
-  loginUserName = '';
   userDetails: any = {};
   data: any[] = [];
-  showPaginator = true
+  showPaginator = true;
+  showSpinner = true;
+  showError = false;
   dataSource = new MatTableDataSource();
 
   @ViewChild(MatPaginator) paginator: any;
@@ -110,7 +108,6 @@ export class UserComponent implements OnInit {
       let screen = window.matchMedia('(max-width:600px)');
       this.screenSize = screen.matches;
     });
-    
   }
 
   ngOnInit(): void {
@@ -130,29 +127,47 @@ export class UserComponent implements OnInit {
     };
 
     let mail = this.local.getLocal('mailId');
-    this.http
-      .get(this.baseUrl + '/getTicket?email=' + mail)
-      .subscribe((res: any) => {
-        console.log(res)
-        for(let i = 0;i<res.length;i++){
-          let tickets = res[i]
-          this.data.push(tickets)
+    this.http.get(this.baseUrl + '/getTicket?email=' + mail).subscribe(
+      (res: any) => {
+        if (res || res === null) {
+          this.showSpinner = false;
+          this.showError = false;
         }
-         this.dataSource = new MatTableDataSource(this.data);
-        this.showPaginator = false
+        for (let i = 0; i < res.length; i++) {
+          let tickets = res[i];
+          this.data.push(tickets);
+        }
+        this.dataSource = new MatTableDataSource(this.data);
+        this.showPaginator = false;
 
-         this.dataSource.paginator = this.paginator;
+        setTimeout(() => {
+          this.dataSource.paginator = this.paginator;
+        });
+      },
+      (err) => {
+        if (err) {
+          this.showSpinner = false;
+          this.showError = true;
+        }
+      }
+    );
+  }
 
+  hover() {
+    let btnsDiv = document.getElementById('colorChange');
+    btnsDiv?.setAttribute('style', 'background-color:#515dff;');
+  }
 
-      });
-
+  leave() {
+    let btnsDiv = document.getElementById('colorChange');
+    btnsDiv?.setAttribute('style', 'background-color:#333ba5;');
   }
 
   profile() {
     this.showUserProfile === false
       ? (this.showUserProfile = true)
       : (this.showUserProfile = false);
-    this.show === 'hidden' ? (this.show = 'shown') : (this.show = 'hidden')
+    this.show === 'hidden' ? (this.show = 'shown') : (this.show = 'hidden');
     this.shows === 'shown' ? (this.shows = 'hidden') : (this.shows = 'shown');
   }
 
@@ -185,9 +200,10 @@ export class UserComponent implements OnInit {
     });
   }
 
-  openChat() {
-    const MatBottomSheetRef = this.bottomsheet.open(ChatBoxComponent);
-    console.log('Chat Open');
+  openChat(tktNo: any) {
+    const MatBottomSheetRef = this.bottomsheet.open(ChatBoxComponent, {
+      data: { ticketNo: tktNo },
+    });
   }
 
   logOut() {

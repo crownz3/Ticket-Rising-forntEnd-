@@ -9,7 +9,13 @@ import {
 } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { environment } from 'src/environments/environment';
-import { trigger, state, style, transition, animate } from '@angular/animations';
+import {
+  trigger,
+  state,
+  style,
+  transition,
+  animate,
+} from '@angular/animations';
 import { localStorage } from '../services/localStorage.service';
 
 @Component({
@@ -19,37 +25,33 @@ import { localStorage } from '../services/localStorage.service';
   animations: [
     trigger('slideUp', [
       transition('hidden => visible', [
-        style({ transform: 'translateY(-100%)' ,opacity:0}),
-        animate('500ms ease-in', style({opacity:0}))
+        style({ transform: 'translateY(-100%)', opacity: 0 }),
+        animate('500ms ease-in', style({ opacity: 0 })),
       ]),
-            transition('visible => hidden', [
-        animate('500ms ease-out', style({opacity:1}))
-      ])
-    ])
-  ]
+      transition('visible => hidden', [
+        animate('500ms ease-out', style({ opacity: 1 })),
+      ]),
+    ]),
+  ],
 })
 export class AddTicketDialogComponent implements OnInit {
-  data = [{ title: 'ERROR', desc: 'This is the issue is created' }];
-  selectedFile: File | any;
   theForm: FormGroup | any;
   files = [];
   fileLength: any;
   arrLength: any;
   filelist: any = [];
-  fileCount = ''
+  fileCount = '';
   baseUrl = environment.serverBaseUrl;
-  formData = new FormData();
-  temp:any =  []
+  temp: any = [];
   isVisible = false;
-  mailId :any
+  mailId: any;
   @ViewChild('fileInput', { static: false }) fileInput: ElementRef | undefined;
-
 
   constructor(
     public dialogRef: MatDialogRef<AddTicketDialogComponent>,
     private fb: FormBuilder,
     private http: HttpClient,
-    private local :localStorage
+    private local: localStorage
   ) {}
 
   ngOnInit(): void {
@@ -58,7 +60,7 @@ export class AddTicketDialogComponent implements OnInit {
       desc: new FormControl('', Validators.required),
     });
 
-    this.mailId = this.local.getLocal('mailId')
+    this.mailId = this.local.getLocal('mailId');
   }
 
   onUpload(e: any) {
@@ -69,67 +71,60 @@ export class AddTicketDialogComponent implements OnInit {
   onFileChange(e: any, input: any) {
     this.files = e.target.files;
     let arr = [...this.files];
-    let count = 0
+    let count = 0;
 
-      arr.forEach((file:any)=>{
-        if(!this.temp.includes(file.name)){
-          this.temp.push(file.name)
-          this.filelist.push(file)
+    arr.forEach((file: any) => {
+      if (!this.temp.includes(file.name)) {
+        this.temp.push(file.name);
+        this.filelist.push(file);
+      } else {
+        count++;
+        if (count === 1) {
+          this.isVisible = !this.isVisible;
+          this.fileCount = `File already exist`;
+        } else {
+          this.isVisible = !this.isVisible;
+          this.fileCount = `${count} files already exist`;
         }
-        else{
-          count++
-          if(count === 1){
-            this.isVisible = !this.isVisible;
-            this.fileCount = `File already exist`
-          } else {
-           this.isVisible = !this.isVisible;
-           this.fileCount = `${count} files already exist`
-          }
-        }
-      })
+      }
+    });
 
     if (this.files.length !== 0) {
       this.arrLength = true;
     }
     let lengthOfTheFile = this.filelist.length;
-    if(lengthOfTheFile === 1){
+    if (lengthOfTheFile === 1) {
       this.fileLength = ` (${lengthOfTheFile} File)`;
       input.value = '';
-
-    }else{
+    } else {
       this.fileLength = ` (${lengthOfTheFile} Files)`;
       input.value = '';
     }
   }
 
-
-
   removeFile(i: number, input: any): void {
     if (this.filelist.length === 1) {
-      this.fileCount = ''
-    } 
-      this.filelist.splice(i, 1);
-      this.temp.splice(i, 1);
-      console.log(this.temp)
-      if (this.filelist.length === 0) {
-        this.arrLength = false;
-      }
-      if(this.filelist.length === 1){
-        let lengthOfTheFile = this.filelist.length;
-        this.fileLength = ` (${lengthOfTheFile} File)`;
-      } else {
-        let lengthOfTheFile = this.filelist.length;
-        this.fileLength = ` (${lengthOfTheFile} Files)`;
-      
-   
-      }
-    
+      this.fileCount = '';
+    }
+    this.filelist.splice(i, 1);
+    this.temp.splice(i, 1);
+    console.log(this.temp);
+    if (this.filelist.length === 0) {
+      this.arrLength = false;
+    }
+    if (this.filelist.length === 1) {
+      let lengthOfTheFile = this.filelist.length;
+      this.fileLength = ` (${lengthOfTheFile} File)`;
+    } else {
+      let lengthOfTheFile = this.filelist.length;
+      this.fileLength = ` (${lengthOfTheFile} Files)`;
+    }
   }
 
   onFileUpload(): void {
     let ticketTitle = this.theForm.value.title;
     let ticketDesc = this.theForm.value.desc;
-    let mailId = this.mailId
+    let mailId = this.mailId;
 
     const formData = new FormData();
 
@@ -138,17 +133,17 @@ export class AddTicketDialogComponent implements OnInit {
     }
     formData.append('ticketTitle', ticketTitle);
     formData.append('ticketDesc', ticketDesc);
-    formData.append('mailId',mailId)
+    formData.append('mailId', mailId);
 
-    this.http.post(this.baseUrl + '/addTicket', formData).subscribe((res:any) => {
-      this.local.setLocal('ticketNo',res[0].ticketNo)
-      this.local.setLocal('ticketTitle',res[0].ticketTitle)
-      this.local.setLocal('ticketStatus',res[0].ticketStatus)
-      this.local.setLocal('ticketRaised',res[0].raisedDate)
-      this.local.setLocal('ticketSolved',res[0].solvedDate)
-    this.dialogRef.close(res);
-
-    });
-
+    this.http
+      .post(this.baseUrl + '/addTicket', formData)
+      .subscribe((res: any) => {
+        this.local.setLocal('ticketNo', res[0].ticketNo);
+        this.local.setLocal('ticketTitle', res[0].ticketTitle);
+        this.local.setLocal('ticketStatus', res[0].ticketStatus);
+        this.local.setLocal('ticketRaised', res[0].raisedDate);
+        this.local.setLocal('ticketSolved', res[0].solvedDate);
+        this.dialogRef.close(res);
+      });
   }
 }

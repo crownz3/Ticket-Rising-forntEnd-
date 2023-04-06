@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
+
 import {
   MatBottomSheet,
   MatBottomSheetRef,
@@ -19,6 +20,7 @@ import { TicketInfoDialogComponent } from '../ticket-info-dialog/ticket-info-dia
 import { localStorage } from '../services/localStorage.service';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
+import { ConfirmationComponent } from '../confirmation/confirmation.component';
 
 @Component({
   selector: 'app-admin',
@@ -79,19 +81,15 @@ export class AdminComponent implements OnInit {
     'Operations',
   ];
   baseUrl = environment.serverBaseUrl;
-  isVisible: boolean | undefined;
-  screenSize: boolean | undefined;
   show = 'hidden';
   shows = 'shown';
   showTicketStatusBtn = false;
-  ticketResponse = '';
-  result: any;
   showUserProfile = true;
-  userName: string | undefined;
-  loginUserName = '';
   userDetails: any = {};
   data: any = [];
-
+  mail: any;
+  showSpinner = true;
+  err = false;
   dataSource = new MatTableDataSource();
 
   @ViewChild(MatPaginator) paginator: any;
@@ -119,17 +117,62 @@ export class AdminComponent implements OnInit {
       image: this.local.getLocal('picture'),
     };
 
-    let mail = this.local.getLocal('mailId');
-    console.log(mail);
-    this.http
-      .get(this.baseUrl + '/getTicket?email=' + mail)
-      .subscribe((res: any) => {
-        this.data = res;
-        this.dataSource = new MatTableDataSource(this.data);
-        setTimeout(() => {
-          this.dataSource.paginator = this.paginator;
-        });
-      });
+    this.mail = this.local.getLocal('mailId');
+    this.http.get(this.baseUrl + '/getTicket?email=' + this.mail).subscribe(
+      (res: any) => {
+        if (res) {
+          this.data = res;
+          this.dataSource = new MatTableDataSource(this.data);
+          setTimeout(() => {
+            this.dataSource.paginator = this.paginator;
+          });
+          this.err = false;
+          this.showSpinner = false;
+        } else {
+          this.showSpinner = false;
+          this.err = true;
+        }
+      },
+      (err) => {
+        this.showSpinner = false;
+        this.err = true;
+      }
+    );
+  }
+
+  onHoverComp(i: any): void {
+    const element = (document.getElementById(i.ticketNo)!.innerText =
+      'Complete');
+    document.getElementById(i.ticketNo)!.style.backgroundColor = '#333ba5';
+    document.getElementById(i.ticketNo)!.style.color = '#e4e6ff';
+    document.getElementById(i.ticketNo)!.style.paddingLeft = '22px';
+    document.getElementById(i.ticketNo)!.style.paddingRight = '22px';
+  }
+
+  onLeaveComp(i: any): void {
+    document.getElementById(i.ticketNo)!.innerText = 'Processing';
+    document.getElementById(i.ticketNo)!.style.backgroundColor = '';
+    document.getElementById(i.ticketNo)!.style.color = '#707070';
+    document.getElementById(i.ticketNo)!.style.paddingLeft = '14px';
+    document.getElementById(i.ticketNo)!.style.paddingRight = '14px';
+  }
+
+  onHoverRej(i: any): void {
+    document.getElementById(i.ticketNo)!.style.backgroundColor = 'darkred';
+  }
+
+  onLeaveRej(i: any): void {
+    document.getElementById(i.ticketNo)!.style.backgroundColor = '#333ba5';
+  }
+
+  hover() {
+    let btnsDiv = document.getElementById('colorChange');
+    btnsDiv?.setAttribute('style', 'background-color:#515dff;');
+  }
+
+  leave() {
+    let btnsDiv = document.getElementById('colorChange');
+    btnsDiv?.setAttribute('style', 'background-color:#333ba5;');
   }
 
   profile() {
@@ -140,44 +183,133 @@ export class AdminComponent implements OnInit {
     this.shows === 'shown' ? (this.shows = 'hidden') : (this.shows = 'shown');
   }
 
-  acceptTicket(i: number) {
-    this.showTicketStatusBtn === false
-      ? (this.showTicketStatusBtn = true)
-      : (this.showTicketStatusBtn = false);
-    this.ticketResponse = 'accept';
-    this.data[i].ticketStatus = '1';
-    console.log(this.data[i]);
-    this.http
-      .post(this.baseUrl + 'statusUpdate', this.data[i])
-      .subscribe((res: any) => {
-        this.data = res;
-        this.dataSource = new MatTableDataSource(this.data);
-        setTimeout(() => {
-          this.dataSource.paginator = this.paginator;
-        }, 1000);
-      });
+  acceptTicket(i: any) {
+    const MatBottomSheetRef = this.bottomsheet.open(ConfirmationComponent, {
+      data: 'accept',
+    });
+    MatBottomSheetRef.afterDismissed().subscribe((res: any) => {
+      if (res === 'confirm') {
+        this.showTicketStatusBtn === false
+          ? (this.showTicketStatusBtn = true)
+          : (this.showTicketStatusBtn = false);
+
+        i.ticketStatus = '1';
+
+        i['userMail'] = this.mail;
+
+        this.http.post(this.baseUrl + '/updateTicketStatus', i).subscribe(
+          (res: any) => {
+            if (res) {
+              this.data = res;
+              this.dataSource = new MatTableDataSource(this.data);
+              setTimeout(() => {
+                this.dataSource.paginator = this.paginator;
+              });
+              this.err = false;
+              this.showSpinner = false;
+            } else {
+              this.showSpinner = false;
+              this.err = true;
+            }
+          },
+          (err) => {
+            this.showSpinner = false;
+            this.err = true;
+          }
+        );
+      }
+    });
   }
 
-  rejectTicket(i: number) {
-    this.showTicketStatusBtn === false
-      ? (this.showTicketStatusBtn = true)
-      : (this.showTicketStatusBtn = false);
-    this.ticketResponse = 'reject';
-    this.data[i].ticketStatus = '-1';
+  rejectTicket(i: any) {
+    const MatBottomSheetRef = this.bottomsheet.open(ConfirmationComponent, {
+      data: 'reject',
+    });
+    MatBottomSheetRef.afterDismissed().subscribe((res: any) => {
+      if (res === 'confirm') {
+        this.showTicketStatusBtn === false
+          ? (this.showTicketStatusBtn = true)
+          : (this.showTicketStatusBtn = false);
+
+        i.ticketStatus = '-1';
+
+        i['userMail'] = this.mail;
+
+        this.http.post(this.baseUrl + '/updateTicketStatus', i).subscribe(
+          (res: any) => {
+            if (res) {
+              this.data = res;
+              this.dataSource = new MatTableDataSource(this.data);
+              setTimeout(() => {
+                this.dataSource.paginator = this.paginator;
+              });
+              this.err = false;
+              this.showSpinner = false;
+            } else {
+              this.showSpinner = false;
+              this.err = true;
+            }
+          },
+          (err) => {
+            this.showSpinner = false;
+            this.err = true;
+          }
+        );
+      }
+    });
   }
 
-  openChat() {
-    const MatBottomSheetRef = this.bottomsheet.open(ChatBoxComponent);
+  completedTicket(i: any) {
+    const MatBottomSheetRef = this.bottomsheet.open(ConfirmationComponent, {
+      data: 'confirmation',
+    });
+
+    MatBottomSheetRef.afterDismissed().subscribe((res: any) => {
+      if (res === 'confirm') {
+        i.ticketStatus = '2';
+
+        i['userMail'] = this.mail;
+
+        this.http.post(this.baseUrl + '/updateTicketStatus', i).subscribe(
+          (res: any) => {
+            if (res) {
+              this.data = res;
+              this.dataSource = new MatTableDataSource(this.data);
+              setTimeout(() => {
+                this.dataSource.paginator = this.paginator;
+              });
+              this.err = false;
+              this.showSpinner = false;
+            } else {
+              this.showSpinner = false;
+              this.err = true;
+            }
+          },
+          (err) => {
+            this.showSpinner = false;
+            this.err = true;
+          }
+        );
+      }
+    });
   }
 
-  openDialog(i:number) {
+  openChat(tktNo: any) {
+    const MatBottomSheetRef = this.bottomsheet.open(ChatBoxComponent, {
+      data: { ticketNo: tktNo },
+    });
+  }
+
+  openDialog(i: number) {
     const dialogConfig = new MatDialogConfig();
 
     dialogConfig.width = '400px';
     dialogConfig.height = '300px';
 
     const dialogRef = this.dialog.open(TicketInfoDialogComponent, {
-      data: { id : i },
+      data: { id: i, tickets: this.data },
+      panelClass: 'full-screen-modal',
+      maxHeight: '80vh',
     });
 
     dialogRef.afterClosed().subscribe((result) => {

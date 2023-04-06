@@ -17,7 +17,6 @@ export class localStorage{
         let obj:any = {key :key,value:value}
         
         this.storage.push(obj)
-        console.log(this.storage)
     }
 
     getLocal(key:any){

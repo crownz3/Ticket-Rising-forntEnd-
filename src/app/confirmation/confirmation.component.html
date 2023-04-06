@@ -1,0 +1,19 @@
+<div class="master-parent">
+  <div class="emptyBlock">
+    <div>
+      <p class="info" *ngIf="info === 'confirmation'">
+        Are you sure confirm this ticket to complete?
+      </p>
+      <p class="info" *ngIf="info === 'reject'">
+        Are you sure confirm this ticket to reject?
+      </p>
+      <p class="info" *ngIf="info === 'accept'">
+        Are you sure confirm this ticket to accept?
+      </p>
+    </div>
+  </div>
+  <div class="btns">
+    <button class="smBtn" (click)="confrimToComplete()">Yes</button>
+    <button class="smBtn" (click)="notConfirmedToComplete()">No</button>
+  </div>
+</div>
