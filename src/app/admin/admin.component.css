@@ -4,15 +4,21 @@
   justify-content: center;
   align-items: center;
   background-color: #ffffff;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 900'%3E%3Cdefs%3E%3ClinearGradient id='a' x1='0' x2='0' y1='1' y2='0' gradientTransform='rotate(272,0.5,0.5)'%3E%3Cstop offset='0' stop-color='%235F94FF'/%3E%3Cstop offset='1' stop-color='%233739FF'/%3E%3C/linearGradient%3E%3ClinearGradient id='b' x1='0' x2='0' y1='0' y2='1' gradientTransform='rotate(34,0.5,0.5)'%3E%3Cstop offset='0' stop-color='%23FF6BE4'/%3E%3Cstop offset='1' stop-color='%23811BA9'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cg fill='%23FFF' fill-opacity='0' stroke-miterlimit='10'%3E%3Cg stroke='url(%23a)' stroke-width='12.54'%3E%3Cpath transform='translate(-245 0) rotate(-15 1409 581) scale(0.77)' d='M1409 581 1450.35 511 1490 581z'/%3E%3Ccircle stroke-width='4.18' transform='translate(-350 200) rotate(10 800 450) scale(0.9974999999999999)' cx='500' cy='100' r='40'/%3E%3Cpath transform='translate(20 -150) rotate(50 401 736) scale(0.9974999999999999)' d='M400.86 735.5h-83.73c0-23.12 18.74-41.87 41.87-41.87S400.86 712.38 400.86 735.5z'/%3E%3C/g%3E%3Cg stroke='url(%23b)' stroke-width='3.8'%3E%3Cpath transform='translate(1200 20) rotate(-5 150 345) scale(0.9900000000000001)' d='M149.8 345.2 118.4 389.8 149.8 434.4 181.2 389.8z'/%3E%3Crect stroke-width='8.36' transform='translate(-250 -550)' x='1039' y='709' width='100' height='100'/%3E%3Cpath transform='translate(-640 160) scale(0.5)' d='M1426.8 132.4 1405.7 168.8 1363.7 168.8 1342.7 132.4 1363.7 96 1405.7 96z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  /* background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 900'%3E%3Cdefs%3E%3ClinearGradient id='a' x1='0' x2='0' y1='1' y2='0' gradientTransform='rotate(272,0.5,0.5)'%3E%3Cstop offset='0' stop-color='%235F94FF'/%3E%3Cstop offset='1' stop-color='%233739FF'/%3E%3C/linearGradient%3E%3ClinearGradient id='b' x1='0' x2='0' y1='0' y2='1' gradientTransform='rotate(34,0.5,0.5)'%3E%3Cstop offset='0' stop-color='%23FF6BE4'/%3E%3Cstop offset='1' stop-color='%23811BA9'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cg fill='%23FFF' fill-opacity='0' stroke-miterlimit='10'%3E%3Cg stroke='url(%23a)' stroke-width='12.54'%3E%3Cpath transform='translate(-245 0) rotate(-15 1409 581) scale(0.77)' d='M1409 581 1450.35 511 1490 581z'/%3E%3Ccircle stroke-width='4.18' transform='translate(-350 200) rotate(10 800 450) scale(0.9974999999999999)' cx='500' cy='100' r='40'/%3E%3Cpath transform='translate(20 -150) rotate(50 401 736) scale(0.9974999999999999)' d='M400.86 735.5h-83.73c0-23.12 18.74-41.87 41.87-41.87S400.86 712.38 400.86 735.5z'/%3E%3C/g%3E%3Cg stroke='url(%23b)' stroke-width='3.8'%3E%3Cpath transform='translate(1200 20) rotate(-5 150 345) scale(0.9900000000000001)' d='M149.8 345.2 118.4 389.8 149.8 434.4 181.2 389.8z'/%3E%3Crect stroke-width='8.36' transform='translate(-250 -550)' x='1039' y='709' width='100' height='100'/%3E%3Cpath transform='translate(-640 160) scale(0.5)' d='M1426.8 132.4 1405.7 168.8 1363.7 168.8 1342.7 132.4 1363.7 96 1405.7 96z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"); */
   background-attachment: fixed;
   background-size: cover;
 }
 
 .parent {
+
   width: 90%;
   display: flex;
   justify-content: center;
+  flex-direction: column;
+}
+
+.headerText {
+  display: none;
 }
 
 .table {
@@ -206,7 +212,7 @@ td.mat-cell:last-of-type {
 }
 
 .smBtn:active {
-  background-color: #7c85ff;
+  background-color: var(--unified-color);
 }
 
 .btn {
@@ -227,7 +233,7 @@ td.mat-cell:last-of-type {
 }
 
 .btn:active {
-  background-color: #7c85ff;
+  background-color: var(--unified-color);
   color: var(--secondnary-color);
 }
 
@@ -237,7 +243,7 @@ td.mat-cell:last-of-type {
 
 /*  */
 
-/* Nouser Data profile div */
+/* No user Data profile div */
 
 .ndfMaster {
   width: 500px;
@@ -253,11 +259,9 @@ td.mat-cell:last-of-type {
 }
 
 .ndfInsideParent {
-  background: linear-gradient(
-    120deg,
-    rgba(50, 50, 171, 1) 35%,
-    rgb(76, 78, 233) 100%
-  );
+  background: linear-gradient(120deg,
+      rgba(50, 50, 171, 1) 35%,
+      rgb(76, 78, 233) 100%);
   padding: 10%;
   border-radius: 50%;
   width: 250px;
@@ -273,19 +277,15 @@ td.mat-cell:last-of-type {
   padding: 36px;
   border-radius: var(--radius);
   box-shadow: rgba(0, 0, 0, 0.4) 0px 5px 15px 0px;
-  background: linear-gradient(
-    -24deg,
-    rgba(50, 50, 171, 1) 15%,
-    rgb(76, 78, 233) 40%
-  );
+  background: linear-gradient(-24deg,
+      rgba(50, 50, 171, 1) 15%,
+      rgb(76, 78, 233) 40%);
 }
 
 .noDataProfile {
-  background: linear-gradient(
-    120deg,
-    rgba(50, 50, 171, 1) 15%,
-    rgb(76, 78, 233) 40%
-  );
+  background: linear-gradient(120deg,
+      rgba(50, 50, 171, 1) 15%,
+      rgb(76, 78, 233) 40%);
   padding: 10%;
   gap: 18px;
   display: flex;
@@ -377,7 +377,229 @@ td.mat-cell:last-of-type {
   transition: 0.5s;
 }
 
+/* Cards */
+
+.cards {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.Card {
+  width: 150px;
+  height: 150px;
+  background-color: var(--body-color);
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  border-radius: var(--radius);
+  padding: 12px;
+  opacity: 0.8;
+}
+
+.innerCard {
+  width: 100%;
+  height: 100%;
+  background-color: var(--secondnary-color);
+  border-radius: var(--radius);
+}
+
+.innerCard .top {
+  height: 30%;
+  padding: 6px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 1px solid var(--primary-color);
+  color: var(--chat-text);
+  font-weight: 600;
+  font-size: 18px;
+}
+
+.innerCard .bottom {
+  height: 70%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--chat-text);
+  font-weight: 600;
+}
+
+.total.Card {
+  width: 230px;
+  height: 230px;
+  font-size: 90px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
+    rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+  position: relative;
+}
+
+.process.Card {
+  width: 200px;
+  height: 200px;
+  font-size: 70px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  position: relative;
+}
+
+.pending.Card {
+  width: 200px;
+  height: 200px;
+  font-size: 70px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  position: relative;
+}
+
+.rejected.Card {
+  width: 150px;
+  height: 150px;
+  font-size: 50px;
+  position: relative;
+}
+
+.completed.Card {
+  width: 150px;
+  height: 150px;
+  font-size: 50px;
+  position: relative;
+}
+
+#compIcon {
+  position: absolute;
+  opacity: 0;
+  width: 0px;
+  height: 0px;
+  transition: 0.5s;
+  left: 100px;
+  margin-top: 10px;
+}
+
+#pendIcon {
+  position: absolute;
+  opacity: 0;
+  width: 0px;
+  height: 0px;
+  transition: 0.5s;
+  left: 140px;
+}
+
+#totIcon {
+  position: absolute;
+  opacity: 0;
+  width: 0px;
+  height: 0px;
+  transition: 0.5s;
+  margin-bottom: 28px;
+  right: 70px;
+}
+
+#procIcon {
+  position: absolute;
+  opacity: 0;
+  width: 0px;
+  height: 0px;
+  transition: 0.5s;
+  left: 140px;
+}
+
+#rejIcon {
+  position: absolute;
+  opacity: 0;
+  width: 0px;
+  height: 0px;
+  transition: 0.5s;
+  left: 100px;
+  margin-top: 10px;
+}
+
+
+
 /*  */
+
+@media screen and (max-width: 1024px) {
+  .innerCard .top {
+    font-size: 10px;
+  }
+
+  .total.Card {
+    width: 180px;
+    height: 180px;
+  }
+
+  .process.Card {
+    width: 150px;
+    height: 150px;
+  }
+
+  .pending.Card {
+    width: 150px;
+    height: 150px;
+  }
+
+  .rejected.Card {
+    width: 100px;
+    height: 100px;
+  }
+
+  .completed.Card {
+    width: 100px;
+    height: 100px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .cards {
+    overflow: auto;
+    gap: 24px;
+    padding: 12px;
+  }
+
+  .Card {
+    padding: 0px;
+    width: 100px !important;
+    height: 100px !important;
+  }
+
+  .innerCard {
+    width: 100px;
+    height: 100px;
+  }
+
+
+
+  .innerCard .bottom {
+    font-size: 32px;
+    width: 100%;
+  }
+
+
+
+
+  .cards::-webkit-scrollbar {
+    height: 4px;
+  }
+
+  .cards::-webkit-scrollbar:hover {
+    cursor: pointer;
+  }
+
+  .cards::-webkit-scrollbar-track {
+    background: var(--secondnary-color);
+    border-radius: var(--radius);
+  }
+
+  .cards::-webkit-scrollbar-thumb {
+    background: var(--primary-color-light);
+    border-radius: var(--radius);
+  }
+
+
+}
+
+
+@media screen and (max-width: 1023px) {
+  .infoIcon {
+    display: none;
+  }
+}
 
 @media screen and (max-width: 680px) {
   .headerIcon {
@@ -531,6 +753,11 @@ td.mat-cell:last-of-type {
     padding: 4px 8px;
     font-size: 8px;
   }
+}
+
+@media screen and (max-width: 375px) {
+  
+
 }
 
 h1,

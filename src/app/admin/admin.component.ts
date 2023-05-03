@@ -78,9 +78,14 @@ export class AdminComponent implements OnInit {
     'TicketTitle',
     'RaisedDate',
     'TicketStatus',
-    'Operations',
+    // 'Operations',
   ];
   baseUrl = environment.serverBaseUrl;
+  pendingTickets: any;
+  processTickets: any;
+  totalTickets: any;
+  rejectedTickets: any;
+  completedTickets: any;
   show = 'hidden';
   shows = 'shown';
   showTicketStatusBtn = false;
@@ -90,6 +95,8 @@ export class AdminComponent implements OnInit {
   mail: any;
   showSpinner = true;
   err = false;
+  pagi:any
+  innerWidth:any
   dataSource = new MatTableDataSource();
 
   @ViewChild(MatPaginator) paginator: any;
@@ -104,7 +111,16 @@ export class AdminComponent implements OnInit {
     public dialog: MatDialog,
     public local: localStorage,
     private http: HttpClient
-  ) {}
+  ) {
+    this.innerWidth = window.innerWidth
+    if(this.innerWidth === 375){
+      this.pagi = [5]
+    }else {
+      this.pagi = [5,10]
+    }
+
+    console.log(this.pagi)
+  }
 
   ngOnInit(): void {
     this.userDetails = {
@@ -116,6 +132,12 @@ export class AdminComponent implements OnInit {
       address: this.local.getLocal('address'),
       image: this.local.getLocal('picture'),
     };
+
+    this.pendingTickets = this.local.getLocal('pending');
+    this.processTickets = this.local.getLocal('process');
+    this.rejectedTickets = this.local.getLocal('reject');
+    this.completedTickets = this.local.getLocal('complete');
+    this.totalTickets = this.local.getLocal('total');
 
     this.mail = this.local.getLocal('mailId');
     this.http.get(this.baseUrl + '/getTicket?email=' + this.mail).subscribe(
@@ -196,6 +218,7 @@ export class AdminComponent implements OnInit {
         i.ticketStatus = '1';
 
         i['userMail'] = this.mail;
+        i['remarks'] = '';
 
         this.http.post(this.baseUrl + '/updateTicketStatus', i).subscribe(
           (res: any) => {
@@ -226,7 +249,11 @@ export class AdminComponent implements OnInit {
       data: 'reject',
     });
     MatBottomSheetRef.afterDismissed().subscribe((res: any) => {
-      if (res === 'confirm') {
+      console.log(res);
+
+      if (res[0].status === 'confirm') {
+        console.log('SJKADFHA');
+
         this.showTicketStatusBtn === false
           ? (this.showTicketStatusBtn = true)
           : (this.showTicketStatusBtn = false);
@@ -234,6 +261,7 @@ export class AdminComponent implements OnInit {
         i.ticketStatus = '-1';
 
         i['userMail'] = this.mail;
+        i['remarks'] = res[0].remarks;
 
         this.http.post(this.baseUrl + '/updateTicketStatus', i).subscribe(
           (res: any) => {
@@ -269,6 +297,7 @@ export class AdminComponent implements OnInit {
         i.ticketStatus = '2';
 
         i['userMail'] = this.mail;
+        i['remarks'] = '';
 
         this.http.post(this.baseUrl + '/updateTicketStatus', i).subscribe(
           (res: any) => {
@@ -300,14 +329,15 @@ export class AdminComponent implements OnInit {
     });
   }
 
-  openDialog(i: number) {
+  openDialog(i: any) {
     const dialogConfig = new MatDialogConfig();
+    console.log(i.ticketNo);
 
     dialogConfig.width = '400px';
     dialogConfig.height = '300px';
 
     const dialogRef = this.dialog.open(TicketInfoDialogComponent, {
-      data: { id: i, tickets: this.data },
+      data: { id: i.ticketNo, tickets: this.data },
       panelClass: 'full-screen-modal',
       maxHeight: '80vh',
     });
@@ -319,5 +349,69 @@ export class AdminComponent implements OnInit {
 
   logOut() {
     this.googleApi.signOut();
+  }
+
+  compIconHov() {
+    const element = document.getElementById('compIcon');
+    element!.style.opacity = '1';
+
+    element!.style.transform = 'scale(1.2)';
+  }
+
+  compIconLea() {
+    const element = document.getElementById('compIcon');
+    element!.style.transform = 'scale(1)';
+    element!.style.opacity = '0';
+  }
+
+  pendIconHov(){
+    const element = document.getElementById('pendIcon');
+    element!.style.opacity = '1';
+
+    element!.style.transform = 'scale(1.6)';
+  }
+
+  pendIconLea() {
+    const element = document.getElementById('pendIcon');
+    element!.style.transform = 'scale(1)';
+    element!.style.opacity = '0';
+  }
+
+  totIconHov(){
+    const element = document.getElementById('totIcon');
+    element!.style.opacity = '1';
+
+    element!.style.transform = 'scale(2)';
+  }
+
+  totIconLea() {
+    const element = document.getElementById('totIcon');
+    element!.style.transform = 'scale(1)';
+    element!.style.opacity = '0';
+  }
+
+  procIconHov(){
+    const element = document.getElementById('procIcon');
+    element!.style.opacity = '1';
+
+    element!.style.transform = 'scale(1.6)';
+  }
+
+  procIconLea() {
+    const element = document.getElementById('procIcon');
+    element!.style.transform = 'scale(1)';
+    element!.style.opacity = '0';
+  }
+
+  rejIconHov(){
+    const element = document.getElementById('rejIcon');
+    element!.style.opacity = '1';
+    element!.style.transform = 'scale(1.2)';
+  }
+
+  rejIconLea() {
+    const element = document.getElementById('rejIcon');
+    element!.style.transform = 'scale(1)';
+    element!.style.opacity = '0';
   }
 }

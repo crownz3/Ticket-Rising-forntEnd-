@@ -4,37 +4,53 @@
 </div>
 <div class="master-parent" id="main" #main *ngIf="!showSpinner">
   <div class="inner-parent">
-    <div *ngIf="!hideShow" class="" >
+    <div *ngIf="!hideShow" class="">
       <div class="parent">
         <header class="heading">more Information</header>
-        <div *ngFor="let info of convertedDetail | keyvalue; let i = index" class="outerBox">
+        <div
+          *ngFor="let info of convertedDetail | keyvalue; let i = index"
+          class="outerBox"
+        >
           <div class="innerBox">
             <div class="title">
               {{ info.key }}
             </div>
-            <div class="content" [ngClass]="{
+            <div
+              class="content"
+              [ngClass]="{
                 rejected: info.value === 'Rejected',
                 pending: info.value === 'Pending',
                 processing: info.value === 'Process'
-              }">
+              }"
+            >
               {{ info.value }}
             </div>
           </div>
         </div>
-        <button class="chats" (click)="OpenChats()">CHATS</button>
+        <!-- <button class="chats" (click)="OpenChats()">CHATS</button> -->
       </div>
-      <div class="anotherParent" *ngIf="imageUrl">
+      <div class="anotherParent" *ngIf="imageUrl.length !== 0">
         <div class="attachment">
           <header class="heading">Attachments</header>
-          <section class="imageParent">
+          <div class="imageParent">
             <div class="imageDiv" id="centerImage">
-              <img class="attachmentImg" [src]="img" alt="image not found!!!"
-                *ngFor="let img of imageUrl; let i = index" (click)="enlargeImage(i)" #myImage />
+              <div *ngFor="let img of imageUrl; let i = index" class="saveImageDiv">
+                <button class="saveImage" id="saveImage" (click)="saveImage(myImage)">
+                  <mat-icon class="saveIcon">open_in_new</mat-icon>
+                </button>
+                <img
+                  class="attachmentImg"
+                  [src]="img"
+                  alt="image not found!!!"
+                  (click)="enlargeImage(i)"
+                  #myImage
+                />
+              </div>
             </div>
-          </section>
+          </div>
         </div>
       </div>
-      <div *ngIf="!imageUrl" class="noAttachments">No Attachments</div>
+      <div *ngIf="imageUrl.length === 0" class="noAttachments">No Attachments</div>
     </div>
 
     <div class="chatDiv" *ngIf="hideShow">

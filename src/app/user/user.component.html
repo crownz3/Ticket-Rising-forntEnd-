@@ -1,5 +1,8 @@
 <div class="master-parent">
-  <div *ngIf="showSpinner">
+  <div
+    *ngIf="showSpinner"
+    class="d-flex justify-content-center align-items-center"
+  >
     <div class="loading">Loading...</div>
     <div class="spinner"></div>
   </div>
@@ -22,9 +25,9 @@
             </ng-container>
 
             <ng-container matColumnDef="TicketTitle">
-              <th mat-header-cell *matHeaderCellDef>Ticket Title</th>
+              <th mat-header-cell *matHeaderCellDef>Ticket Category</th>
               <td mat-cell *matCellDef="let element">
-                {{ element.ticketTitle }}
+                {{ element.ticketCategory }}
               </td>
             </ng-container>
 
@@ -71,12 +74,32 @@
               </td>
             </ng-container>
 
-            <ng-container matColumnDef="Operations">
+            <ng-container matColumnDef="Remarks">
+              <th mat-header-cell *matHeaderCellDef>Remarks</th>
+              <td mat-cell *matCellDef="let element" style="position: relative;">
+                <div *ngIf="element.remarks" class="soem">
+                  {{ element.remarks }}
+                </div>
+             
+                <div *ngIf="!element.remarks">
+                  {{ "-" }}
+                </div>
+              </td>
+              <div class="tooltip">
+                WebGradients is a free collection of 180 linear gradients that
+                you can use as content backdrops in any part of your website.
+                Easy copy CSS3 crossbrowser code and use it in a moment! We've
+                also prepared a .PNG version of each gradient. As a bonus,
+                there are packs for Sketch & Photoshop.
+              </div>
+            </ng-container>
+
+            <!-- <ng-container matColumnDef="Operations">
               <th mat-header-cell *matHeaderCellDef>Chat Screen</th>
               <td mat-cell *matCellDef="let element">
                 <button class="smBtn" (click)="openChat(element.ticketNo)">Chat</button>
               </td>
-            </ng-container>
+            </ng-container> -->
 
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
@@ -96,14 +119,14 @@
                 </button>
               </div>
               <div>
+                <button class="btn" (click)="profile()" *ngIf="showUserProfile">
+                  <mat-icon class="headerIcon">person</mat-icon>
+                </button>
                 <button
                   class="btn"
                   (click)="profile()"
                   *ngIf="!showUserProfile"
                 >
-                  <mat-icon class="headerIcon">person</mat-icon>
-                </button>
-                <button class="btn" (click)="profile()" *ngIf="showUserProfile">
                   <mat-icon class="headerIcon">table_chart</mat-icon>
                 </button>
               </div>
@@ -132,10 +155,10 @@
               <img src="{{ userDetails.image }}" class="image" alt="Image" />
             </div>
             <div class="subHeaderBtn">
-              <button class="Btn" (click)="profile()" *ngIf="!showUserProfile">
+              <button class="Btn" (click)="profile()" *ngIf="showUserProfile">
                 <mat-icon>person</mat-icon>
               </button>
-              <button class="Btn" (click)="profile()" *ngIf="showUserProfile">
+              <button class="Btn" (click)="profile()" *ngIf="!showUserProfile">
                 <mat-icon>table_chart</mat-icon>
               </button>
             </div>
@@ -163,15 +186,33 @@
         </div>
         <div class="btnsDiv" id="colorChange" *ngIf="dataSource.data.length">
           <div class="btnDiv">
-            <button class="Btn" (mouseover)="hover()" (mouseleave)="leave()" title="logout" (click)="logOut()">
+            <button
+              class="Btn"
+              (mouseover)="hover()"
+              (mouseleave)="leave()"
+              title="logout"
+              (click)="logOut()"
+            >
               <mat-icon>logout</mat-icon>
             </button>
           </div>
           <div>
-            <button class="Btn" (mouseover)="hover()" (mouseleave)="leave()" (click)="profile()" *ngIf="!showUserProfile">
+            <button
+              class="Btn"
+              (mouseover)="hover()"
+              (mouseleave)="leave()"
+              (click)="profile()"
+              *ngIf="!showUserProfile"
+            >
               <mat-icon>table_chart</mat-icon>
             </button>
-            <button class="Btn" (mouseover)="hover()" (mouseleave)="leave()" (click)="profile()" *ngIf="showUserProfile">
+            <button
+              class="Btn"
+              (mouseover)="hover()"
+              (mouseleave)="leave()"
+              (click)="profile()"
+              *ngIf="showUserProfile"
+            >
               <mat-icon>person</mat-icon>
             </button>
           </div>
@@ -255,7 +296,7 @@
                 userDetails.address === ''
               "
             >
-              dasdsdas
+              NO DATA FOUND
             </div>
           </div>
         </div>

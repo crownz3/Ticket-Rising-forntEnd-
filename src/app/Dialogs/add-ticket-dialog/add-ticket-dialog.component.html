@@ -1,10 +1,18 @@
 <div class="master-parent">
   <div class="parent" [formGroup]="theForm">
     <div class="title feild">
-      <div class="text-header">Ticket Title</div>
+      <div class="text-header">Ticket Category</div>
       <div class="text-content">
-        <mat-form-field class="example-full-width" [style.width.%]="100">
+        <!-- <mat-form-field class="example-full-width" >
           <input matInput formControlName="title" />
+        </mat-form-field> -->
+        <mat-form-field appearance="fill" class="mt-2" [style.width.%]="100">
+          <!-- <mat-label>Favorite food</mat-label> -->
+          <mat-select formControlName="title">
+            <mat-option *ngFor="let category of ticketCategory" [value]="category.categoryId">
+              {{category.categoryName}}
+            </mat-option>
+          </mat-select>
         </mat-form-field>
         <!-- <input type="text" matInput placeholder="{{ data[0].title }}"> -->
       </div>
@@ -55,7 +63,7 @@
           </div>
           <div class="right">
             <button class="delBtn" (click)="removeFile(i, fileInput)">
-              <mat-icon>delete</mat-icon>
+              <mat-icon class="delIcon">delete</mat-icon>
             </button>
           </div>
         </div>

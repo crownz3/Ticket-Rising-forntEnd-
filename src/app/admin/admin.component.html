@@ -8,6 +8,96 @@
   </div>
 
   <div class="parent" *ngIf="!showSpinner && !err">
+    <div class="cards">
+      <div class="completed Card">
+        <div class="innerCard">
+          <div class="top">Completed</div>
+          <div
+            class="bottom"
+            (mouseover)="compIconHov()"
+            (mouseleave)="compIconLea()"
+          >
+            <div>
+              {{ completedTickets }}
+            </div>
+            <div id="compIcon" class="infoIcon">
+              <mat-icon>task_alt</mat-icon>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pending Card">
+        <div class="innerCard">
+          <div class="top">Pending</div>
+          <div
+            class="bottom"
+            (mouseover)="pendIconHov()"
+            (mouseleave)="pendIconLea()"
+          >
+            <div>
+              {{ pendingTickets }}
+            </div>
+            <div id="pendIcon" class="infoIcon">
+              <mat-icon>pending</mat-icon>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="total Card">
+        <div class="innerCard">
+          <div class="top">Total</div>
+          <div
+            class="bottom"
+            (mouseover)="totIconHov()"
+            (mouseleave)="totIconLea()"
+          >
+            <div>
+              {{ totalTickets }}
+            </div>
+            <div id="totIcon" class="infoIcon">
+              <mat-icon>local_activity</mat-icon>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="process Card">
+        <div class="innerCard">
+          <div class="top">In Progress</div>
+          <div
+            class="bottom"
+            (mouseover)="procIconHov()"
+            (mouseleave)="procIconLea()"
+          >
+            <div>
+              {{ processTickets }}
+            </div>
+            <div id="procIcon" class="infoIcon">
+              <mat-icon>hourglass_top</mat-icon>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="rejected Card">
+        <div class="innerCard">
+          <div class="top">Rejected</div>
+          <div
+            class="bottom"
+            (mouseover)="rejIconHov()"
+            (mouseleave)="rejIconLea()"
+          >
+            <div>
+              {{ rejectedTickets }}
+            </div>
+            <div id="rejIcon" class="infoIcon">
+              <mat-icon>block</mat-icon>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div class="table">
       <section class="table-view" *ngIf="dataSource.data.length !== 0">
         <div class="tableDiv" [@showTable]="shows">
@@ -17,7 +107,7 @@
               <td
                 mat-cell
                 *matCellDef="let element; let i = index"
-                (click)="openDialog(i)"
+                (click)="openDialog(element)"
               >
                 {{ dataSource.data.indexOf(element) + 1 }}
               </td>
@@ -28,31 +118,32 @@
               <td
                 mat-cell
                 *matCellDef="let element; let i = index"
-                (click)="openDialog(i)"
+                (click)="openDialog(element)"
               >
                 {{ element.ticketNo }}
               </td>
             </ng-container>
 
             <ng-container matColumnDef="Raiser">
-              <th mat-header-cell *matHeaderCellDef>Raiser</th>
+              <th mat-header-cell *matHeaderCellDef>Ticket Raiser</th>
               <td
                 mat-cell
                 *matCellDef="let element; let i = index"
-                (click)="openDialog(i)"
+                (click)="openDialog(element)"
               >
                 {{ element.raiserName }}
               </td>
             </ng-container>
 
             <ng-container matColumnDef="TicketTitle">
-              <th mat-header-cell *matHeaderCellDef>Ticket Title</th>
+              <th mat-header-cell *matHeaderCellDef>Ticket Category</th>
               <td
                 mat-cell
                 *matCellDef="let element; let i = index"
-                (click)="openDialog(i)"
+                (click)="openDialog(element)"
+                style="text-transform: uppercase"
               >
-                {{ element.ticketTitle }}
+                {{ element.ticketCategory }}
               </td>
             </ng-container>
 
@@ -61,7 +152,7 @@
               <td
                 mat-cell
                 *matCellDef="let element; let i = index"
-                (click)="openDialog(i)"
+                (click)="openDialog(element)"
               >
                 {{ element.raisedDate }}
               </td>
@@ -107,14 +198,14 @@
               </td>
             </ng-container>
 
-            <ng-container matColumnDef="Operations">
+            <!-- <ng-container matColumnDef="Operations">
               <th mat-header-cell *matHeaderCellDef>Chat Screen</th>
               <td mat-cell *matCellDef="let element">
                 <button class="smBtn" (click)="openChat(element.ticketNo)">
                   Chat
                 </button>
               </td>
-            </ng-container>
+            </ng-container> -->
 
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
             <tr
@@ -130,6 +221,7 @@
                   <mat-icon class="headerIcon">logout</mat-icon>
                 </button>
               </div>
+
               <div>
                 <button
                   class="btn"
@@ -144,9 +236,14 @@
               </div>
             </div>
 
-            <mat-paginator
+            <!-- <mat-paginator
               class="paginator"
               [pageSizeOptions]="[5, 10]"
+              showFirstLastButtons
+            ></mat-paginator> -->
+            <mat-paginator
+              class="paginator"
+              [pageSizeOptions]="pagi"
               showFirstLastButtons
             ></mat-paginator>
           </mat-toolbar>
@@ -206,6 +303,7 @@
               <mat-icon>logout</mat-icon>
             </button>
           </div>
+
           <div>
             <button
               class="Btn"
@@ -226,6 +324,11 @@
               <mat-icon>person</mat-icon>
             </button>
           </div>
+          <!-- <div>
+            <button class="Btn" title="logout" routerLink='dashboard'>
+              <mat-icon class="headerIcon">arrow_back</mat-icon>
+            </button>
+          </div> -->
         </div>
       </section>
       <section
@@ -311,5 +414,5 @@
     </div>
   </div>
 
-  <div class="err" *ngIf="err">sjkasjdk</div>
+  <div class="err" *ngIf="!showSpinner && err">sjkasjdk</div>
 </div>

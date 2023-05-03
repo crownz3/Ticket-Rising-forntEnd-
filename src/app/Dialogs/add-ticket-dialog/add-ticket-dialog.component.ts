@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
 import {
   FormArray,
   FormBuilder,
@@ -7,7 +7,7 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { environment } from 'src/environments/environment';
 import {
   trigger,
@@ -45,16 +45,20 @@ export class AddTicketDialogComponent implements OnInit {
   temp: any = [];
   isVisible = false;
   mailId: any;
+  ticketCategory:any
   @ViewChild('fileInput', { static: false }) fileInput: ElementRef | undefined;
 
   constructor(
     public dialogRef: MatDialogRef<AddTicketDialogComponent>,
     private fb: FormBuilder,
     private http: HttpClient,
-    private local: localStorage
+    private local: localStorage,
+    @Inject(MAT_DIALOG_DATA) public data: any,
   ) {}
 
   ngOnInit(): void {
+    console.log(this.data.id)
+    this.ticketCategory = this.data.id
     this.theForm = this.fb.group({
       title: new FormControl('', Validators.required),
       desc: new FormControl('', Validators.required),
@@ -122,6 +126,8 @@ export class AddTicketDialogComponent implements OnInit {
   }
 
   onFileUpload(): void {
+    console.log(this.theForm);
+    
     let ticketTitle = this.theForm.value.title;
     let ticketDesc = this.theForm.value.desc;
     let mailId = this.mailId;
@@ -131,7 +137,7 @@ export class AddTicketDialogComponent implements OnInit {
     for (let i = 0; i < this.filelist.length; i++) {
       formData.append('files', this.filelist[i]);
     }
-    formData.append('ticketTitle', ticketTitle);
+    formData.append('ticketCategory', ticketTitle);
     formData.append('ticketDesc', ticketDesc);
     formData.append('mailId', mailId);
 
@@ -139,7 +145,7 @@ export class AddTicketDialogComponent implements OnInit {
       .post(this.baseUrl + '/addTicket', formData)
       .subscribe((res: any) => {
         this.local.setLocal('ticketNo', res[0].ticketNo);
-        this.local.setLocal('ticketTitle', res[0].ticketTitle);
+        this.local.setLocal('ticketTitle', res[0].ticketCategory);
         this.local.setLocal('ticketStatus', res[0].ticketStatus);
         this.local.setLocal('ticketRaised', res[0].raisedDate);
         this.local.setLocal('ticketSolved', res[0].solvedDate);

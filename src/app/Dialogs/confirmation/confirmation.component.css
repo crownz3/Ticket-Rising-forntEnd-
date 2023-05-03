@@ -16,11 +16,46 @@
   display: flex;
   justify-content: space-evenly;
   align-items: center;
+  flex-direction: column;
+}
+
+.btnsDiv{
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  
+}
+
+.remarkInput{
+  width: 330px;
+  margin-bottom: 12px;
+  border: none;
+  outline: none;
+  padding: 6px 24px;
+  background-color: var(--chat-body);
+  border-radius: var(--radius);
+  color: var(--text-color);
+  text-align: center;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  border: 2px solid var(--unified-color) ;
 }
 
 .smBtn {
     padding: 8px 14px;
     background-color: var(--primary-color);
+    color: var(--secondnary-color);
+    border: none;
+    border-radius: var(--radius);
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: var(--btn-shadow);
+    transition: 0.3s;
+  }
+
+  .smBtnF{
+    padding: 8px 14px;
+    background-color: var(--primary-color);
+    opacity: 0.5;
     color: var(--secondnary-color);
     border: none;
     border-radius: var(--radius);
@@ -35,7 +70,7 @@
   }
   
   .smBtn:active {
-    background-color: #7c85ff;
+    background-color: var(--unified-color);
   }
 
   .emptyBlock{
@@ -44,7 +79,7 @@
     justify-content: center;
     width: 100%;
     padding: 4px 12px;
-    background-color: #7c85ff;
+    background-color: var(--unified-color);
     border-radius: var(--radius);
   }
 
@@ -63,7 +98,7 @@
     border-top-left-radius: 50px;
     border-top-right-radius: 50px;
     padding: 24px;
-    border-top: 15px solid #7c85ff;
+    border-top: 15px solid var(--unified-color);
   }
 
 p{

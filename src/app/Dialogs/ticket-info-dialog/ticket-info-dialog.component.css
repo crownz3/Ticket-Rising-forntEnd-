@@ -1,4 +1,5 @@
 .master-parent {
+  width: 100%;
   display: flex;
   flex-direction: column;
   background-color: var(--secondnary-color);
@@ -9,6 +10,7 @@
 }
 
 .inner-parent {
+  width: 100%;
 }
 
 .parent {
@@ -36,6 +38,7 @@
 }
 
 .anotherParent {
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -60,13 +63,21 @@
 }
 
 .imageParent {
-  overflow: auto;
+  width: 100%;
+  overflow: hidden;
+  /* display: flex; */
+  /* justify-content: center;
+  align-items: center; */
 }
 
 .imageDiv {
+  overflow: auto;
   display: flex;
   padding-bottom: var(--padding);
-  gap: 12px;
+  gap: 15px;
+  /* justify-content: center;
+  align-items: center; */
+  padding: 10px 20px;
 }
 
 .attachmentImg {
@@ -82,9 +93,9 @@
   margin-left: 12px;
 }
 
-.attachmentImg:last-child {
+/* .attachmentImg:last-child {
   margin-right: 12px;
-}
+} */
 
 .outerBox:hover {
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
@@ -208,6 +219,37 @@
   background-color: azure;
 }
 
+.saveImage{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  transition:  0.3s ease;
+  border: 2px solid var(--primary-color-light);
+  outline: none;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  background-color: var(--primary-color);
+}
+
+.saveImageDiv{
+  position: relative;
+}
+
+.saveImageDiv:hover .saveImage{
+  opacity: 1;
+}
+
+.saveIcon{
+  color: var(--secondnary-color);
+}
+
 @keyframes gradient-animation {
   0% {
     background-position: 0% 50%;
@@ -278,6 +320,12 @@
   }
 }
 
+/* @media (max-width: 1500px) {
+  .imageParent {
+    width: 1000px;
+  }
+}
+
 @media (min-width: 1600px) {
   .imageParent {
     width: 1150px;
@@ -306,7 +354,7 @@
   .imageParent {
     width: 150px;
   }
-}
+} */
 
 ::-webkit-scrollbar {
   width: 4px;

@@ -22,12 +22,13 @@ export class TicketInfoDialogComponent implements OnInit {
   imageUrl: any = [];
   arr: any = [];
   hideShow = false;
+  value: any;
   infoId: any;
   ticketNo: any;
   baseUrl = environment.serverBaseUrl;
   showSpinner = true;
   URL = 'http://192.168.1.59:3000';
-  imageLength :any
+  imageLength: any;
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private http: HttpClient,
@@ -37,25 +38,27 @@ export class TicketInfoDialogComponent implements OnInit {
   @ViewChild('myImage') myImage: any;
   @ViewChild('main') myDiv: ElementRef | any;
   ngOnInit(): void {
-    this.infoId = this.data.id;
-    this.ticketNo = this.data.tickets[this.infoId].ticketNo;
+    // this.infoId = this.data.id;
+    // this.ticketNo = this.data.tickets[this.infoId].ticketNo;
     this.ticketDet = {
-      ticketId: this.ticketNo,
+      ticketId: this.data.id,
     };
+    console.log(this.data)
     this.http
       .post(this.baseUrl + '/getMoreInfo', this.ticketDet)
       .subscribe((res: any) => {
         let fileUrl = res[0].attachment;
         this.ticketDetails = [
           {
-            ticketname: res[0].ticketTitle,
+            ticketname: res[0].ticketCategory,
             ticketNo: res[0].ticketNo,
             tikcetDesc: res[0].tikcetDesc,
             createdOn: res[0].raisedOn,
             ticketStatus: res[0].ticketStatus,
-            riserName: res[0].raiserName,
-            riserDept: res[0].raiserDept,
-            riserDesg: res[0].raiserDesg,
+            raiserName: res[0].raiserName,
+            raiserDept: res[0].raiserDept,
+            raiserDesg: res[0].raiserDesg,
+            remarks:res[0].remarks,
             attachments: [],
           },
         ];
@@ -66,14 +69,15 @@ export class TicketInfoDialogComponent implements OnInit {
 
     setTimeout(() => {
       this.convertedDetail = {
-        'Ticket Name': this.ticketDetails[0].ticketname,
+        'Ticket Category': this.ticketDetails[0].ticketname,
         'Ticket No': this.ticketDetails[0].ticketNo,
         'Ticket Description': this.ticketDetails[0].tikcetDesc,
         'Created On': this.ticketDetails[0].createdOn,
         'Ticket Status': this.ticketDetails[0].ticketStatus,
-        'Raiser Name': this.ticketDetails[0].riserName,
-        'Riser Department': this.ticketDetails[0].riserDept,
-        'Riser Designation': this.ticketDetails[0].riserDesg,
+        'Raiser Name': this.ticketDetails[0].raiserName,
+        'Raiser Department': this.ticketDetails[0].raiserDept,
+        'Raiser Designation': this.ticketDetails[0].raiserDesg,
+        "Remarks":this.ticketDetails[0].remarks,
       };
 
       this.ticketDetails[0].attachments.filter((el: any) => {
@@ -114,4 +118,15 @@ export class TicketInfoDialogComponent implements OnInit {
   OpenChats() {
     this.hideShow === false ? (this.hideShow = true) : (this.hideShow = false);
   }
+
+  saveImage(parent: any) {
+    let dataUrl = parent.src
+    console.log(dataUrl)
+    const link = document.createElement('a')
+    link.download = 'image.png'
+    link.target='_blank'
+    link.href = dataUrl
+    link.click()
+  }
+
 }

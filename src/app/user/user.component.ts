@@ -75,7 +75,8 @@ export class UserComponent implements OnInit {
     'TicketStatus',
     'RaisedDate',
     'SolvedDate',
-    'Operations',
+    'Remarks'
+    // 'Operations',
   ];
   screenSize: boolean | undefined;
   show = 'hidden';
@@ -86,6 +87,7 @@ export class UserComponent implements OnInit {
   showPaginator = true;
   showSpinner = true;
   showError = false;
+  ticketCategory:any
   dataSource = new MatTableDataSource();
 
   @ViewChild(MatPaginator) paginator: any;
@@ -151,6 +153,8 @@ export class UserComponent implements OnInit {
         }
       }
     );
+
+    this.http.get(this.baseUrl + '/getCategory').subscribe((res:any)=>{this.ticketCategory = res})
   }
 
   hover() {
@@ -172,7 +176,11 @@ export class UserComponent implements OnInit {
   }
 
   addTicket() {
-    const dialogRef = this.dialog.open(AddTicketDialogComponent, {});
+
+
+    const dialogRef = this.dialog.open(AddTicketDialogComponent, {
+      data:{id:this.ticketCategory}
+    });
 
     dialogRef.afterOpened().subscribe((res) => {
       console.log('The EditForm is opened');
@@ -194,7 +202,6 @@ export class UserComponent implements OnInit {
           Operations: '',
         });
         this.dataSource = new MatTableDataSource(res);
-
         this.dataSource.paginator = this.paginator;
       }
     });

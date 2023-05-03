@@ -20,7 +20,7 @@ import { SocketIoModule } from 'ngx-socket-io';
 import { TicketInfoDialogComponent } from './Dialogs/ticket-info-dialog/ticket-info-dialog.component';
 import { ConfirmationComponent } from './Dialogs/confirmation/confirmation.component';
 import { AddTicketDialogComponent } from './Dialogs/add-ticket-dialog/add-ticket-dialog.component';
-
+import {ClipboardModule} from '@angular/cdk/clipboard';
 
 
 @NgModule({
@@ -47,7 +47,7 @@ import { AddTicketDialogComponent } from './Dialogs/add-ticket-dialog/add-ticket
     FormsModule,
     ReactiveFormsModule,
     SocketIoModule,
-    
+    ClipboardModule
   ],
   providers: [GoogleSigninService,OAuthService,UrlHelperService,UserService],
   bootstrap: [AppComponent]

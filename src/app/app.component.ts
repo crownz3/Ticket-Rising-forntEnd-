@@ -19,7 +19,7 @@ export class AppComponent implements OnInit {
   path: any;
   env = environment.serverBaseUrl;
   loginUserName = '';
-  showSpinner = true
+  showSpinner = true;
   constructor(
     private googleApi: GoogleSigninService,
     private service: UserService,
@@ -37,8 +37,9 @@ export class AppComponent implements OnInit {
         })
         .subscribe(
           (res: any) => {
-            if(res){
-              this.showSpinner = false
+            console.log(res);
+            if (res) {
+              this.showSpinner = false;
               this.local.setLocal('userCode', res[0].userCode);
               this.local.setLocal('userName', res[0].userName);
               this.local.setLocal('mailId', res[0].mailId);
@@ -49,29 +50,27 @@ export class AppComponent implements OnInit {
               this.local.setLocal('picture', res[0].picture);
               this.local.setLocal('userType', res[0].userType);
               this.local.setLocal('mobile', res[0].mobile);
-              this.local.setLocal('pending',res[1].pending)
-              this.local.setLocal('complete',res[1].completed)
-              this.local.setLocal('process',res[1].processed)
+              this.local.setLocal('pending', res[1].pending);
+              this.local.setLocal('total', res[1].total);
+              this.local.setLocal('process', res[1].processed);
+              this.local.setLocal('complete', res[1].completed);
+              this.local.setLocal('reject', res[1].rejected);
               setTimeout(() => {
-              this.routes.navigateByUrl('dashboard')
-  
-              }, 1000);
+                this.routes.navigateByUrl('dashboard');
+              }, 1);
             }
-            },
-           
+          },
+
           (err) => {
-            this.showSpinner = false
+            this.showSpinner = false;
 
             return this.googleApi.signOut();
           }
         );
     });
-
   }
 
-  ngOnInit(): void {
-
-  }
+  ngOnInit(): void {}
 
   isLoggedIn(): boolean {
     return this.googleApi.isLoggedIn();

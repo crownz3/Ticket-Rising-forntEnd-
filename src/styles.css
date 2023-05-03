@@ -49,7 +49,7 @@ h1,h2,h3,h4,h5,h6{
     --curve-radius:0px 24px;
 
       
-  
+    --unified-color:#7c85ff;
     --bg-color: rgb(20, 20, 20);
     --card-color: rgb(23, 23, 23);
 
@@ -177,3 +177,25 @@ h1,h2,h3,h4,h5,h6{
     border-radius:var(--radius);
     
 }
+
+
+.cardsDiv::-webkit-scrollbar {
+    width: 4px;
+}
+
+.cardsDiv::-webkit-scrollbar:hover{
+    cursor: pointer;
+}
+
+.cardsDiv::-webkit-scrollbar-track {
+    background: var( --chat-text); 
+    /* background:transparent; */
+    border-radius: var(--radius);
+}
+   
+.cardsDiv::-webkit-scrollbar-thumb {
+    background:var(--chat-primary); 
+    border-radius:var(--radius);
+    
+}
+

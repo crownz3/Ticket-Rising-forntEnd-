@@ -18,11 +18,12 @@ import {
   styleUrls: ['./dashboard.component.css'],
 })
 export class DashboardComponent implements OnInit {
-  screenSize: boolean | undefined;
   showUserProfile = false;
   pendingTickets: any;
   processTickets: any;
   totalTickets: any;
+  rejectedTickets:any;
+  completedTickets:any;
   userType: any;
   userDetails: any = {};
    flip: string = 'inactive';
@@ -32,10 +33,7 @@ export class DashboardComponent implements OnInit {
     private router: Router,
     private local: localStorage
   ) {
-    window.addEventListener('resize', () => {
-      let screen = window.matchMedia('(max-width:600px)');
-      this.screenSize = screen.matches;
-    });
+
 
     this.userDetails = {
       name: this.local.getLocal('userName'),
@@ -50,17 +48,14 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    window.addEventListener('resize', () => {
-      let screen = window.matchMedia('(max-width:600px)');
-      this.screenSize = screen.matches;
-      console.log(this.screenSize);
-    });
+   
 
     this.pendingTickets = this.local.getLocal('pending');
     this.processTickets = this.local.getLocal('process');
-    let completedTickets = this.local.getLocal('complete');
-    this.totalTickets =
-      completedTickets! + this.processTickets! + this.pendingTickets!;
+    this.rejectedTickets = this.local.getLocal('reject');
+    this.completedTickets = this.local.getLocal('complete');
+    this.totalTickets = this.local.getLocal('total');
+     
   }
 
   logOut() {

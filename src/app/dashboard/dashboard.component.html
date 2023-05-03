@@ -2,9 +2,12 @@
   <div class="inner-parent">
     <header class="header">
       <div class="logo">
-        <button class="smBtn" (click)="profile()" *ngIf="!showUserProfile"><mat-icon class="headerIcon">person</mat-icon></button>
-        <button class="smBtn" (click)="profile()" *ngIf="showUserProfile"><mat-icon class="headerIcon">dashboard</mat-icon></button>
-
+        <button class="smBtn" (click)="profile()" *ngIf="!showUserProfile">
+          <mat-icon class="headerIcon">person</mat-icon>
+        </button>
+        <button class="smBtn" (click)="profile()" *ngIf="showUserProfile">
+          <mat-icon class="headerIcon">dashboard</mat-icon>
+        </button>
       </div>
       <div class="name">TICKET RAISING</div>
       <div class="logoutBtnDiv">
@@ -16,65 +19,150 @@
       </div>
     </header>
     <section class="section">
-      <div class="topSection" *ngIf="!showUserProfile">
-        <div class="total sectionCard">
-          <div class="front">
-            <img src="../../assets/total.jpg" alt="" />
+      <div class="cardsDiv">
+        <div class="topSection" *ngIf="!showUserProfile">
+          <div class="hoverMeDiv">
+            <div class="hoverMe">Hover Me!!!</div>
+            <div class="lDot"></div>
+            <div class="sDot"></div>
           </div>
-          <div class="back">
-            <div [ngClass]="{'Aleft' : userType === 'Admin','Uleft' : userType === 'User'}">TOTAL</div>
-            <div class="right" *ngIf="!totalTickets">0</div>
 
-            <div class="right" *ngIf="totalTickets">{{totalTickets}}</div>
+          <div class="total sectionCard">
+            <div class="front">
+              <div
+                [ngClass]="{
+                  Aleft: userType === 'Admin',
+                  Uleft: userType === 'User'
+                }"
+              >
+                TOTAL
+              </div>
+              <div class="right" *ngIf="!totalTickets">0</div>
+              <div class="right" *ngIf="totalTickets">{{ totalTickets }}</div>
+            </div>
+            <div class="back">
+              <button class="countBtn">
+                <mat-icon>view_list</mat-icon>
+              </button>
+
+              <img src="../../assets/total.jpg" alt="" />
+            </div>
           </div>
-        </div>
-        <div class="process sectionCard">
-          <div class="front">
-            <img src="../../assets/process.jpg" alt="" />
+
+          <div class="completed sectionCard">
+            <div class="front">
+              <div
+                [ngClass]="{
+                  Aleft: userType === 'Admin',
+                  Uleft: userType === 'User'
+                }"
+              >
+                COMPLETED
+              </div>
+              <div class="right" *ngIf="!totalTickets">0</div>
+              <div class="right" *ngIf="totalTickets">
+                {{ completedTickets }}
+              </div>
+            </div>
+            <div class="back">
+              <img src="../../assets/completed.jpg" alt="" />
+            </div>
           </div>
-          <div class="back">
-            <div [ngClass]="{'Aleft' : userType === 'Admin','Uleft' : userType === 'User'}">PROCESS</div>
-            <div class="right" *ngIf="!processTickets">0</div>
-            <div class="right" *ngIf="processTickets">{{processTickets}}</div>
+
+          <div class="process sectionCard">
+            <div class="front">
+              <div
+                [ngClass]="{
+                  Aleft: userType === 'Admin',
+                  Uleft: userType === 'User'
+                }"
+              >
+                IN PROGRESS
+              </div>
+              <div class="right" *ngIf="!processTickets">0</div>
+              <div class="right" *ngIf="processTickets">
+                {{ processTickets }}
+              </div>
+            </div>
+            <div class="back">
+              <img src="../../assets/process.jpg" alt="" />
+            </div>
           </div>
-        </div>
-        <div class="pending sectionCard">
-          <div class="front">
-            <img src="../../assets/pending.jpg" alt="" />
+          <div class="pending sectionCard">
+            <div class="front">
+              <div
+                [ngClass]="{
+                  Aleft: userType === 'Admin',
+                  Uleft: userType === 'User'
+                }"
+              >
+                PENDING
+              </div>
+              <div class="right" *ngIf="!totalTickets">0</div>
+              <div class="right" *ngIf="totalTickets">{{ pendingTickets }}</div>
+            </div>
+            <div class="back">
+              <img src="../../assets/pending.jpg" alt="" />
+            </div>
           </div>
-          <div class="back">
-            <div [ngClass]="{'Aleft' : userType === 'Admin','Uleft' : userType === 'User'}">PENDING</div>
-            <div class="right" *ngIf="!totalTickets">0</div>
-            <div class="right" *ngIf="totalTickets">{{pendingTickets}}</div>
+
+          <div class="rejected sectionCard">
+            <div class="front">
+              <div
+                [ngClass]="{
+                  Aleft: userType === 'Admin',
+                  Uleft: userType === 'User'
+                }"
+              >
+                REJECTED
+              </div>
+              <div class="right" *ngIf="!totalTickets">0</div>
+              <div class="right" *ngIf="totalTickets">
+                {{ rejectedTickets }}
+              </div>
+            </div>
+            <div class="back">
+              <img src="../../assets/rejected.jpg" alt="" />
+            </div>
           </div>
         </div>
       </div>
+
       <div class="profileDiv" *ngIf="showUserProfile">
         <div class="headerDiv">
           <h1>MY PROFILE</h1>
         </div>
         <div class="userImg">
-            <div><img src={{userDetails.image}}  class="image" alt="Image"></div>              
-         </div>
-         <div class="userDetails">
-          
-            <li>Name: <span class="liStyle">{{userDetails.name}}</span></li>
-            <li>Email:<span class="liStyle">{{userDetails.email}}</span></li>
-            <li>Mobile: <span class="liStyle">{{userDetails.mobile}}</span></li>
-            <li>Department: <span class="liStyle">{{userDetails.dept}}</span></li>
-            <li>Designation: <span class="liStyle">{{userDetails.desg}}</span></li>
-            <li>Address: <span class="liStyle">{{userDetails.address}}</span></li>
-          
-         </div>
+          <div>
+            <img src="{{ userDetails.image }}" class="image" alt="Image" />
+          </div>
+        </div>
+        <div class="userDetails">
+          <li>
+            Name: <span class="liStyle">{{ userDetails.name }}</span>
+          </li>
+          <li>
+            Email:<span class="liStyle">{{ userDetails.email }}</span>
+          </li>
+          <li>
+            Mobile: <span class="liStyle">{{ userDetails.mobile }}</span>
+          </li>
+          <li>
+            Department: <span class="liStyle">{{ userDetails.dept }}</span>
+          </li>
+          <li>
+            Designation: <span class="liStyle">{{ userDetails.desg }}</span>
+          </li>
+          <li>
+            Address: <span class="liStyle">{{ userDetails.address }}</span>
+          </li>
+        </div>
       </div>
-      <div class="botttomSection">
-        <button class="Btn" *ngIf="screenSize" (click)="enterToModule()" >
-          <mat-icon class="EnterIcon">login</mat-icon>
-        </button>
-        <button class="Btn" *ngIf="!screenSize" (click)="enterToModule()" >Enter</button>
-      </div>
+      <div class="bottomSection">
+        <button class="Btn" (click)="enterToModule()">Get Started</button>
 
-   
+        <!-- <button class="Btn" (click)="enterToModule()">ADD TICKET</button> -->
+      </div>
     </section>
     <footer class="footer">
       <div class="footerName">© 2023 DSRT, Inc.</div>

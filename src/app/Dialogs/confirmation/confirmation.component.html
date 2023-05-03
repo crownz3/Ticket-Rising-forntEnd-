@@ -12,8 +12,40 @@
       </p>
     </div>
   </div>
-  <div class="btns">
-    <button class="smBtn" (click)="confrimToComplete()">Yes</button>
-    <button class="smBtn" (click)="notConfirmedToComplete()">No</button>
+  <div class="btns" *ngIf="info !== 'reject'">
+    <div></div>
+    <div class="btnsDiv">
+      <button class="smBtn" (click)="confrimToComplete()">Yes</button>
+      <button class="smBtn" (click)="notConfirmedToComplete()">No</button>
+    </div>
+  </div>
+  <div class="btns" *ngIf="info === 'reject'">
+    <div>
+      <input
+        type="text"
+        class="remarkInput"
+        placeholder="*remarks"
+        id="remark"
+        required
+        (keyup)="some()"
+        [(ngModel)]="remarksStr"
+      />
+    </div>
+    <div class="btnsDiv">
+      <button
+        [ngClass]="{ smBtn: !remarks, smBtnF: remarks }"
+        (click)="confrimToComplete()"
+        [disabled]="remarks"
+      >
+        Yes
+      </button>
+      <button
+        [ngClass]="{ smBtn: !remarks, smBtnF: remarks }"
+        (click)="notConfirmedToComplete()"
+        [disabled]="remarks"
+      >
+        No
+      </button>
+    </div>
   </div>
 </div>

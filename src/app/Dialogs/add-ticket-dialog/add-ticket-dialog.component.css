@@ -1,5 +1,4 @@
 .master-parent {
-  height: 80%;
   width: 650px;
   display: flex;
   flex-direction: column;
@@ -38,21 +37,22 @@
   justify-content: space-between;
 }
 
-.filesDiv{
+.filesDiv {
+ height: 250px;
   width: 100%;
   margin-top: 10px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;    
+  justify-content: space-between;
   gap: 10px;
   max-height: 500px;
   color: var(--secondnary-color);
   padding: 12px;
-  overflow: auto; 
+  overflow: auto;
 }
 
-.files{
-  background-color:#7c85ff;
+.files {
+  background-color: var(--unified-color);
   border-radius: 24px;
   padding: 6px 12px;
   display: flex;
@@ -102,7 +102,7 @@ label:hover {
 }
 
 label:active {
-  background-color: #7c85ff;
+  background-color: var(--unified-color);
 }
 
 .textArea {
@@ -110,7 +110,7 @@ label:active {
 }
 
 .notification {
-  background-color: #7c85ff;
+  background-color: var(--unified-color);
   display: flex;
   border-radius: var(--radius);
   align-items: center;
@@ -141,6 +141,9 @@ label:active {
   border-radius: var(--radius);
   color: var(--secondnary-color);
   transition: 0.4s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .delBtn:hover {
@@ -165,7 +168,7 @@ label:active {
 }
 
 .btn:active {
-  background-color: #7c85ff;
+  background-color: var(--unified-color);
 }
 
 .btn:disabled {
@@ -183,7 +186,7 @@ label:active {
 @media screen and (max-width: 600px) {
   .filesDiv {
     padding: 6px;
-  max-height: 200px;
+    max-height: 200px;
 
   }
 
@@ -192,8 +195,12 @@ label:active {
     font-size: 12px;
   }
 
+  .delIcon{
+    transform: scale(0.8);
+  }
+
   .notificationText {
-    font-size: 6px !important;
+    font-size: 12px !important;
   }
 
   .text-header {
@@ -231,7 +238,11 @@ label:active {
   }
 
   label {
-    padding: 4px 6px;
+    padding: 2px 6px;
+  }
+
+  .delBtn{
+    padding: 2px 4px;
   }
 }
 
@@ -245,4 +256,17 @@ label:active {
   .master-parent {
     width: 200px;
   }
+}
+
+::ng-deep .mat-select-panel{
+  background-color: var(--secondnary-color);
+  color: var(--text-color);
+  font-weight: 600;
+  border-bottom: 2px solid var(--text-color) ;
+
+}
+
+::ng-deep .mat-option-text{
+  border-bottom: 2px solid var(--text-color) ;
+
 }
