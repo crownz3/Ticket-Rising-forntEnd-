@@ -1,17 +1,8 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
-import { environment } from 'src/environments/environment';
 import { GoogleSigninService } from '../services/google-signin.service';
 import { localStorage } from '../services/localStorage.service';
-import { UserService } from '../services/user.service';
-import {
-  trigger,
-  state,
-  style,
-  transition,
-  animate,
-} from '@angular/animations';
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -26,14 +17,13 @@ export class DashboardComponent implements OnInit {
   completedTickets:any;
   userType: any;
   userDetails: any = {};
-   flip: string = 'inactive';
+  flip: string = 'inactive';
 
   constructor(
     private googleApi: GoogleSigninService,
     private router: Router,
     private local: localStorage
   ) {
-
 
     this.userDetails = {
       name: this.local.getLocal('userName'),
@@ -48,14 +38,11 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
-   
-
     this.pendingTickets = this.local.getLocal('pending');
     this.processTickets = this.local.getLocal('process');
     this.rejectedTickets = this.local.getLocal('reject');
     this.completedTickets = this.local.getLocal('complete');
     this.totalTickets = this.local.getLocal('total');
-     
   }
 
   logOut() {

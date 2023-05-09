@@ -83,16 +83,16 @@ h1,h2,h3,h4,h5,h6{
 }
 
 ::-webkit-scrollbar:horizontal{
-    height: 8px ;
+    height: 4px ;
 }
 
 ::-webkit-scrollbar-track:horizontal {
-    background:var(--scroll); 
+    background:var(--text-color); 
     border-radius:var(--radius);
 }
 
 ::-webkit-scrollbar-thumb:horizontal{
-    background:transparent;
+    background:var(--scroll);
     border-radius: var(--radius);
 
 }

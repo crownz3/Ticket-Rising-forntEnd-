@@ -15,7 +15,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { ChatBoxComponent } from './Dialogs/chat-box/chat-box.component';
-import { UserService } from './services/user.service';
 import { SocketIoModule } from 'ngx-socket-io';
 import { TicketInfoDialogComponent } from './Dialogs/ticket-info-dialog/ticket-info-dialog.component';
 import { ConfirmationComponent } from './Dialogs/confirmation/confirmation.component';
@@ -49,7 +48,7 @@ import {ClipboardModule} from '@angular/cdk/clipboard';
     SocketIoModule,
     ClipboardModule
   ],
-  providers: [GoogleSigninService,OAuthService,UrlHelperService,UserService],
+  providers: [GoogleSigninService,OAuthService,UrlHelperService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

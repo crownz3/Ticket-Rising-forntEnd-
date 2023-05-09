@@ -1,5 +1,7 @@
 <div class="Parent">
   <div class="inner-parent">
+    
+    <!-- HEADER -->
     <header class="header">
       <div class="logo">
         <button class="smBtn" (click)="profile()" *ngIf="!showUserProfile">
@@ -9,7 +11,7 @@
           <mat-icon class="headerIcon">dashboard</mat-icon>
         </button>
       </div>
-      <div class="name">TICKET RAISING</div>
+      <div class="name">SUPPORT DESK</div>
       <div class="logoutBtnDiv">
         <button class="smBtn" (click)="logOut()">
           <div>
@@ -18,6 +20,8 @@
         </button>
       </div>
     </header>
+
+    <!-- CARDS -->
     <section class="section">
       <div class="cardsDiv">
         <div class="topSection" *ngIf="!showUserProfile">
@@ -29,12 +33,10 @@
 
           <div class="total sectionCard">
             <div class="front">
-              <div
-                [ngClass]="{
+              <div [ngClass]="{
                   Aleft: userType === 'Admin',
                   Uleft: userType === 'User'
-                }"
-              >
+                }">
                 TOTAL
               </div>
               <div class="right" *ngIf="!totalTickets">0</div>
@@ -44,19 +46,16 @@
               <button class="countBtn">
                 <mat-icon>view_list</mat-icon>
               </button>
-
               <img src="../../assets/total.jpg" alt="" />
             </div>
           </div>
 
           <div class="completed sectionCard">
             <div class="front">
-              <div
-                [ngClass]="{
+              <div [ngClass]="{
                   Aleft: userType === 'Admin',
                   Uleft: userType === 'User'
-                }"
-              >
+                }">
                 COMPLETED
               </div>
               <div class="right" *ngIf="!totalTickets">0</div>
@@ -71,12 +70,10 @@
 
           <div class="process sectionCard">
             <div class="front">
-              <div
-                [ngClass]="{
+              <div [ngClass]="{
                   Aleft: userType === 'Admin',
                   Uleft: userType === 'User'
-                }"
-              >
+                }">
                 IN PROGRESS
               </div>
               <div class="right" *ngIf="!processTickets">0</div>
@@ -90,12 +87,10 @@
           </div>
           <div class="pending sectionCard">
             <div class="front">
-              <div
-                [ngClass]="{
+              <div [ngClass]="{
                   Aleft: userType === 'Admin',
                   Uleft: userType === 'User'
-                }"
-              >
+                }">
                 PENDING
               </div>
               <div class="right" *ngIf="!totalTickets">0</div>
@@ -108,12 +103,10 @@
 
           <div class="rejected sectionCard">
             <div class="front">
-              <div
-                [ngClass]="{
+              <div [ngClass]="{
                   Aleft: userType === 'Admin',
                   Uleft: userType === 'User'
-                }"
-              >
+                }">
                 REJECTED
               </div>
               <div class="right" *ngIf="!totalTickets">0</div>
@@ -130,7 +123,7 @@
 
       <div class="profileDiv" *ngIf="showUserProfile">
         <div class="headerDiv">
-          <h1>MY PROFILE</h1>
+          <h1>PROFILE</h1>
         </div>
         <div class="userImg">
           <div>
@@ -160,10 +153,10 @@
       </div>
       <div class="bottomSection">
         <button class="Btn" (click)="enterToModule()">Get Started</button>
-
-        <!-- <button class="Btn" (click)="enterToModule()">ADD TICKET</button> -->
       </div>
     </section>
+
+    <!-- FOOTER -->
     <footer class="footer">
       <div class="footerName">© 2023 DSRT, Inc.</div>
     </footer>

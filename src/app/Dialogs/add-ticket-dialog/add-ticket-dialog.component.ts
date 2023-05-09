@@ -11,7 +11,6 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { environment } from 'src/environments/environment';
 import {
   trigger,
-  state,
   style,
   transition,
   animate,
@@ -53,11 +52,12 @@ export class AddTicketDialogComponent implements OnInit {
     private fb: FormBuilder,
     private http: HttpClient,
     private local: localStorage,
+    
     @Inject(MAT_DIALOG_DATA) public data: any,
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
-    console.log(this.data.id)
     this.ticketCategory = this.data.id
     this.theForm = this.fb.group({
       title: new FormControl('', Validators.required),
@@ -112,7 +112,6 @@ export class AddTicketDialogComponent implements OnInit {
     }
     this.filelist.splice(i, 1);
     this.temp.splice(i, 1);
-    console.log(this.temp);
     if (this.filelist.length === 0) {
       this.arrLength = false;
     }
@@ -126,8 +125,6 @@ export class AddTicketDialogComponent implements OnInit {
   }
 
   onFileUpload(): void {
-    console.log(this.theForm);
-    
     let ticketTitle = this.theForm.value.title;
     let ticketDesc = this.theForm.value.desc;
     let mailId = this.mailId;

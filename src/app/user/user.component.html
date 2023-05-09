@@ -1,4 +1,5 @@
 <div class="master-parent">
+  <!-- SPINNER -->
   <div
     *ngIf="showSpinner"
     class="d-flex justify-content-center align-items-center"
@@ -7,217 +8,436 @@
     <div class="spinner"></div>
   </div>
 
-  <div class="parent" *ngIf="!showSpinner">
+  <div class="parent" *ngIf="!showSpinner && !err">
+    <!-- CARDS -->
+
+    <div class="cards">
+      <div class="completed Card">
+        <div class="innerCard">
+          <div class="top">Completed</div>
+          <div
+            class="bottom"
+            (mouseover)="compIconHov()"
+            (mouseleave)="compIconLea()"
+          >
+            <div>
+              {{ completedTickets }}
+            </div>
+            <div id="compIcon" class="infoIcon">
+              <mat-icon>task_alt</mat-icon>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pending Card">
+        <div class="innerCard">
+          <div class="top">Pending</div>
+          <div
+            class="bottom"
+            (mouseover)="pendIconHov()"
+            (mouseleave)="pendIconLea()"
+          >
+            <div>
+              {{ pendingTickets }}
+            </div>
+            <div id="pendIcon" class="infoIcon">
+              <mat-icon>pending</mat-icon>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="total Card">
+        <div class="innerCard">
+          <div class="top">Total</div>
+          <div
+            class="bottom"
+            (mouseover)="totIconHov()"
+            (mouseleave)="totIconLea()"
+          >
+            <div>
+              {{ totalTickets }}
+            </div>
+            <div id="totIcon" class="infoIcon">
+              <mat-icon>local_activity</mat-icon>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="process Card">
+        <div class="innerCard">
+          <div class="top">In Progress</div>
+          <div
+            class="bottom"
+            (mouseover)="procIconHov()"
+            (mouseleave)="procIconLea()"
+          >
+            <div>
+              {{ processTickets }}
+            </div>
+            <div id="procIcon" class="infoIcon">
+              <mat-icon>hourglass_top</mat-icon>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="rejected Card">
+        <div class="innerCard">
+          <div class="top">Rejected</div>
+          <div
+            class="bottom"
+            (mouseover)="rejIconHov()"
+            (mouseleave)="rejIconLea()"
+          >
+            <div>
+              {{ rejectedTickets }}
+            </div>
+            <div id="rejIcon" class="infoIcon">
+              <mat-icon>block</mat-icon>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="table">
       <section class="table-view" *ngIf="dataSource.data.length">
-        <div class="tableDiv" [@showTable]="shows">
-          <table mat-table [dataSource]="dataSource">
-            <ng-container matColumnDef="Sno">
-              <th mat-header-cell *matHeaderCellDef>SNo</th>
-              <td mat-cell *matCellDef="let element; let i = index">
-                {{ dataSource.data.indexOf(element) + 1 }}
-              </td>
-            </ng-container>
-
-            <ng-container matColumnDef="TicketNo">
-              <th mat-header-cell *matHeaderCellDef>Ticket No</th>
-              <td mat-cell *matCellDef="let element">{{ element.ticketNo }}</td>
-            </ng-container>
-
-            <ng-container matColumnDef="TicketTitle">
-              <th mat-header-cell *matHeaderCellDef>Ticket Category</th>
-              <td mat-cell *matCellDef="let element">
-                {{ element.ticketCategory }}
-              </td>
-            </ng-container>
-
-            <ng-container matColumnDef="TicketStatus">
-              <th mat-header-cell *matHeaderCellDef>Ticket Status</th>
-              <td mat-cell *matCellDef="let element">
-                <div *ngIf="element.ticketStatus === '0'">
-                  {{ "Pending" }}
-                </div>
-                <div *ngIf="element.ticketStatus === '1'">
-                  {{ "In Progress" }}
-                </div>
-                <div *ngIf="element.ticketStatus === '2'">
-                  {{ "Completed" }}
-                </div>
-                <div *ngIf="element.ticketStatus === '-1'">
-                  {{ "Rejected" }}
-                </div>
-              </td>
-            </ng-container>
-
-            <ng-container matColumnDef="RaisedDate">
-              <th mat-header-cell *matHeaderCellDef>Raised Date</th>
-              <td mat-cell *matCellDef="let element">
-                {{ element.raisedDate | date : "dd-MM-yyyy" }}
-              </td>
-            </ng-container>
-
-            <ng-container matColumnDef="SolvedDate">
-              <th mat-header-cell *matHeaderCellDef>Solved Date</th>
-              <td mat-cell *matCellDef="let element">
-                <div
-                  *ngIf="
-                    element.solvedDate === null ||
-                    element.ticketStatus === '1' ||
-                    element.ticketStatus === '-1'
-                  "
+        <div
+          [ngClass]="{
+            emptydivflex: showUserProfile,
+            emptyDiv: !showUserProfile
+          }"
+        >
+          <div class="tableDiv" [@showTable]="shows">
+            <!-- TABLE -->
+            <table mat-table [dataSource]="dataSource">
+              <ng-container matColumnDef="Sno">
+                <th mat-header-cell *matHeaderCellDef>SNo</th>
+                <td
+                  mat-cell
+                  *matCellDef="let element; let i = index"
+                  (click)="openDialog(element)"
                 >
-                  {{ "-" }}
-                </div>
-                <div *ngIf="element.ticketStatus === '2'">
-                  {{ element.solvedDate | date : "dd-MM-yyyy" }}
-                </div>
-              </td>
-            </ng-container>
+                  {{ dataSource.data.indexOf(element) + 1 }}
+                </td>
+              </ng-container>
 
-            <ng-container matColumnDef="Remarks">
-              <th mat-header-cell *matHeaderCellDef>Remarks</th>
-              <td mat-cell *matCellDef="let element" style="position: relative;">
-                <div *ngIf="element.remarks" class="soem">
-                  {{ element.remarks }}
-                </div>
-             
-                <div *ngIf="!element.remarks">
-                  {{ "-" }}
-                </div>
-              </td>
-              <div class="tooltip">
-                WebGradients is a free collection of 180 linear gradients that
-                you can use as content backdrops in any part of your website.
-                Easy copy CSS3 crossbrowser code and use it in a moment! We've
-                also prepared a .PNG version of each gradient. As a bonus,
-                there are packs for Sketch & Photoshop.
-              </div>
-            </ng-container>
+              <ng-container matColumnDef="TicketNo">
+                <th mat-header-cell *matHeaderCellDef>Ticket No</th>
+                <td
+                  mat-cell
+                  *matCellDef="let element"
+                  (click)="openDialog(element)"
+                >
+                  {{ element.ticketNo }}
+                </td>
+              </ng-container>
 
-            <!-- <ng-container matColumnDef="Operations">
-              <th mat-header-cell *matHeaderCellDef>Chat Screen</th>
-              <td mat-cell *matCellDef="let element">
-                <button class="smBtn" (click)="openChat(element.ticketNo)">Chat</button>
-              </td>
-            </ng-container> -->
+              <ng-container matColumnDef="TicketTitle">
+                <th mat-header-cell *matHeaderCellDef>Ticket Category</th>
+                <td
+                  mat-cell
+                  *matCellDef="let element"
+                  (click)="openDialog(element)"
+                >
+                  {{ element.ticketCategory }}
+                </td>
+              </ng-container>
 
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-          </table>
+              <ng-container matColumnDef="TicketDesc">
+                <th mat-header-cell *matHeaderCellDef>Ticket Description</th>
+                <td
+                  mat-cell
+                  *matCellDef="let element"
+                  style="width: 200px"
+                  (click)="openDialog(element)"
+                >
+                  {{ element.ticketDesc }}
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="TicketStatus">
+                <th mat-header-cell *matHeaderCellDef>Ticket Status</th>
+                <td
+                  mat-cell
+                  *matCellDef="let element"
+                  (click)="openDialog(element)"
+                >
+                  <div *ngIf="element.ticketStatus === '0'">
+                    {{ "Pending" }}
+                  </div>
+                  <div *ngIf="element.ticketStatus === '1'">
+                    {{ "In Progress" }}
+                  </div>
+                  <div *ngIf="element.ticketStatus === '2'">
+                    {{ "Completed" }}
+                  </div>
+                  <div *ngIf="element.ticketStatus === '-1'">
+                    {{ "Rejected" }}
+                  </div>
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="RaisedDate">
+                <th mat-header-cell *matHeaderCellDef>Raised Date</th>
+                <td
+                  mat-cell
+                  *matCellDef="let element"
+                  (click)="openDialog(element)"
+                  style="white-space: nowrap"
+                >
+                  {{ element.raisedDate | date : "dd-MM-yyyy" }}
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="SolvedDate">
+                <th mat-header-cell *matHeaderCellDef>Solved Date</th>
+                <td
+                  mat-cell
+                  *matCellDef="let element"
+                  (click)="openDialog(element)"
+                >
+                  <div
+                    *ngIf="
+                      element.solvedDate === null ||
+                      element.ticketStatus === '1' ||
+                      element.ticketStatus === '-1'
+                    "
+                  >
+                    {{ "-" }}
+                  </div>
+                  <div *ngIf="element.ticketStatus === '2'">
+                    {{ element.solvedDate | date : "dd-MM-yyyy" }}
+                  </div>
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="Remarks">
+                <th mat-header-cell *matHeaderCellDef>Remarks</th>
+                <td
+                  mat-cell
+                  *matCellDef="let element"
+                  (click)="openDialog(element)"
+                  style="width: 200px"
+                >
+                  <div *ngIf="element.remarks">
+                    <div>
+                      {{ element.remarks }}
+                    </div>
+                  </div>
+
+                  <div *ngIf="!element.remarks">
+                    {{ "-" }}
+                  </div>
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="Rating">
+                <th mat-header-cell *matHeaderCellDef>Rating</th>
+                <td mat-cell *matCellDef="let element; let o = index">
+                  <div
+                    class="ratingDiv"
+                    *ngIf="
+                      element.ticketStatus === '-1' ||
+                      element.ticketStatus === '2'
+                    "
+                  >
+                    <!-- <button  *ngFor="let rate of rating;let i = index" (click)="ratingfn(rate,element)" (mouseenter)="ratingMouseover(element,rate)" [id]="'rating'+i+o" class="ratingBtn">
+                      <mat-icon class="ratinIcon">star</mat-icon>
+                    </button> -->
+
+                    <button
+                      [disabled]="element.rating !== '-'"
+                      *ngFor="
+                        let rate of element.ratingObj | keyvalue;
+                        let i = index
+                      "
+                      class="ratingBtn"
+                      (click)="ratingfn(i + 1, element)"
+                    >
+                      <mat-icon
+                        [id]="'rate' + i + o"
+                        [ngClass]="{
+                          rateIconTrue: rate.value === true,
+                          rateIconFalse: rate.value === false
+                        }"
+                        class="ratinIcon"
+                        >star</mat-icon
+                      >
+                    </button>
+                  </div>
+                  <div
+                    *ngIf="
+                      element.ticketStatus === '0' ||
+                      element.ticketStatus === '1'
+                    "
+                  >
+                    {{ "-" }}
+                  </div>
+                </td>
+              </ng-container>
+
+              <!-- <ng-container matColumnDef="Operations">
+                <th mat-header-cell *matHeaderCellDef>Chat Screen</th>
+                <td mat-cell *matCellDef="let element">
+                  <button class="smBtn" (click)="openChat(element.ticketNo)">Chat</button>
+                </td>
+              </ng-container> -->
+
+              <tr
+                mat-header-row
+                *matHeaderRowDef="displayedColumns; sticky: true"
+              ></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+            </table>
+          </div>
+          <!-- SIDE BUTTON -->
+
+          <div
+            class="btnsDiv"
+            id="colorChange"
+            *ngIf="dataSource.data.length"
+            [hidden]="!showUserProfile"
+          >
+            <div class="btnDiv">
+              <button
+                class="Btn"
+                (mouseover)="hover()"
+                (mouseleave)="leave()"
+                title="logout"
+                (click)="logOut()"
+              >
+                <mat-icon>logout</mat-icon>
+              </button>
+            </div>
+            <div>
+              <button
+                class="Btn"
+                (mouseover)="hover()"
+                (mouseleave)="leave()"
+                (click)="profile()"
+                *ngIf="!showUserProfile"
+              >
+                <mat-icon>table_chart</mat-icon>
+              </button>
+              <button
+                class="Btn"
+                (mouseover)="hover()"
+                (mouseleave)="leave()"
+                (click)="profile()"
+                *ngIf="showUserProfile"
+              >
+                <mat-icon>person</mat-icon>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div [hidden]="!showUserProfile">
           <mat-toolbar class="master-toolbar">
-            <button class="btn" *ngIf="!screenSize" (click)="addTicket()">
-              Add Ticket
-            </button>
-            <button class="btn" *ngIf="screenSize" (click)="addTicket()">
-              <mat-icon class="headerIcon">add</mat-icon>
-            </button>
-
-            <div class="anotherBtnsDiv">
-              <div class="btnDiv">
-                <button class="btn" title="logout" (click)="logOut()">
-                  <mat-icon class="headerIcon">logout</mat-icon>
-                </button>
-              </div>
+            <div class="d-flex justify-content-between">
               <div>
-                <button class="btn" (click)="profile()" *ngIf="showUserProfile">
-                  <mat-icon class="headerIcon">person</mat-icon>
+                <button
+                  class="btn mx-2"
+                  *ngIf="!screenSize"
+                  (click)="addTicket()"
+                >
+                  Add Ticket
                 </button>
                 <button
-                  class="btn"
-                  (click)="profile()"
-                  *ngIf="!showUserProfile"
+                  class="btn mx-2"
+                  *ngIf="screenSize"
+                  (click)="addTicket()"
                 >
-                  <mat-icon class="headerIcon">table_chart</mat-icon>
+                  <mat-icon class="headerIcon">add</mat-icon>
                 </button>
               </div>
+              <div class="anotherBtnsDiv">
+                <div class="btnDiv">
+                  <button class="btn" title="logout" (click)="logOut()">
+                    <mat-icon class="headerIcon">logout</mat-icon>
+                  </button>
+                </div>
+                <div>
+                  <button
+                    class="btn"
+                    (click)="profile()"
+                    *ngIf="showUserProfile"
+                  >
+                    <mat-icon class="headerIcon">person</mat-icon>
+                  </button>
+                  <button
+                    class="btn"
+                    (click)="profile()"
+                    *ngIf="!showUserProfile"
+                  >
+                    <mat-icon class="headerIcon">table_chart</mat-icon>
+                  </button>
+                </div>
+              </div>
             </div>
+            <!-- PAGINATOR -->
 
             <mat-paginator
-              [hidden]="showPaginator"
               class="paginator"
-              [pageSizeOptions]="[5, 10, 20]"
+              [pageSizeOptions]="pagi"
               showFirstLastButtons
             ></mat-paginator>
           </mat-toolbar>
         </div>
+        <!-- PROFILE VIEW -->
 
         <div class="profileDiv" [@showProf]="show">
-          <div class="headerDiv">
-            <h1>MY PROFILE</h1>
-          </div>
-          <div class="subHeader">
-            <div class="btnDiv subHeaderBtn">
-              <button class="Btn" title="logout" (click)="logOut()">
-                <mat-icon>logout</mat-icon>
-              </button>
+          <div class="prof">
+            <div class="headerDiv">
+              <h1>PROFILE</h1>
             </div>
-            <div class="userImg">
-              <img src="{{ userDetails.image }}" class="image" alt="Image" />
+            <div class="subHeader">
+              <div class="btnDiv subHeaderBtn">
+                <button class="Btn" title="logout" (click)="logOut()">
+                  <mat-icon>logout</mat-icon>
+                </button>
+              </div>
+              <div class="userImg">
+                <img src="{{ userDetails.image }}" class="image" alt="Image" />
+              </div>
+              <div class="subHeaderBtn">
+                <button class="Btn" (click)="profile()" *ngIf="showUserProfile">
+                  <mat-icon>person</mat-icon>
+                </button>
+                <button
+                  class="Btn"
+                  (click)="profile()"
+                  *ngIf="!showUserProfile"
+                >
+                  <mat-icon>table_chart</mat-icon>
+                </button>
+              </div>
             </div>
-            <div class="subHeaderBtn">
-              <button class="Btn" (click)="profile()" *ngIf="showUserProfile">
-                <mat-icon>person</mat-icon>
-              </button>
-              <button class="Btn" (click)="profile()" *ngIf="!showUserProfile">
-                <mat-icon>table_chart</mat-icon>
-              </button>
+            <div class="userDetails">
+              <li>
+                Name: <span class="liStyle">{{ userDetails.name }}</span>
+              </li>
+              <li>
+                Email:<span class="liStyle">{{ userDetails.email }}</span>
+              </li>
+              <li>
+                Mobile: <span class="liStyle">{{ userDetails.mobile }}</span>
+              </li>
+              <li>
+                Department: <span class="liStyle">{{ userDetails.dept }}</span>
+              </li>
+              <li>
+                Designation: <span class="liStyle">{{ userDetails.desg }}</span>
+              </li>
+              <li>
+                Address: <span class="liStyle">{{ userDetails.address }}</span>
+              </li>
             </div>
-          </div>
-          <div class="userDetails">
-            <li>
-              Name: <span class="liStyle">{{ userDetails.name }}</span>
-            </li>
-            <li>
-              Email:<span class="liStyle">{{ userDetails.email }}</span>
-            </li>
-            <li>
-              Mobile: <span class="liStyle">{{ userDetails.mobile }}</span>
-            </li>
-            <li>
-              Department: <span class="liStyle">{{ userDetails.dept }}</span>
-            </li>
-            <li>
-              Designation: <span class="liStyle">{{ userDetails.desg }}</span>
-            </li>
-            <li>
-              Address: <span class="liStyle">{{ userDetails.address }}</span>
-            </li>
-          </div>
-        </div>
-        <div class="btnsDiv" id="colorChange" *ngIf="dataSource.data.length">
-          <div class="btnDiv">
-            <button
-              class="Btn"
-              (mouseover)="hover()"
-              (mouseleave)="leave()"
-              title="logout"
-              (click)="logOut()"
-            >
-              <mat-icon>logout</mat-icon>
-            </button>
-          </div>
-          <div>
-            <button
-              class="Btn"
-              (mouseover)="hover()"
-              (mouseleave)="leave()"
-              (click)="profile()"
-              *ngIf="!showUserProfile"
-            >
-              <mat-icon>table_chart</mat-icon>
-            </button>
-            <button
-              class="Btn"
-              (mouseover)="hover()"
-              (mouseleave)="leave()"
-              (click)="profile()"
-              *ngIf="showUserProfile"
-            >
-              <mat-icon>person</mat-icon>
-            </button>
           </div>
         </div>
       </section>
+      <!-- NO DATA FOUND -->
       <section
         *ngIf="!dataSource.data.length"
         class="ndfMaster"
@@ -228,23 +448,44 @@
       >
         <div class="ndfParent">
           <div class="ndfInsideParent" *ngIf="showUserProfile">
-            <button class="Btn" (click)="addTicket()">
-              <mat-icon>add</mat-icon>
-            </button>
-            <button class="Btn" (click)="profile()" *ngIf="showUserProfile">
-              <mat-icon>person</mat-icon>
-            </button>
-            <button class="Btn" titie="logout" (click)="logOut()">
-              <mat-icon>logout</mat-icon>
-            </button>
+            <div class="NTktDiv">
+              <div class="NDiv">
+                <button class="Nbtn" (click)="addTicket()">
+                  <mat-icon class="NIcon">add</mat-icon>
+                </button>
+                <p class="NPara">Add Tickets</p>
+              </div>
+              <div class="NDiv">
+                <button
+                  class="Nbtn"
+                  (click)="profile()"
+                  *ngIf="showUserProfile"
+                >
+                  <mat-icon class="NIcon">person</mat-icon>
+                </button>
+                <p class="NPara">Profile</p>
+              </div>
+              <div class="NDiv">
+                <button class="Nbtn" titie="logout" (click)="logOut()">
+                  <mat-icon class="NIcon">logout</mat-icon>
+                </button>
+                <p class="NPara">Logout</p>
+              </div>
+            </div>
+
+            <div>
+              <p class="noTkt">NO TICKETS FOUND</p>
+            </div>
           </div>
+          <!--NO DATA PROFILE VIEW -->
+
           <div class="noDataProfile" *ngIf="!showUserProfile">
             <div class="noDataHeader">
-              <h1>MY PROFILE</h1>
-            </div>
-            <div class="noDataImg">
-              <div class="NoDataImgDiv">
+              <div class="NoImg">
                 <img src="{{ userDetails.image }}" class="image" alt="Image" />
+              </div>
+              <div>
+                <h1>PROFILE</h1>
               </div>
               <div>
                 <button
@@ -252,7 +493,7 @@
                   (click)="profile()"
                   *ngIf="!showUserProfile"
                 >
-                  <mat-icon>fiber_smart_record</mat-icon>
+                  <mat-icon class="noProIcon">fiber_smart_record</mat-icon>
                 </button>
               </div>
             </div>
@@ -268,22 +509,30 @@
               "
             >
               <li>
-                <span class="noDataLiStyle">{{ userDetails.name }}</span>
+                <span class="noDataLiStyle">Name:{{ userDetails.name }}</span>
               </li>
               <li>
-                <span class="noDataLiStyle">{{ userDetails.email }}</span>
+                <span class="noDataLiStyle">Email:{{ userDetails.email }}</span>
               </li>
               <li>
-                <span class="noDataLiStyle">{{ userDetails.mobile }}</span>
+                <span class="noDataLiStyle"
+                  >Phone:{{ userDetails.mobile }}</span
+                >
               </li>
               <li>
-                <span class="noDataLiStyle">{{ userDetails.dept }}</span>
+                <span class="noDataLiStyle"
+                  >Department:{{ userDetails.dept }}</span
+                >
               </li>
               <li>
-                <span class="noDataLiStyle">{{ userDetails.desg }}</span>
+                <span class="noDataLiStyle"
+                  >Designation:{{ userDetails.desg }}</span
+                >
               </li>
               <li>
-                <span class="noDataLiStyle">{{ userDetails.address }}</span>
+                <span class="noDataLiStyle"
+                  >Address:{{ userDetails.address }}</span
+                >
               </li>
             </div>
             <div
@@ -303,4 +552,7 @@
       </section>
     </div>
   </div>
+  <!-- ERROR VIEW -->
+
+  <div class="err" *ngIf="!showSpinner && err">sjkasjdk</div>
 </div>

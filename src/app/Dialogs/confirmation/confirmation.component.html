@@ -1,4 +1,5 @@
 <div class="master-parent">
+  <!-- DIALOG -->
   <div class="emptyBlock">
     <div>
       <p class="info" *ngIf="info === 'confirmation'">
@@ -10,13 +11,18 @@
       <p class="info" *ngIf="info === 'accept'">
         Are you sure confirm this ticket to accept?
       </p>
+      <p class="info" *ngIf="info === 'rating'">
+        Are you sure to rate this ticket?
+      </p>
     </div>
   </div>
+
+  <!-- BUTTONS -->
   <div class="btns" *ngIf="info !== 'reject'">
     <div></div>
     <div class="btnsDiv">
-      <button class="smBtn" (click)="confrimToComplete()">Yes</button>
-      <button class="smBtn" (click)="notConfirmedToComplete()">No</button>
+      <button class="smBtn" (click)="yesButton()">Yes</button>
+      <button class="smBtn" (click)="noButton()">No</button>
     </div>
   </div>
   <div class="btns" *ngIf="info === 'reject'">
@@ -34,14 +40,14 @@
     <div class="btnsDiv">
       <button
         [ngClass]="{ smBtn: !remarks, smBtnF: remarks }"
-        (click)="confrimToComplete()"
+        (click)="yesButton()"
         [disabled]="remarks"
       >
         Yes
       </button>
       <button
         [ngClass]="{ smBtn: !remarks, smBtnF: remarks }"
-        (click)="notConfirmedToComplete()"
+        (click)="noButton()"
         [disabled]="remarks"
       >
         No

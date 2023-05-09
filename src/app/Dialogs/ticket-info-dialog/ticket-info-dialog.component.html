@@ -1,14 +1,20 @@
+<!-- SPINNER -->
 <div *ngIf="showSpinner" class="masterSpinner">
   <div class="loading">Loading...</div>
   <div class="spinner"></div>
 </div>
 <div class="master-parent" id="main" #main *ngIf="!showSpinner">
   <div class="inner-parent">
-    <div *ngIf="!hideShow" class="">
+    <div *ngIf="!hideShow">
       <div class="parent">
+        <!-- CONTENT -->
+
         <header class="heading">more Information</header>
         <div
-          *ngFor="let info of convertedDetail | keyvalue; let i = index"
+          *ngFor="
+            let info of convertedDetail | keyvalue : originalOrder;
+            let i = index
+          "
           class="outerBox"
         >
           <div class="innerBox">
@@ -27,18 +33,78 @@
             </div>
           </div>
         </div>
+        <div class="innerBox" *ngIf="rating !== '-'">
+          <div class="title">RATING</div>
+          <div class="content starDiv">
+            <div>
+              <mat-icon
+                [ngClass]="{
+                  colored: ratingObj.star1,
+                  nocolor: !ratingObj.star1
+                }"
+                >star</mat-icon
+              >
+              <mat-icon
+                [ngClass]="{
+                  colored: ratingObj.star2,
+                  nocolor: !ratingObj.star2
+                }"
+                >star</mat-icon
+              >
+              <mat-icon
+                [ngClass]="{
+                  colored: ratingObj.star3,
+                  nocolor: !ratingObj.star3
+                }"
+                >star</mat-icon
+              >
+              <mat-icon
+                [ngClass]="{
+                  colored: ratingObj.star4,
+                  nocolor: !ratingObj.star4
+                }"
+                >star</mat-icon
+              >
+              <mat-icon
+                [ngClass]="{
+                  colored: ratingObj.star5,
+                  nocolor: !ratingObj.star5
+                }"
+                >star</mat-icon
+              >
+            </div>
+          </div>
+        </div>
+        <div class="innerBox" *ngIf="rating === '-'">
+          <div class="title">RATING</div>
+          <div class="content">
+            <div>
+              {{ "-" }}
+            </div>
+          </div>
+        </div>
         <!-- <button class="chats" (click)="OpenChats()">CHATS</button> -->
       </div>
+
+      <!-- IMAGE DIV -->
       <div class="anotherParent" *ngIf="imageUrl.length !== 0">
         <div class="attachment">
           <header class="heading">Attachments</header>
           <div class="imageParent">
             <div class="imageDiv" id="centerImage">
-              <div *ngFor="let img of imageUrl; let i = index" class="saveImageDiv">
-                <button class="saveImage" id="saveImage" (click)="saveImage(myImage)">
+              <div
+                *ngFor="let img of imageUrl; let i = index"
+                class="saveImageDiv"
+              >
+                <button
+                  class="saveImage"
+                  id="saveImage"
+                  (click)="saveImage(myImage)"
+                >
                   <mat-icon class="saveIcon">open_in_new</mat-icon>
                 </button>
                 <img
+                  id="enlargeImage"
                   class="attachmentImg"
                   [src]="img"
                   alt="image not found!!!"
@@ -50,9 +116,11 @@
           </div>
         </div>
       </div>
-      <div *ngIf="imageUrl.length === 0" class="noAttachments">No Attachments</div>
+      <div *ngIf="imageUrl.length === 0" class="noAttachments">
+        No Attachments
+      </div>
     </div>
-
+    <!-- CHAT DIV -->
     <div class="chatDiv" *ngIf="hideShow">
       <div class="chatSection">Chats</div>
       <footer class="chatFooter">

@@ -19,14 +19,15 @@ export class ConfirmationComponent implements OnInit {
     this.info = this.data;
   }
 
-  confrimToComplete() {
+  yesButton() {
     // this.bottomSheet.dismiss("confirm")
     // this.bottomSheet.dismiss(this.remarksStr)
     this.bottomSheet.dismiss([{ status: 'confirm', remarks: this.remarksStr }]);
   }
 
-  notConfirmedToComplete() {
-    this.bottomSheet.dismiss('notConfirm');
+  noButton() {
+    // this.bottomSheet.dismiss('notConfirm');
+    this.bottomSheet.dismiss([{ status: 'notConfirm', remarks: "" }]);
   }
 
   some() {

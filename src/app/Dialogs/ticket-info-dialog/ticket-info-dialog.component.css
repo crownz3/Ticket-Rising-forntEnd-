@@ -107,6 +107,7 @@
 }
 
 .innerBox {
+  height: 100%;
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
@@ -132,6 +133,20 @@
   border-bottom-right-radius: var(--radius);
   border-bottom-left-radius: var(--radius);
   color: var(--secondnary-color);
+}
+
+.starDiv{
+  display: flex;
+}
+
+.colored{
+  color: var(--secondnary-color);
+
+}
+
+.nocolor{
+  color:var(--primary-color);
+
 }
 
 .rejected {

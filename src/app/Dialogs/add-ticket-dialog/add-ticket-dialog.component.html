@@ -1,22 +1,22 @@
 <div class="master-parent">
   <div class="parent" [formGroup]="theForm">
+
+    <!-- TITLE -->
     <div class="title feild">
       <div class="text-header">Ticket Category</div>
       <div class="text-content">
-        <!-- <mat-form-field class="example-full-width" >
-          <input matInput formControlName="title" />
-        </mat-form-field> -->
         <mat-form-field appearance="fill" class="mt-2" [style.width.%]="100">
-          <!-- <mat-label>Favorite food</mat-label> -->
+          <mat-label>Select Category</mat-label>
           <mat-select formControlName="title">
             <mat-option *ngFor="let category of ticketCategory" [value]="category.categoryId">
               {{category.categoryName}}
             </mat-option>
           </mat-select>
         </mat-form-field>
-        <!-- <input type="text" matInput placeholder="{{ data[0].title }}"> -->
       </div>
     </div>
+
+    <!-- DESCRIPTION -->
     <div class="desc feild">
       <div class="text-header">Ticket Description</div>
       <div class="text-content">
@@ -25,6 +25,8 @@
         </mat-form-field>
       </div>
     </div>
+
+    <!-- ATTACHMENTS -->
     <div class="attachement feild">
       <div class="d-flex justify-content-between col-12 align-items-center">
         <div class="text-header">
@@ -69,12 +71,16 @@
         </div>
       </div>
     </div>
+
+    <!-- SUBMIT -->
     <div class="submitBtnDiv feild">
       <button class="btn" (click)="onFileUpload()" [disabled]="!theForm.valid">
         Submit
       </button>
     </div>
   </div>
+
+    <!-- EXIST FILECOUNT -->
   <div class="notification" *ngIf="fileCount !== ''">
     <div class="notificationText">
       {{ fileCount }}

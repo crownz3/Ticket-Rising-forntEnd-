@@ -4,13 +4,9 @@
   justify-content: center;
   align-items: center;
   background-color: #ffffff;
-  /* background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 900'%3E%3Cdefs%3E%3ClinearGradient id='a' x1='0' x2='0' y1='1' y2='0' gradientTransform='rotate(272,0.5,0.5)'%3E%3Cstop offset='0' stop-color='%235F94FF'/%3E%3Cstop offset='1' stop-color='%233739FF'/%3E%3C/linearGradient%3E%3ClinearGradient id='b' x1='0' x2='0' y1='0' y2='1' gradientTransform='rotate(34,0.5,0.5)'%3E%3Cstop offset='0' stop-color='%23FF6BE4'/%3E%3Cstop offset='1' stop-color='%23811BA9'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cg fill='%23FFF' fill-opacity='0' stroke-miterlimit='10'%3E%3Cg stroke='url(%23a)' stroke-width='12.54'%3E%3Cpath transform='translate(-245 0) rotate(-15 1409 581) scale(0.77)' d='M1409 581 1450.35 511 1490 581z'/%3E%3Ccircle stroke-width='4.18' transform='translate(-350 200) rotate(10 800 450) scale(0.9974999999999999)' cx='500' cy='100' r='40'/%3E%3Cpath transform='translate(20 -150) rotate(50 401 736) scale(0.9974999999999999)' d='M400.86 735.5h-83.73c0-23.12 18.74-41.87 41.87-41.87S400.86 712.38 400.86 735.5z'/%3E%3C/g%3E%3Cg stroke='url(%23b)' stroke-width='3.8'%3E%3Cpath transform='translate(1200 20) rotate(-5 150 345) scale(0.9900000000000001)' d='M149.8 345.2 118.4 389.8 149.8 434.4 181.2 389.8z'/%3E%3Crect stroke-width='8.36' transform='translate(-250 -550)' x='1039' y='709' width='100' height='100'/%3E%3Cpath transform='translate(-640 160) scale(0.5)' d='M1426.8 132.4 1405.7 168.8 1363.7 168.8 1342.7 132.4 1363.7 96 1405.7 96z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"); */
-  background-attachment: fixed;
-  background-size: cover;
 }
 
 .parent {
-
   width: 90%;
   display: flex;
   justify-content: center;
@@ -22,28 +18,31 @@
 }
 
 .table {
-  height: 100%;
   width: 100%;
   opacity: 0.9;
   display: flex;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  border-radius: var(--radius);
 }
 
 .table-view {
   display: flex;
   justify-content: center;
-  margin-top: 30px;
+  flex-direction: column;
   box-shadow: var(--btn-shadow);
   overflow: auto;
-  border-top-left-radius: var(--radius);
-  border-top-right-radius: var(--radius);
   overflow-y: hidden !important;
   width: 100%;
+  border-radius: var(--radius);
 }
 
 .tableDiv {
   width: 100%;
+  overflow: auto;
+  padding: 0;
 }
 
 .mat-table {
@@ -81,6 +80,7 @@ td.mat-cell {
 
 .mat-cell {
   font-size: 14px;
+  border-right: 1px solid rgba(204, 204, 204, 0.459);
 }
 
 .mat-form-field {
@@ -99,20 +99,24 @@ td.mat-cell {
   gap: 30px;
   background-color: var(--primary-color);
   justify-content: center;
-  box-shadow: rgba(240, 46, 170, 0.4) -5px 5px,
-    rgba(240, 46, 170, 0.3) -10px 10px, rgba(240, 46, 170, 0.2) -15px 15px,
-    rgba(240, 46, 170, 0.1) -20px 20px, rgba(240, 46, 170, 0.05) -25px 25px;
 }
 
 .profileDiv {
   background-color: var(--primary-color-light);
   box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
     rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+  width: 100%;
+  border-radius: var(--radius);
+  height: 400px;
+
+}
+
+.prof{
+  height: 100%;
   display: flex;
   flex-direction: column;
+  justify-content: space-around;
   align-items: center;
-  gap: 25px;
-  width: 100%;
 }
 
 .headerDiv {
@@ -121,13 +125,23 @@ td.mat-cell {
   text-align: center;
   padding: 12px;
   color: var(--secondnary-color);
+  border-radius: var(--radius);
 }
 
 .subHeader {
   display: flex;
   width: 100%;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
+  flex-direction: row-reverse;
+}
+
+.emptydivflex{
+  display: flex;
+}
+
+.emptyDiv{
+  display: none;
 }
 
 .userImg {
@@ -165,6 +179,12 @@ td.mat-cell:last-of-type {
   padding: 4px;
 }
 
+.paginator {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+}
+
 .master-toolbar {
   display: flex;
   justify-content: space-between;
@@ -177,7 +197,7 @@ td.mat-cell:last-of-type {
 /* Buttons  */
 
 .subHeaderBtn {
-  display: none;
+  /* display: none; */
 }
 
 .Btn {
@@ -246,69 +266,174 @@ td.mat-cell:last-of-type {
 /* No user Data profile div */
 
 .ndfMaster {
-  width: 500px;
-  height: 500px;
-  border-radius: 50%;
-  text-align: center;
-  padding: 100px;
-  background-color: var(--primary-color-light);
+  width: 400px;
+  height: 400px;
+  background-color: var(--body-color);
+  border-radius: 52px;
+  margin-top: 48px;
+  padding: var(--padding);
   display: flex;
   justify-content: center;
   align-items: center;
-  box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+
 }
 
 .ndfInsideParent {
-  background: linear-gradient(120deg,
-      rgba(50, 50, 171, 1) 35%,
-      rgb(76, 78, 233) 100%);
-  padding: 10%;
-  border-radius: 50%;
-  width: 250px;
-  height: 250px;
+  width: 350px;
+  height: 350px;
+  background-color: var(--secondnary-color);
   display: flex;
   justify-content: space-around;
+  flex-direction: column;
   align-items: center;
-  box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
+  border-radius: 52px;
+  transition: 1s;
+}
+
+.ndfInsideParent:hover {
+  border-radius: 32px;
+}
+
+.NTktDiv {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+}
+
+
+.NDiv {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 15px;
+  width: 100px;
+  height: 100px;
+  border-radius: var(--radius);
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+
+}
+
+.noTkt {
+  padding: 12px;
+  background-color: var(--secondnary-color);
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  border-radius: var(--radius);
+  font-weight: 600;
+  color: var(--text-color);
+  letter-spacing: 0.5px;
+}
+
+.NPara {
+  color: var(--text-color);
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-bottom: 0;
+}
+
+.Nbtn {
+  width: 45px;
+  height: 25px;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  background-color: var(--unified-color);
+  box-shadow: var(--btn-shadow);
+  color: var(--secondnary-color);
+  transition: 0.5s;
+  border-radius: var(--radius);
+}
+
+.Nbtn:hover {
+  background-color: var(--primary-color);
 }
 
 .NoDatafound {
-  background-color: var(--primary-color-light);
-  padding: 36px;
-  border-radius: var(--radius);
-  box-shadow: rgba(0, 0, 0, 0.4) 0px 5px 15px 0px;
-  background: linear-gradient(-24deg,
-      rgba(50, 50, 171, 1) 15%,
-      rgb(76, 78, 233) 40%);
+  width: 400px;
+  height: 400px;
+  background-color: var(--body-color);
+  border-radius: 52px;
+  margin-top: 48px;
+  padding: var(--padding);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
 .noDataProfile {
-  background: linear-gradient(120deg,
-      rgba(50, 50, 171, 1) 15%,
-      rgb(76, 78, 233) 40%);
-  padding: 10%;
-  gap: 18px;
+ 
+  width: 350px;
+  height: 350px;
+  background-color: var(--secondnary-color);
   display: flex;
   justify-content: space-around;
-  align-items: center;
   flex-direction: column;
-  border-radius: var(--radius);
-  box-shadow: rgba(0, 0, 0, 0.4) 0px 5px 15px 0px;
+  align-items: center;
+  border-radius: 52px;
+  transition: 1s;
 }
 
 .noDataHeader {
-  color: var(--secondnary-color);
-  background-color: var(--primary-color-light);
-  width: 100%;
+  color: var(--text-color);
+  background-color: var(--secondnary-color);
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  font-weight: 600;
+  width: 90%;
   text-align: center;
   box-shadow: rgba(0, 0, 0, 0.2) 0px 5px 15px 0px;
-  border-radius: var(--radius);
+  border-radius: 54px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 12px;
 }
 
 .noDataImg {
   display: flex;
   align-items: center;
   gap: 18px;
+}
+
+.noDataHeader h1 {
+  font-weight: 600;
+}
+
+.NoImg {
+  width: 40px;
+  height: 40px;
+  border: 5px solid var(--unified-color);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.NoBtn {
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  background-color: var(--unified-color);
+  border: none;
+  color: var(--secondnary-color);
+  transition: 0.3s;
+  box-shadow: var(--btn-shadow);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.noProIcon {
+  transform: scale(0.9);
+}
+
+
+.NoBtn:hover {
+  background-color: var(--primary-color-light);
 }
 
 .NoDataImgDiv {
@@ -327,54 +452,28 @@ td.mat-cell:last-of-type {
   height: 90%;
 }
 
-.NoBtn {
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  background-color: var(--primary-color);
-  border: none;
-  color: var(--secondnary-color);
-  transition: 0.3s;
-  box-shadow: var(--btn-shadow);
-}
 
-.NoBtn:hover {
-  background-color: var(--primary-color-light);
-}
 
 .noDataDetails {
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  flex-wrap: wrap;
   gap: 12px;
+  align-items: center;
+  justify-content: center;
 }
 
-.noDataLiStyle {
-  font-weight: 600;
-}
 
 .noDataDetails li {
-  padding: 3px 12px;
-  background-color: var(--body-color);
+  padding: 3px 6px;
+  background-color: var(--secondary-color);
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  border-radius: 54px;
   display: flex;
   justify-content: center;
   align-items: center;
-  color: var(--primary-color);
-}
+  color: var(--text-color);
+  font-weight: 600;
 
-.Nbtn {
-  width: 25px;
-  height: 25px;
-  border: none;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 20px;
-  border-radius: 50%;
-  background-color: var(--primary-color-light);
-  box-shadow: var(--btn-shadow);
-  color: var(--secondnary-color);
-  transition: 0.5s;
 }
 
 /* Cards */
@@ -383,6 +482,7 @@ td.mat-cell:last-of-type {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 24px
 }
 
 .Card {
@@ -601,6 +701,9 @@ td.mat-cell:last-of-type {
   }
 }
 
+
+
+
 @media screen and (max-width: 680px) {
   .headerIcon {
     transform: scale(0.7);
@@ -624,20 +727,48 @@ td.mat-cell:last-of-type {
     gap: 10px;
   }
 
-  .ndfMaster {
-    width: 250px;
-    height: 250px;
-  }
+
 
   .master-toolbar {
     display: flex;
     gap: 12px;
   }
 
+  .ndfMaster {
+    width: 350px;
+    height: 450px;
+  }
+
   .ndfInsideParent {
     justify-content: space-evenly;
-    width: 125px;
-    height: 125px;
+    width: 300px;
+    height: 400px;
+  }
+
+  .NTktDiv {
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .NDiv {
+    width: 90px;
+    height: 90px;
+  }
+
+  .NPara {
+    white-space: nowrap;
+    font-size: 12px;
+  }
+
+  .Nbtn {
+    width: 25px;
+    height: 35px;
+    padding: 15px;
+  }
+
+  .NIcon {
+    transform: scale(0.5);
   }
 
   .profileDiv {
@@ -679,7 +810,7 @@ td.mat-cell:last-of-type {
   }
 
   td.mat-cell:last-of-type {
-    padding: 4px;
+    padding:  0px 4px;
   }
 
   .userName {
@@ -691,25 +822,8 @@ td.mat-cell:last-of-type {
     text-align: center;
   }
 
-  li {
-    font-size: 8px;
-  }
-
-  .noDataDetails li {
-    padding: -3px 6px !important;
-    background-color: var(--body-color);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: var(--primary-color);
-  }
-
-  .NoDatafound {
-    padding: 8px !important;
-  }
-
-  .noDataProfile {
-    padding: 12px !important;
+  td.mat-cell{
+    padding: 6px;
   }
 }
 
@@ -726,25 +840,15 @@ td.mat-cell:last-of-type {
     transform: scale(0.4);
   }
 
-  li {
-    font-size: 8px;
-  }
+
 
   .noDataDetails li {
-    padding: -3px 6px !important;
-    background-color: var(--body-color);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: var(--primary-color);
+    font-size: 12px;
   }
 
-  .NoDatafound {
-    padding: 8px !important;
-  }
 
-  .noDataProfile {
-    padding: 12px !important;
+  .profileDiv{
+    height: auto;
   }
 }
 
@@ -755,10 +859,69 @@ td.mat-cell:last-of-type {
   }
 }
 
-@media screen and (max-width: 375px) {
-  
+@media screen and (max-width: 400px) {
+  .ndfMaster {
+    width: 250px;
+    height: 450px;
+  }
 
+  .ndfInsideParent {
+    width: 200px;
+    height: 400px;
+  }
+
+  .noDataDetails {
+    gap: 8px;
+  }
+
+  .NoDatafound {
+    width: 250px;
+    height: 450px;
+    border-radius: 34px;
+
+  }
+
+  .noDataProfile {
+    width: 200px;
+    height: 400px;
+    border-radius: 34px;
+
+  }
+
+  .noDataHeader {
+    padding: 4px;
+  }
+
+  .noDataHeader h1 {
+    font-size: 12px;
+  }
+
+  .NoImg {
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--unified-color);
+
+  }
+
+  .NoBtn {
+    width: 20px;
+    height: 20px;
+  }
+
+  .noProIcon {
+    transform: scale(0.5);
+  }
+
+  .noDataDetails li {
+    font-size: 8px;
+    padding: 4px;
+    border-radius: 34px;
+
+  }
 }
+
+
+@media screen and (max-width: 375px) {}
 
 h1,
 h2,

@@ -1,13 +1,16 @@
-<!-- 
--->
-<!-- <mat-spinner *ngIf="showSpinner"></mat-spinner> -->
 <div class="master-parent">
-  <div *ngIf="showSpinner">
+  <!-- SPINNER -->
+  <div
+    *ngIf="showSpinner"
+    class="d-flex justify-content-center align-items-center"
+  >
     <div class="loading">Loading...</div>
     <div class="spinner"></div>
   </div>
 
   <div class="parent" *ngIf="!showSpinner && !err">
+    <!-- CARDS -->
+
     <div class="cards">
       <div class="completed Card">
         <div class="innerCard">
@@ -99,121 +102,174 @@
     </div>
 
     <div class="table">
-      <section class="table-view" *ngIf="dataSource.data.length !== 0">
-        <div class="tableDiv" [@showTable]="shows">
-          <table mat-table [dataSource]="dataSource">
-            <ng-container matColumnDef="Sno">
-              <th mat-header-cell *matHeaderCellDef>SNo</th>
-              <td
-                mat-cell
-                *matCellDef="let element; let i = index"
-                (click)="openDialog(element)"
-              >
-                {{ dataSource.data.indexOf(element) + 1 }}
-              </td>
-            </ng-container>
+      <section class="table-view" *ngIf="dataSource.data.length">
+        <div
+          [ngClass]="{
+            emptydivflex: showUserProfile,
+            emptyDiv: !showUserProfile
+          }"
+        >
+          <div class="tableDiv" [@showTable]="shows">
+            <!-- TABLE -->
 
-            <ng-container matColumnDef="TicketNo">
-              <th mat-header-cell *matHeaderCellDef>Ticket No</th>
-              <td
-                mat-cell
-                *matCellDef="let element; let i = index"
-                (click)="openDialog(element)"
-              >
-                {{ element.ticketNo }}
-              </td>
-            </ng-container>
-
-            <ng-container matColumnDef="Raiser">
-              <th mat-header-cell *matHeaderCellDef>Ticket Raiser</th>
-              <td
-                mat-cell
-                *matCellDef="let element; let i = index"
-                (click)="openDialog(element)"
-              >
-                {{ element.raiserName }}
-              </td>
-            </ng-container>
-
-            <ng-container matColumnDef="TicketTitle">
-              <th mat-header-cell *matHeaderCellDef>Ticket Category</th>
-              <td
-                mat-cell
-                *matCellDef="let element; let i = index"
-                (click)="openDialog(element)"
-                style="text-transform: uppercase"
-              >
-                {{ element.ticketCategory }}
-              </td>
-            </ng-container>
-
-            <ng-container matColumnDef="RaisedDate">
-              <th mat-header-cell *matHeaderCellDef>Raised Date</th>
-              <td
-                mat-cell
-                *matCellDef="let element; let i = index"
-                (click)="openDialog(element)"
-              >
-                {{ element.raisedDate }}
-              </td>
-            </ng-container>
-
-            <ng-container matColumnDef="TicketStatus">
-              <th mat-header-cell *matHeaderCellDef>Ticket Status</th>
-              <td mat-cell *matCellDef="let element; let i = index">
-                <div
-                  *ngIf="element.ticketStatus === '0'"
-                  class="pending d-flex justify-content-center align-items-center"
+            <table mat-table [dataSource]="dataSource">
+              <ng-container matColumnDef="Sno">
+                <th mat-header-cell *matHeaderCellDef>SNo</th>
+                <td
+                  mat-cell
+                  *matCellDef="let element; let i = index"
+                  (click)="openDialog(element)"
                 >
-                  <button class="smBtn" (click)="acceptTicket(element)">
-                    Accept
-                  </button>
-                  <button
-                    class="smBtn"
-                    [id]="element.ticketNo"
-                    (mouseenter)="onHoverRej(element)"
-                    (mouseleave)="onLeaveRej(element)"
-                    (click)="rejectTicket(element)"
-                  >
-                    Reject
-                  </button>
-                </div>
-                <div *ngIf="element.ticketStatus === '1'">
-                  <label
-                    class="compLabel"
-                    [id]="element.ticketNo"
-                    (mouseenter)="onHoverComp(element)"
-                    (mouseleave)="onLeaveComp(element)"
-                    (click)="completedTicket(element)"
-                  >
-                    Processing
-                  </label>
-                </div>
-                <div *ngIf="element.ticketStatus === '2'">
-                  {{ "Completed" }}
-                </div>
-                <div *ngIf="element.ticketStatus === '-1'">
-                  {{ "Rejected" }}
-                </div>
-              </td>
-            </ng-container>
+                  {{ dataSource.data.indexOf(element) + 1 }}
+                </td>
+              </ng-container>
 
-            <!-- <ng-container matColumnDef="Operations">
-              <th mat-header-cell *matHeaderCellDef>Chat Screen</th>
-              <td mat-cell *matCellDef="let element">
-                <button class="smBtn" (click)="openChat(element.ticketNo)">
-                  Chat
-                </button>
-              </td>
-            </ng-container> -->
+              <ng-container matColumnDef="TicketNo">
+                <th mat-header-cell *matHeaderCellDef>Ticket No</th>
+                <td
+                  mat-cell
+                  *matCellDef="let element; let i = index"
+                  (click)="openDialog(element)"
+                >
+                  {{ element.ticketNo }}
+                </td>
+              </ng-container>
 
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr
-              mat-row
-              *matRowDef="let row; columns: displayedColumns"
-              matTooltip="Click here to more information!!!"
-            ></tr>
-          </table>
+              <ng-container matColumnDef="Raiser">
+                <th mat-header-cell *matHeaderCellDef>Ticket Raiser</th>
+                <td
+                  mat-cell
+                  *matCellDef="let element; let i = index"
+                  (click)="openDialog(element)"
+                >
+                  {{ element.raiserName }}
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="TicketTitle">
+                <th mat-header-cell *matHeaderCellDef>Ticket Category</th>
+                <td
+                  mat-cell
+                  *matCellDef="let element; let i = index"
+                  (click)="openDialog(element)"
+                  style="text-transform: uppercase"
+                >
+                  {{ element.ticketCategory }}
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="RaisedDate">
+                <th mat-header-cell *matHeaderCellDef>Raised Date</th>
+                <td
+                  mat-cell
+                  *matCellDef="let element; let i = index"
+                  (click)="openDialog(element)"
+                >
+                  {{ element.raisedDate }}
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="TicketStatus">
+                <th mat-header-cell *matHeaderCellDef>Ticket Status</th>
+                <td mat-cell *matCellDef="let element; let i = index">
+                  <div
+                    *ngIf="element.ticketStatus === '0'"
+                    class="pending d-flex justify-content-center align-items-center"
+                  >
+                    <button class="smBtn" (click)="acceptTicket(element)">
+                      Accept
+                    </button>
+                    <button
+                      class="smBtn"
+                      [id]="element.ticketNo"
+                      (mouseenter)="onHoverRej(element)"
+                      (mouseleave)="onLeaveRej(element)"
+                      (click)="rejectTicket(element)"
+                    >
+                      Reject
+                    </button>
+                  </div>
+                  <div *ngIf="element.ticketStatus === '1'">
+                    <label
+                      class="compLabel"
+                      [id]="element.ticketNo"
+                      (mouseenter)="onHoverComp(element)"
+                      (mouseleave)="onLeaveComp(element)"
+                      (click)="completedTicket(element)"
+                    >
+                      Processing
+                    </label>
+                  </div>
+                  <div *ngIf="element.ticketStatus === '2'">
+                    {{ "Completed" }}
+                  </div>
+                  <div *ngIf="element.ticketStatus === '-1'">
+                    {{ "Rejected" }}
+                  </div>
+                </td>
+              </ng-container>
+
+              <!-- <ng-container matColumnDef="Operations">
+                <th mat-header-cell *matHeaderCellDef>Chat Screen</th>
+                <td mat-cell *matCellDef="let element">
+                  <button class="smBtn" (click)="openChat(element.ticketNo)">
+                    Chat
+                  </button>
+                </td>
+              </ng-container> -->
+
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr
+                mat-row
+                *matRowDef="let row; columns: displayedColumns"
+                matTooltip="Click here to more information!!!"
+              ></tr>
+            </table>
+          </div>
+          <!-- SIDE BUTTON -->
+
+          <div
+            class="btnsDiv"
+            id="colorChange"
+            *ngIf="dataSource.data.length"
+            [hidden]="!showUserProfile"
+          >
+            <div class="btnDiv">
+              <button
+                class="Btn"
+                (mouseover)="hover()"
+                (mouseleave)="leave()"
+                title="logout"
+                (click)="logOut()"
+              >
+                <mat-icon>logout</mat-icon>
+              </button>
+            </div>
+
+            <div>
+              <button
+                class="Btn"
+                (mouseover)="hover()"
+                (mouseleave)="leave()"
+                (click)="profile()"
+                *ngIf="!showUserProfile"
+              >
+                <mat-icon>table_chart</mat-icon>
+              </button>
+              <button
+                class="Btn"
+                (mouseover)="hover()"
+                (mouseleave)="leave()"
+                (click)="profile()"
+                *ngIf="showUserProfile"
+              >
+                <mat-icon>person</mat-icon>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div [hidden]="!showUserProfile">
           <mat-toolbar class="master-toolbar">
             <div class="anotherBtnsDiv">
               <div class="btnDiv">
@@ -235,12 +291,8 @@
                 </button>
               </div>
             </div>
+            <!-- PAGINATOR -->
 
-            <!-- <mat-paginator
-              class="paginator"
-              [pageSizeOptions]="[5, 10]"
-              showFirstLastButtons
-            ></mat-paginator> -->
             <mat-paginator
               class="paginator"
               [pageSizeOptions]="pagi"
@@ -248,91 +300,62 @@
             ></mat-paginator>
           </mat-toolbar>
         </div>
-        <div class="profileDiv" [@showProf]="show">
-          <div class="headerDiv">
-            <h1>MY PROFILE</h1>
-          </div>
-          <div class="subHeader">
-            <div class="btnDiv subHeaderBtn">
-              <button class="Btn" title="logout" (click)="logOut()">
-                <mat-icon>logout</mat-icon>
-              </button>
-            </div>
-            <div class="userImg">
-              <img src="{{ userDetails.image }}" class="image" alt="Image" />
-            </div>
-            <div class="subHeaderBtn">
-              <button class="Btn" (click)="profile()" *ngIf="!showUserProfile">
-                <mat-icon>person</mat-icon>
-              </button>
-              <button class="Btn" (click)="profile()" *ngIf="showUserProfile">
-                <mat-icon>table_chart</mat-icon>
-              </button>
-            </div>
-          </div>
-          <div class="userDetails">
-            <li>
-              Name: <span class="liStyle">{{ userDetails.name }}</span>
-            </li>
-            <li>
-              Email:<span class="liStyle">{{ userDetails.email }}</span>
-            </li>
-            <li>
-              Mobile: <span class="liStyle">{{ userDetails.mobile }}</span>
-            </li>
-            <li>
-              Department: <span class="liStyle">{{ userDetails.dept }}</span>
-            </li>
-            <li>
-              Designation: <span class="liStyle">{{ userDetails.desg }}</span>
-            </li>
-            <li>
-              Address: <span class="liStyle">{{ userDetails.address }}</span>
-            </li>
-          </div>
-        </div>
-        <div class="btnsDiv" id="colorChange" *ngIf="dataSource.data.length">
-          <div class="btnDiv">
-            <button
-              class="Btn"
-              (mouseover)="hover()"
-              (mouseleave)="leave()"
-              title="logout"
-              (click)="logOut()"
-            >
-              <mat-icon>logout</mat-icon>
-            </button>
-          </div>
+        <!-- PROFILE VIEW -->
 
-          <div>
-            <button
-              class="Btn"
-              (mouseover)="hover()"
-              (mouseleave)="leave()"
-              (click)="profile()"
-              *ngIf="!showUserProfile"
-            >
-              <mat-icon>table_chart</mat-icon>
-            </button>
-            <button
-              class="Btn"
-              (mouseover)="hover()"
-              (mouseleave)="leave()"
-              (click)="profile()"
-              *ngIf="showUserProfile"
-            >
-              <mat-icon>person</mat-icon>
-            </button>
+        <div class="profileDiv" [@showProf]="show">
+          <div class="prof">
+            <div class="headerDiv">
+              <h1>PROFILE</h1>
+            </div>
+            <div class="subHeader">
+              <div class="btnDiv subHeaderBtn">
+                <button class="Btn" title="logout" (click)="logOut()">
+                  <mat-icon>logout</mat-icon>
+                </button>
+              </div>
+              <div class="userImg">
+                <img src="{{ userDetails.image }}" class="image" alt="Image" />
+              </div>
+              <div class="subHeaderBtn">
+                <button class="Btn" (click)="profile()" *ngIf="showUserProfile">
+                  <mat-icon>person</mat-icon>
+                </button>
+                <button
+                  class="Btn"
+                  (click)="profile()"
+                  *ngIf="!showUserProfile"
+                >
+                  <mat-icon>table_chart</mat-icon>
+                </button>
+              </div>
+            </div>
+            <div class="userDetails">
+              <li>
+                Name: <span class="liStyle">{{ userDetails.name }}</span>
+              </li>
+              <li>
+                Email:<span class="liStyle">{{ userDetails.email }}</span>
+              </li>
+              <li>
+                Mobile: <span class="liStyle">{{ userDetails.mobile }}</span>
+              </li>
+              <li>
+                Department: <span class="liStyle">{{ userDetails.dept }}</span>
+              </li>
+              <li>
+                Designation: <span class="liStyle">{{ userDetails.desg }}</span>
+              </li>
+              <li>
+                Address: <span class="liStyle">{{ userDetails.address }}</span>
+              </li>
+            </div>
           </div>
-          <!-- <div>
-            <button class="Btn" title="logout" routerLink='dashboard'>
-              <mat-icon class="headerIcon">arrow_back</mat-icon>
-            </button>
-          </div> -->
         </div>
       </section>
+      <!-- NO DATA FOUND -->
+
       <section
-        *ngIf="data.length === 0"
+        *ngIf="!dataSource.data.length"
         class="ndfMaster"
         [ngClass]="{
           ndfMaster: showUserProfile,
@@ -341,28 +364,47 @@
       >
         <div class="ndfParent">
           <div class="ndfInsideParent" *ngIf="showUserProfile">
-            <button class="Btn" (click)="profile()" *ngIf="showUserProfile">
-              <mat-icon>person</mat-icon>
-            </button>
-            <button class="Btn" titie="logout" (click)="logOut()">
-              <mat-icon>logout</mat-icon>
-            </button>
+            <div class="NTktDiv">
+              <div class="NDiv">
+                <button
+                  class="Nbtn"
+                  (click)="profile()"
+                  *ngIf="showUserProfile"
+                >
+                  <mat-icon class="NIcon">person</mat-icon>
+                </button>
+                <p class="NPara">Profile</p>
+              </div>
+              <div class="NDiv">
+                <button class="Nbtn" titie="logout" (click)="logOut()">
+                  <mat-icon class="NIcon">logout</mat-icon>
+                </button>
+                <p class="NPara">Logout</p>
+              </div>
+            </div>
+
+            <div>
+              <p class="noTkt">NO TICKETS FOUND</p>
+            </div>
           </div>
+          <!--NO DATA PROFILE VIEW -->
+
           <div class="noDataProfile" *ngIf="!showUserProfile">
             <div class="noDataHeader">
-              <h1>MY PROFILE</h1>
-            </div>
-            <div class="noDataImg">
-              <div class="NoDataImgDiv">
+              <div class="NoImg">
                 <img src="{{ userDetails.image }}" class="image" alt="Image" />
               </div>
+              <div>
+                <h1>PROFILE</h1>
+              </div>
+
               <div>
                 <button
                   class="NoBtn"
                   (click)="profile()"
                   *ngIf="!showUserProfile"
                 >
-                  <mat-icon>fiber_smart_record</mat-icon>
+                  <mat-icon class="noProIcon">fiber_smart_record</mat-icon>
                 </button>
               </div>
             </div>
@@ -378,22 +420,30 @@
               "
             >
               <li>
-                <span class="noDataLiStyle">{{ userDetails.name }}</span>
+                <span class="noDataLiStyle">Name:{{ userDetails.name }}</span>
               </li>
               <li>
-                <span class="noDataLiStyle">{{ userDetails.email }}</span>
+                <span class="noDataLiStyle">Email:{{ userDetails.email }}</span>
               </li>
               <li>
-                <span class="noDataLiStyle">{{ userDetails.mobile }}</span>
+                <span class="noDataLiStyle"
+                  >Phone:{{ userDetails.mobile }}</span
+                >
               </li>
               <li>
-                <span class="noDataLiStyle">{{ userDetails.dept }}</span>
+                <span class="noDataLiStyle"
+                  >Department:{{ userDetails.dept }}</span
+                >
               </li>
               <li>
-                <span class="noDataLiStyle">{{ userDetails.desg }}</span>
+                <span class="noDataLiStyle"
+                  >Designation:{{ userDetails.desg }}</span
+                >
               </li>
               <li>
-                <span class="noDataLiStyle">{{ userDetails.address }}</span>
+                <span class="noDataLiStyle"
+                  >Address:{{ userDetails.address }}</span
+                >
               </li>
             </div>
             <div
@@ -406,13 +456,13 @@
                 userDetails.address === ''
               "
             >
-              dasdsdas
+              NO DATA FOUND
             </div>
           </div>
         </div>
       </section>
     </div>
   </div>
-
-  <div class="err" *ngIf="!showSpinner && err">sjkasjdk</div>
+  <!-- ERROR VIEW -->
+  <div class="err" *ngIf="!showSpinner && err">ERROR</div>
 </div>

@@ -8,7 +8,7 @@ import {
 import { HttpClient } from '@angular/common/http';
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { environment } from 'src/environments/environment';
@@ -16,7 +16,8 @@ import { AddTicketDialogComponent } from '../Dialogs/add-ticket-dialog/add-ticke
 import { ChatBoxComponent } from '../Dialogs/chat-box/chat-box.component';
 import { GoogleSigninService } from '../services/google-signin.service';
 import { localStorage } from '../services/localStorage.service';
-import { UserService } from '../services/user.service';
+import { ConfirmationComponent } from '../Dialogs/confirmation/confirmation.component';
+import { TicketInfoDialogComponent } from '../Dialogs/ticket-info-dialog/ticket-info-dialog.component';
 
 @Component({
   selector: 'app-user',
@@ -68,14 +69,21 @@ import { UserService } from '../services/user.service';
 })
 export class UserComponent implements OnInit {
   baseUrl = environment.serverBaseUrl;
+  pendingTickets: any;
+  processTickets: any;
+  totalTickets: any;
+  rejectedTickets: any;
+  completedTickets: any;
   displayedColumns: any[] = [
     'Sno',
     'TicketNo',
     'TicketTitle',
+    'TicketDesc',
     'TicketStatus',
     'RaisedDate',
     'SolvedDate',
-    'Remarks'
+    'Remarks',
+    'Rating',
     // 'Operations',
   ];
   screenSize: boolean | undefined;
@@ -86,8 +94,18 @@ export class UserComponent implements OnInit {
   data: any[] = [];
   showPaginator = true;
   showSpinner = true;
-  showError = false;
-  ticketCategory:any
+  err = false;
+  ticketCategory: any;
+  rating = [
+    { id: 1, rate: 1 },
+    { id: 2, rate: 2 },
+    { id: 3, rate: 3 },
+    { id: 4, rate: 4 },
+    { id: 5, rate: 5 },
+  ];
+  userEmail: any;
+  pagi:any
+  innerWidth:any
   dataSource = new MatTableDataSource();
 
   @ViewChild(MatPaginator) paginator: any;
@@ -100,19 +118,26 @@ export class UserComponent implements OnInit {
 
   constructor(
     public local: localStorage,
-    public service: UserService,
     public dialog: MatDialog,
     public bottomsheet: MatBottomSheet,
     private googleApi: GoogleSigninService,
     private http: HttpClient
   ) {
+    this.innerWidth = window.innerWidth
+    if(this.innerWidth === 375){
+      this.pagi = [5,10]
+    }else {
+      this.pagi = [5]
+    }
     window.addEventListener('resize', () => {
       let screen = window.matchMedia('(max-width:600px)');
       this.screenSize = screen.matches;
     });
+
   }
 
   ngOnInit(): void {
+    this.data=[]
     window.addEventListener('resize', () => {
       let screen = window.matchMedia('(max-width:600px)');
       this.screenSize = screen.matches;
@@ -128,43 +153,66 @@ export class UserComponent implements OnInit {
       image: this.local.getLocal('picture'),
     };
 
-    let mail = this.local.getLocal('mailId');
-    this.http.get(this.baseUrl + '/getTicket?email=' + mail).subscribe(
-      (res: any) => {
-        if (res || res === null) {
-          this.showSpinner = false;
-          this.showError = false;
-        }
-        for (let i = 0; i < res.length; i++) {
-          let tickets = res[i];
-          this.data.push(tickets);
-        }
-        this.dataSource = new MatTableDataSource(this.data);
-        this.showPaginator = false;
+    this.pendingTickets = this.local.getLocal('pending');
+    this.processTickets = this.local.getLocal('process');
+    this.rejectedTickets = this.local.getLocal('reject');
+    this.completedTickets = this.local.getLocal('complete');
+    this.totalTickets = this.local.getLocal('total');
 
-        setTimeout(() => {
-          this.dataSource.paginator = this.paginator;
-        });
-      },
-      (err) => {
-        if (err) {
-          this.showSpinner = false;
-          this.showError = true;
-        }
-      }
-    );
+    this.userEmail = this.local.getLocal('mailId');
+    this.http
+      .get(this.baseUrl + '/getTicket?email=' + this.userEmail)
+      .subscribe(
+        (response: any) => {
+       let res = JSON.parse(response.result)
+          
+          if (res || res === null) {
+            this.showSpinner = false;
+            this.err = false;
+          }
+          for (let i = 0; i < res.length; i++) {
+            res[i]['ratingObj'] = {
+              rate1: false,
+              rate2: false,
+              rate3: false,
+              rate4: false,
+              rate5: false,
+            };
+            let tickets = res[i];
 
-    this.http.get(this.baseUrl + '/getCategory').subscribe((res:any)=>{this.ticketCategory = res})
+            this.data.push(tickets);
+            if(res[i].rating != '-')
+            this.ratingStatus(res[i], res[i].rating)
+          }
+          this.dataSource = new MatTableDataSource(this.data);
+          this.showPaginator = false;
+
+
+          setTimeout(() => {
+            this.dataSource.paginator = this.paginator;
+          });
+        },
+        (err) => {
+          if (err) {
+            this.showSpinner = false;
+            this.err = true;
+          }
+        }
+      );
+
+    this.http.get(this.baseUrl + '/getCategory').subscribe((res: any) => {
+      this.ticketCategory = res;
+    });
   }
 
   hover() {
-    let btnsDiv = document.getElementById('colorChange');
-    btnsDiv?.setAttribute('style', 'background-color:#515dff;');
+    // let btnsDiv = document.getElementById('colorChange');
+    // btnsDiv?.setAttribute('style', 'background-color:#515dff;');
   }
 
   leave() {
-    let btnsDiv = document.getElementById('colorChange');
-    btnsDiv?.setAttribute('style', 'background-color:#333ba5;');
+    // let btnsDiv = document.getElementById('colorChange');
+    // btnsDiv?.setAttribute('style', 'background-color:#333ba5;');
   }
 
   profile() {
@@ -176,14 +224,11 @@ export class UserComponent implements OnInit {
   }
 
   addTicket() {
-
-
     const dialogRef = this.dialog.open(AddTicketDialogComponent, {
-      data:{id:this.ticketCategory}
+      data: { id: this.ticketCategory },
     });
 
     dialogRef.afterOpened().subscribe((res) => {
-      console.log('The EditForm is opened');
     });
 
     dialogRef.afterClosed().subscribe((res) => {
@@ -213,7 +258,123 @@ export class UserComponent implements OnInit {
     });
   }
 
+  ratingfn(data: any, element: any) {
+    const MatBottomSheetRef = this.bottomsheet.open(ConfirmationComponent, {
+      data: 'rating',
+    });
+    MatBottomSheetRef.afterDismissed().subscribe((res: any) => {
+      if (res[0].status === 'confirm') {
+        this.dataSource.data.forEach((row: any) => {
+          if (row === element) {
+            this.ratingStatus(row,data)
+          }
+        });
+        let obj = {
+          ticketNo: element.ticketNo,
+          rating: data,
+          emailId: this.userEmail,
+        };
+        this.http
+          .put(this.baseUrl + '/putRating', obj)
+          .subscribe((res: any) => {
+            this.ngOnInit();
+          });
+      }
+    });
+  }
+  ratingStatus(row:any,data:any){
+    let index = 1;
+    for (let k in row.ratingObj) {
+      if (index <= data) {
+        row.ratingObj[k] = true;
+      } else {
+        row.ratingObj[k] = false;
+      }
+      index++;
+    }
+  }
+
+
+
+  openDialog(i: any) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.width = '400px';
+    dialogConfig.height = '300px';
+
+    const dialogRef = this.dialog.open(TicketInfoDialogComponent, {
+      data: { id: i.ticketNo, tickets: this.data ,userType : 'user'},
+      panelClass: 'full-screen-modal',
+      maxHeight: '80vh',
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+    });
+  }
+
   logOut() {
     this.googleApi.signOut();
+  }
+
+  compIconHov() {
+    const element = document.getElementById('compIcon');
+    element!.style.opacity = '1';
+    element!.style.transform = 'scale(1.2)';
+  }
+
+  compIconLea() {
+    const element = document.getElementById('compIcon');
+    element!.style.transform = 'scale(1)';
+    element!.style.opacity = '0';
+  }
+
+  pendIconHov(){
+    const element = document.getElementById('pendIcon');
+    element!.style.opacity = '1';
+
+    element!.style.transform = 'scale(1.6)';
+  }
+
+  pendIconLea() {
+    const element = document.getElementById('pendIcon');
+    element!.style.transform = 'scale(1)';
+    element!.style.opacity = '0';
+  }
+
+  totIconHov(){
+    const element = document.getElementById('totIcon');
+    element!.style.opacity = '1';
+
+    element!.style.transform = 'scale(2)';
+  }
+
+  totIconLea() {
+    const element = document.getElementById('totIcon');
+    element!.style.transform = 'scale(1)';
+    element!.style.opacity = '0';
+  }
+
+  procIconHov(){
+    const element = document.getElementById('procIcon');
+    element!.style.opacity = '1';
+
+    element!.style.transform = 'scale(1.6)';
+  }
+
+  procIconLea() {
+    const element = document.getElementById('procIcon');
+    element!.style.transform = 'scale(1)';
+    element!.style.opacity = '0';
+  }
+
+  rejIconHov(){
+    const element = document.getElementById('rejIcon');
+    element!.style.opacity = '1';
+    element!.style.transform = 'scale(1.2)';
+  }
+
+  rejIconLea() {
+    const element = document.getElementById('rejIcon');
+    element!.style.transform = 'scale(1)';
+    element!.style.opacity = '0';
   }
 }

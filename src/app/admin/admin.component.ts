@@ -21,6 +21,7 @@ import { localStorage } from '../services/localStorage.service';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { ConfirmationComponent } from '../Dialogs/confirmation/confirmation.component';
+import { json } from 'express';
 
 @Component({
   selector: 'app-admin',
@@ -114,12 +115,11 @@ export class AdminComponent implements OnInit {
   ) {
     this.innerWidth = window.innerWidth
     if(this.innerWidth === 375){
-      this.pagi = [5]
-    }else {
       this.pagi = [5,10]
+    }else {
+      this.pagi = [5]
     }
 
-    console.log(this.pagi)
   }
 
   ngOnInit(): void {
@@ -141,7 +141,9 @@ export class AdminComponent implements OnInit {
 
     this.mail = this.local.getLocal('mailId');
     this.http.get(this.baseUrl + '/getTicket?email=' + this.mail).subscribe(
-      (res: any) => {
+      (response: any) => {
+       let res = JSON.parse(response.result)
+
         if (res) {
           this.data = res;
           this.dataSource = new MatTableDataSource(this.data);
@@ -156,8 +158,10 @@ export class AdminComponent implements OnInit {
         }
       },
       (err) => {
-        this.showSpinner = false;
-        this.err = true;
+        if (err) {
+          this.showSpinner = false;
+          this.err = true;
+        }
       }
     );
   }
@@ -210,7 +214,7 @@ export class AdminComponent implements OnInit {
       data: 'accept',
     });
     MatBottomSheetRef.afterDismissed().subscribe((res: any) => {
-      if (res === 'confirm') {
+      if (res[0].status === 'confirm') {
         this.showTicketStatusBtn === false
           ? (this.showTicketStatusBtn = true)
           : (this.showTicketStatusBtn = false);
@@ -249,10 +253,8 @@ export class AdminComponent implements OnInit {
       data: 'reject',
     });
     MatBottomSheetRef.afterDismissed().subscribe((res: any) => {
-      console.log(res);
 
       if (res[0].status === 'confirm') {
-        console.log('SJKADFHA');
 
         this.showTicketStatusBtn === false
           ? (this.showTicketStatusBtn = true)
@@ -293,7 +295,7 @@ export class AdminComponent implements OnInit {
     });
 
     MatBottomSheetRef.afterDismissed().subscribe((res: any) => {
-      if (res === 'confirm') {
+      if (res[0].status === 'confirm') {
         i.ticketStatus = '2';
 
         i['userMail'] = this.mail;
@@ -331,19 +333,17 @@ export class AdminComponent implements OnInit {
 
   openDialog(i: any) {
     const dialogConfig = new MatDialogConfig();
-    console.log(i.ticketNo);
 
     dialogConfig.width = '400px';
     dialogConfig.height = '300px';
 
     const dialogRef = this.dialog.open(TicketInfoDialogComponent, {
-      data: { id: i.ticketNo, tickets: this.data },
+      data: { id: i.ticketNo, tickets: this.data ,userType : 'user'},
       panelClass: 'full-screen-modal',
       maxHeight: '80vh',
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      console.log('The dialog was closed');
     });
   }
 
